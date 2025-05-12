@@ -2,10 +2,12 @@ name: HealthLinc CI/CD Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, develop ]
   workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly security scan on Sunday at midnight
 
 jobs:
   lint-and-test:
@@ -19,14 +21,16 @@ jobs:
           node-version: '18'
           cache: 'npm'
           cache-dependency-path: |
-            frontend/patient-portal/package-lock.json
-            frontend/clinician-portal/package-lock.json
+            **/package-lock.json
       
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
           cache: 'pip'
+          cache-dependency-path: |
+            **/requirements.txt
+            backend/linc-agents/common-requirements.txt
       
       - name: Install MCP Server dependencies
         run: |
@@ -42,15 +46,35 @@ jobs:
         run: |
           cd backend/fhir-gateway
           pip install -r requirements.txt
+          pip install pytest pytest-cov
       
       - name: Install dependencies for all LINC agents
         run: |
           pip install -r backend/linc-agents/common-requirements.txt
+          pip install pytest pytest-cov
           for agent in claimlinc recordlinc authlinc notifylinc; do
             cd backend/linc-agents/$agent
             pip install -r requirements.txt
             cd -
           done
+      
+      - name: Run Python Tests with Coverage
+        run: |
+          for agent in claimlinc recordlinc authlinc notifylinc; do
+            cd backend/linc-agents/$agent
+            python -m pytest --cov=. --cov-report=xml:coverage-$agent.xml
+            cd -
+          done
+          cd backend/fhir-gateway
+          python -m pytest --cov=. --cov-report=xml:coverage-fhir.xml
+          cd -
+      
+      - name: Upload Python coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./backend/linc-agents/*/coverage-*.xml,./backend/fhir-gateway/coverage-fhir.xml
+          flags: python
+          fail_ci_if_error: false
       
       - name: Install Patient Portal dependencies
         run: |
@@ -65,7 +89,7 @@ jobs:
       - name: Test Patient Portal
         run: |
           cd frontend/patient-portal
-          npm test -- --passWithNoTests
+          npm test -- --coverage --passWithNoTests
           
       - name: Install Clinician Portal dependencies
         run: |
@@ -80,10 +104,49 @@ jobs:
       - name: Test Clinician Portal
         run: |
           cd frontend/clinician-portal
-          npm test -- --passWithNoTests
-  
-  build:
-    needs: lint-and-test
+          npm test -- --coverage --passWithNoTests
+      
+      - name: Upload JS coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./frontend/patient-portal/coverage/coverage-final.json,./frontend/clinician-portal/coverage/coverage-final.json
+          flags: javascript
+          fail_ci_if_error: false
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Run Trivy vulnerability scanner for Docker images
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          ignore-unfixed: true
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+      
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: 'trivy-results.sarif'
+      
+      - name: Run npm audit for frontend apps
+        run: |
+          cd frontend/patient-portal
+          npm audit --production
+          cd ../../frontend/clinician-portal
+          npm audit --production
+      
+      - name: Run pip-audit for Python apps
+        run: |
+          pip install pip-audit
+          pip-audit -r backend/fhir-gateway/requirements.txt || true
+          pip-audit -r backend/linc-agents/common-requirements.txt || true
+
+  build-and-push:
+    needs: [lint-and-test, security-scan]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -97,34 +160,48 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
+      - name: Extract branch name and set Docker tag
+        id: extract_branch
+        shell: bash
+        run: |
+          if [ "${{ github.event_name }}" == "push" ]; then
+            echo "DOCKER_TAG=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+          else
+            echo "DOCKER_TAG=pr-${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+          fi
+          
+          if [ "$DOCKER_TAG" == "main" ]; then
+            echo "DOCKER_TAG=latest" >> $GITHUB_ENV
+          fi
+      
       - name: Build and push FHIR Gateway
         uses: docker/build-push-action@v4
         with:
           context: ./backend/fhir-gateway
-          push: ${{ github.ref == 'refs/heads/main' }}
-          tags: healthlinc/fhir-gateway:latest
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: healthlinc/fhir-gateway:${{ env.DOCKER_TAG }}
       
       - name: Build and push Linc Agents (Multi-agent build)
         uses: docker/build-push-action@v4
         with:
           context: ./backend/linc-agents
           file: ./backend/linc-agents/Dockerfile.multi
-          push: ${{ github.ref == 'refs/heads/main' }}
-          tags: healthlinc/linc-agents:latest
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: healthlinc/linc-agents:${{ env.DOCKER_TAG }}
       
       - name: Build and push Patient Portal
         uses: docker/build-push-action@v4
         with:
           context: ./frontend/patient-portal
-          push: ${{ github.ref == 'refs/heads/main' }}
-          tags: healthlinc/patient-portal:latest
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: healthlinc/patient-portal:${{ env.DOCKER_TAG }}
           
       - name: Build and push Clinician Portal
         uses: docker/build-push-action@v4
         with:
           context: ./frontend/clinician-portal
-          push: ${{ github.ref == 'refs/heads/main' }}
-          tags: healthlinc/clinician-portal:latest
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: healthlinc/clinician-portal:${{ env.DOCKER_TAG }}
       
       - name: Set up Cloudflare Wrangler
         if: ${{ github.ref == 'refs/heads/main' }}
@@ -139,10 +216,49 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
-  deploy:
-    needs: build
-    if: ${{ github.ref == 'refs/heads/main' }}
+  deploy-staging:
+    needs: build-and-push
+    if: github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
+    environment:
+      name: staging
+      url: https://staging.healthlinc.app
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+      
+      - name: Deploy to staging server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /opt/healthlinc-staging && \
+          docker compose pull && \
+          docker compose up -d && \
+          docker system prune -af"
+      
+      - name: Run health checks
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} "cd /opt/healthlinc-staging && \
+          ./scripts/health_check.sh"
+      
+      - name: Notify deployment status
+        if: always()
+        run: |
+          curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
+          -H "Content-Type: application/json" \
+          -d '{
+            "text": "Deployment to STAGING ${{ job.status == '"'"'success'"'"' && '"'"'succeeded! 🎉'"'"' || '"'"'failed! 🚨'"'"' }}"
+          }'
+
+  deploy-production:
+    needs: build-and-push
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+      url: https://app.healthlinc.app
     steps:
       - uses: actions/checkout@v3
       
@@ -169,5 +285,5 @@ jobs:
           curl -X POST ${{ secrets.SLACK_WEBHOOK_URL }} \
           -H "Content-Type: application/json" \
           -d '{
-            "text": "Deployment to production ${{ job.status == 'success' && 'succeeded! 🎉' || 'failed! 🚨' }}"
+            "text": "Deployment to PRODUCTION ${{ job.status == '"'"'success'"'"' && '"'"'succeeded! 🎉'"'"' || '"'"'failed! 🚨'"'"' }}"
           }'
