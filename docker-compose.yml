@@ -1,0 +1,184 @@
+version: '3.8'
+
+services:
+  # MCP Server - Cloudflare Worker
+  # This doesn't run in docker, but we document it here for reference
+  # mcp-server:
+  #   Local dev: wrangler dev
+  #   Production: wrangler publish
+
+  # FHIR Gateway
+  fhir-gateway:
+    build:
+      context: ./backend/fhir-gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - CONFIG_PATH=config.yaml
+      - AUTH_SERVICE_URL=http://authlinc:3003
+      - LOG_LEVEL=info
+      - SECURITY_ENABLED=true
+    volumes:
+      - ./backend/fhir-gateway:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - healthlinc-backend
+      - healthlinc-frontend
+
+  # LINC Agents
+  claimlinc:
+    build:
+      context: ./backend/linc-agents/claimlinc
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+      - ENVIRONMENT=development
+      - FHIR_SERVER_URL=http://fhir-gateway:8000/fhir
+      - AUTH_SERVICE_URL=http://authlinc:3003
+      - LOG_LEVEL=info
+    volumes:
+      - ./backend/linc-agents/claimlinc:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - healthlinc-backend
+
+  recordlinc:
+    build:
+      context: ./backend/linc-agents/recordlinc
+    ports:
+      - "3002:3002"
+    environment:
+      - PORT=3002
+      - ENVIRONMENT=development
+      - FHIR_SERVER_URL=http://fhir-gateway:8000/fhir
+      - AUTH_SERVICE_URL=http://authlinc:3003
+      - LOG_LEVEL=info
+    volumes:
+      - ./backend/linc-agents/recordlinc:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - healthlinc-backend
+
+  authlinc:
+    build:
+      context: ./backend/linc-agents/authlinc
+    ports:
+      - "3003:3003"
+    environment:
+      - PORT=3003
+      - ENVIRONMENT=development
+      - JWT_SECRET=${JWT_SECRET:-healthlinc-dev-secret-change-in-production}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=60
+      - REFRESH_TOKEN_EXPIRE_DAYS=7
+      - LOG_LEVEL=info
+    volumes:
+      - ./backend/linc-agents/authlinc:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3003/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - healthlinc-backend
+      - healthlinc-frontend
+
+  notifylinc:
+    build:
+      context: ./backend/linc-agents/notifylinc
+    ports:
+      - "3004:3004"
+    environment:
+      - PORT=3004
+      - ENVIRONMENT=development
+      - AUTH_SERVICE_URL=http://authlinc:3003
+      - SMTP_SERVER=${SMTP_SERVER:-smtp.gmail.com}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USERNAME=${SMTP_USERNAME:-noreply@healthlinc.app}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-change-in-production}
+      - LOG_LEVEL=info
+    volumes:
+      - ./backend/linc-agents/notifylinc:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3004/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - healthlinc-backend
+
+  # Frontend - Patient Portal
+  patient-portal:
+    build:
+      context: ./frontend/patient-portal
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+      - FHIR_API_URL=http://fhir-gateway:8000/fhir
+      - MCP_API_URL=http://localhost:8787
+      - AUTH_API_URL=http://authlinc:3003
+      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET:-healthlinc-nextauth-dev-secret}
+    volumes:
+      - ./frontend/patient-portal:/app
+      - /app/node_modules
+    restart: unless-stopped
+    depends_on:
+      - fhir-gateway
+      - claimlinc
+      - recordlinc
+      - authlinc
+    networks:
+      - healthlinc-frontend
+
+  # Frontend - Clinician Portal
+  clinician-portal:
+    build:
+      context: ./frontend/clinician-portal
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    environment:
+      - NODE_ENV=development
+      - FHIR_API_URL=http://fhir-gateway:8000/fhir
+      - MCP_API_URL=http://localhost:8787
+      - AUTH_API_URL=http://authlinc:3003
+      - NEXTAUTH_URL=http://localhost:4000
+      - NEXTAUTH_SECRET=${CLINICIAN_NEXTAUTH_SECRET:-healthlinc-clinician-nextauth-dev-secret}
+    volumes:
+      - ./frontend/clinician-portal:/app
+      - /app/node_modules
+    restart: unless-stopped
+    depends_on:
+      - fhir-gateway
+      - recordlinc
+      - authlinc
+      - notifylinc
+    networks:
+      - healthlinc-frontend
+
+networks:
+  healthlinc-backend:
+    driver: bridge
+    internal: true  # Only accessible within the Docker environment
+  healthlinc-frontend:
+    driver: bridge

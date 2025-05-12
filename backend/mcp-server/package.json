@@ -1,0 +1,29 @@
+{
+  "name": "healthlinc-mcp",
+  "version": "0.1.0",
+  "description": "MCP Server for the HealthLinc Ecosystem",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler publish",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "format": "prettier --write '**/*.{ts,js,json}'"
+  },
+  "author": "Dr. Mohamed El Fadil",
+  "license": "MIT",
+  "dependencies": {
+    "itty-router": "^4.2.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250423.0",
+    "@types/uuid": "^9.0.7",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.2",
+    "uuid": "^9.0.1",
+    "vitest": "^1.2.1",
+    "vitest-environment-miniflare": "^2.14.1",
+    "wrangler": "^3.35.0"
+  }
+}

@@ -1,0 +1,19 @@
+name = "healthlinc-mcp"
+main = "src/index.ts"
+compatibility_date = "2025-05-12"
+node_compat = true
+
+[[kv_namespaces]]
+binding = "HEALTHLINC_TOKENS"
+id = "your-kv-namespace-id" # Replace with actual KV ID after creation
+
+[[kv_namespaces]]
+binding = "HEALTHLINC_LOGS"
+id = "your-logs-kv-id" # Replace with actual KV ID after creation
+
+[vars]
+ENVIRONMENT = "development"
+ALLOWED_ORIGINS = "http://localhost:3000,https://healthlinc.app"
+
+[triggers]
+crons = ["0 */6 * * *"] # Run cleanup every 6 hours
