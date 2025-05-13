@@ -1,0 +1,36 @@
+# ClaimTrackerLinc Agent Configuration
+
+# Server configuration
+server:
+  host: 0.0.0.0
+  port: 3008
+  debug: true
+
+# Security settings
+security:
+  jwt_secret: ${JWT_SECRET}
+  token_expiry: 3600
+
+# Claim tracking configuration
+tracking:
+  data_storage: "file"  # options: file, database
+  duplicate_detection:
+    similarity_threshold: 0.5  # threshold for potential duplicate
+    check_methods: ["hash", "patient_dos", "procedure_match"]
+  
+# External service connections
+services:
+  fhir_server:
+    url: ${FHIR_SERVER_URL}
+    timeout: 30
+  auth_service:
+    url: ${AUTH_SERVICE_URL}
+    timeout: 10
+  claimlinc_service:
+    url: http://claimlinc:3001
+    timeout: 30
+
+# Logging configuration
+logging:
+  level: ${LOG_LEVEL}
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

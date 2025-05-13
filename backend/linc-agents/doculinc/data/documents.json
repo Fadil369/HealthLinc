@@ -1,0 +1,42 @@
+[
+  {
+    "id": "DOC-20250510000001-template-general-exam",
+    "template_id": "template-general-exam",
+    "patient_id": "PAT-12345",
+    "encounter_id": "ENC-20250510-001",
+    "provider_id": "PROV-001",
+    "created_by": "user-001",
+    "created_at": "2025-05-10T10:15:00Z",
+    "updated_at": "2025-05-10T10:15:00Z",
+    "values": {
+      "cc-statement": "Low back pain",
+      "cc-duration": "3 weeks",
+      "hpi-onset": "Gradual onset after lifting heavy furniture",
+      "hpi-location": "Lower lumbar region with radiation to left buttock",
+      "hpi-quality": "Dull, aching pain with occasional sharp exacerbations",
+      "hpi-severity": "Moderate",
+      "hpi-timing": "Constant, worse with prolonged sitting or bending",
+      "hpi-context": "Moving furniture 3 weeks ago",
+      "hpi-modifying-factors": "Improves with rest and OTC NSAIDs",
+      "hpi-associated-symptoms": "No numbness, tingling, or weakness in legs",
+      "hpi-functional-impact": "Difficulty with prolonged sitting at work and difficulty sleeping",
+      "hpi-treatment-history": "Has tried OTC ibuprofen with minimal relief",
+      "pe-bp": "128/82",
+      "pe-hr": "76",
+      "pe-rr": "16",
+      "pe-temp": "98.6",
+      "pe-general": "Patient in mild distress with movement",
+      "pe-musculoskeletal": "Tenderness to palpation over L4-L5 region. Limited range of motion with flexion to 60 degrees, extension to 15 degrees. Negative straight leg raise bilaterally. 5/5 strength in all muscle groups of lower extremities.",
+      "a-diagnoses": "M54.5 - Low back pain",
+      "a-clinical-reasoning": "Patient presents with signs and symptoms consistent with mechanical low back pain without radiculopathy.",
+      "a-severity": "Moderate",
+      "p-treatments": "97110 - Therapeutic exercise x 6 sessions",
+      "p-medications": "Prescription strength NSAIDs - Meloxicam 15mg daily for 10 days",
+      "p-imaging": "None at this time unless symptoms worsen or fail to improve with therapy",
+      "p-follow-up": "2 weeks",
+      "p-medical-necessity": "Patient is experiencing significant functional limitations due to back pain that has not responded to over-the-counter medications. Physical therapy is indicated to improve range of motion, strength, and function."
+    },
+    "formatted_text": "# Chief Complaint\n\n**Chief complaint**: Low back pain\n**Duration**: 3 weeks\n\n# History of Present Illness\n\n**Onset**: Gradual onset after lifting heavy furniture\n**Location**: Lower lumbar region with radiation to left buttock\n**Quality**: Dull, aching pain with occasional sharp exacerbations\n**Severity**: Moderate\n**Timing**: Constant, worse with prolonged sitting or bending\n**Context**: Moving furniture 3 weeks ago\n**Modifying Factors**: Improves with rest and OTC NSAIDs\n**Associated Symptoms**: No numbness, tingling, or weakness in legs\n**Functional Impact**: Difficulty with prolonged sitting at work and difficulty sleeping\n**Previous Treatments**: Has tried OTC ibuprofen with minimal relief\n\n# Physical Examination\n\n## Vital Signs\n\nBlood Pressure: 128/82\nHeart Rate: 76\nRespiratory Rate: 16\nTemperature: 98.6\n\n**General Appearance**: Patient in mild distress with movement\n**Musculoskeletal**: Tenderness to palpation over L4-L5 region. Limited range of motion with flexion to 60 degrees, extension to 15 degrees. Negative straight leg raise bilaterally. 5/5 strength in all muscle groups of lower extremities.\n\n# Assessment\n\n**Diagnoses**: M54.5 - Low back pain\n**Clinical Reasoning**: Patient presents with signs and symptoms consistent with mechanical low back pain without radiculopathy.\n**Severity**: Moderate\n\n# Plan\n\n**Treatments**: 97110 - Therapeutic exercise x 6 sessions\n**Medications**: Prescription strength NSAIDs - Meloxicam 15mg daily for 10 days\n**Imaging**: None at this time unless symptoms worsen or fail to improve with therapy\n**Follow-up**: 2 weeks\n**Medical Necessity Justification**: Patient is experiencing significant functional limitations due to back pain that has not responded to over-the-counter medications. Physical therapy is indicated to improve range of motion, strength, and function.\n",
+    "enhanced_formatted_text": "# Chief Complaint\n\n**Chief complaint**: Low back pain\n**Duration**: 3 weeks, started on April 19, 2025\n\n# History of Present Illness\n\n**Onset**: Gradual onset after lifting heavy furniture\n**Location**: Lower lumbar region with radiation to left buttock\n**Quality**: Dull, aching pain with occasional sharp exacerbations\n**Severity**: Moderate - pain rated as 7/10\n**Timing**: Constant, worse with prolonged sitting or bending\n**Context**: Moving furniture 3 weeks ago\n**Modifying Factors**: Improves with rest and OTC NSAIDs\n**Associated Symptoms**: No numbness, tingling, or weakness in legs\n**Functional Impact**: Patient is unable to sit for more than 20 minutes at work without needing to stand and stretch, which has reduced productivity by approximately 30%. Patient reports sleeping only 4-5 hours per night due to pain, compared to usual 7-8 hours. Unable to perform usual household chores including laundry and vacuuming due to pain with bending.\n**Previous Treatments**: Has tried OTC ibuprofen 600mg every 6 hours for 10 days with minimal relief (pain reduction of only 1-2 points on a 10-point scale).\n\n# Physical Examination\n\n## Vital Signs\n\nBlood Pressure: 128/82\nHeart Rate: 76\nRespiratory Rate: 16\nTemperature: 98.6\n\n**General Appearance**: Patient in mild distress with movement, ambulates with slightly antalgic gait favoring left side\n**Musculoskeletal**: Tenderness to palpation over L4-L5 region with moderate paraspinal muscle spasm noted. Limited range of motion with flexion to 60 degrees (normal 90 degrees), extension to 15 degrees (normal 30 degrees). Negative straight leg raise bilaterally. 5/5 strength in all muscle groups of lower extremities. No atrophy or asymmetry noted.\n\n# Assessment\n\n**Diagnoses**: M54.5 - Low back pain\n**Clinical Reasoning**: Patient presents with signs and symptoms consistent with mechanical low back pain without radiculopathy. The combination of limited range of motion, paraspinal muscle spasm, and antalgic gait suggests moderate severity acute low back strain.\n**Severity**: Moderate - based on functional limitations, pain intensity, and physical findings\n\n# Plan\n\n**Treatments**: 97110 - Therapeutic exercise x 6 sessions over 3 weeks to address specific deficits in lumbar mobility, core stability, and proper body mechanics\n**Medications**: Prescription strength NSAIDs - Meloxicam 15mg daily for 10 days\n**Imaging**: None at this time unless symptoms worsen or fail to improve with therapy\n**Follow-up**: 2 weeks\n**Medical Necessity Justification**: Patient is experiencing significant functional limitations due to back pain that has not responded to over-the-counter medications (tried ibuprofen for 10 days with minimal improvement). Patient demonstrates quantifiable impairments including decreased lumbar range of motion (flexion limited by 30 degrees, extension by 15 degrees), muscle guarding, and inability to maintain sitting positions for work. Physical therapy is medically necessary to improve range of motion, strength, and function, as patient is unable to perform essential activities of daily living and work responsibilities. Without intervention, patient is at risk for developing chronic pain syndrome and prolonged disability from work.\n\nPatient has failed conservative treatments including over-the-counter pain medications, rest, and activity modification without significant improvement in pain or function.\n"
+  }
+]

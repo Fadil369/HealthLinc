@@ -40,6 +40,10 @@ The **HealthLinc Ecosystem** is a modular, secure, and intelligent platform for 
 - **FHIR/HL7 Gateway**: Interoperability layer.
 - **MCP Server**: Context-aware inference routing.
 - **Agentic AI**: Autonomous LINC agents for task handling.
+  - **DocuLinc**: Enhanced clinical documentation for medical necessity.
+  - **MatchLinc**: Diagnosis-procedure matching validation.
+  - **ReviewerLinc**: Fee schedule management and contract alignment.
+  - **ClaimTrackerLinc**: Claim tracking with duplicate detection.
 - **Clinician Portal**: Interface for doctors/staff.
 - **Patient Portal**: Self-service and records access.
 
@@ -67,6 +71,10 @@ graph TD
         RecordLinc["RecordLinc"]
         AuthLinc["AuthLinc"]
         NotifyLinc["NotifyLinc"]
+        DocuLinc["DocuLinc"]
+        MatchLinc["MatchLinc"]
+        ReviewerLinc["ReviewerLinc"]
+        ClaimTrackerLinc["ClaimTrackerLinc"]
     end
 ```
 

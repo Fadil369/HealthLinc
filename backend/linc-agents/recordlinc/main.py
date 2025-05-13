@@ -7,13 +7,14 @@ This agent handles patient record operations for the HealthLinc ecosystem:
 - Update patient information
 - Delete patient records (with proper authorization)
 - Search for patients by various criteria
+- Analytics and reporting
 """
 
 import os
 import json
 import logging
 import uuid
-from datetime import datetime
+from datetime import datetime, timedelta
 from typing import Dict, Any, Optional, List, Union
 
 import uvicorn
@@ -21,6 +22,14 @@ from fastapi import FastAPI, Request, Response, HTTPException, Depends, Query
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
+
+# Import database modules
+from database.connection import (
+    connect_to_mongodb,
+    close_mongodb_connection,
+    get_patients_collection,
+    get_observations_collection
+)
 
 # Configure logging
 logging.basicConfig(
@@ -97,6 +106,17 @@ class AgentResponse(BaseModel):
     data: Optional[Dict[str, Any]] = None
     timestamp: int = Field(default_factory=lambda: int(datetime.now().timestamp() * 1000))
 
+
+class AnalyticsTimeFrame(BaseModel):
+    start_date: str
+    end_date: str
+    grouping: str = "day"  # day, week, month
+
+
+class AnalyticsRequest(BaseModel):
+    time_frame: AnalyticsTimeFrame
+    metrics: List[str]
+    filters: Optional[Dict[str, Any]] = None
 
 # Helper functions
 def generate_patient_id() -> str:
@@ -581,6 +601,189 @@ async def search_patients(search_data: RecordSearchData, request_id: str) -> JSO
                 "timestamp": int(datetime.now().timestamp() * 1000)
             }
         )
+
+
+# Analytics endpoints
+@app.post("/api/analytics/patient-demographics", response_model=AgentResponse)
+async def get_patient_demographics():
+    """Get demographic breakdown of patients"""
+    try:
+        patients_collection = await get_patients_collection()
+        
+        # Get gender distribution
+        gender_pipeline = [
+            {"$group": {"_id": "$gender", "count": {"$sum": 1}}},
+            {"$sort": {"count": -1}}
+        ]
+        gender_results = await patients_collection.aggregate(gender_pipeline).to_list(length=10)
+        
+        # Get age distribution
+        current_year = datetime.now().year
+        age_pipeline = [
+            {
+                "$project": {
+                    "birth_year": {"$substr": ["$birth_date", 0, 4]},
+                    "first_name": 1,
+                    "last_name": 1
+                }
+            },
+            {
+                "$project": {
+                    "age": {"$subtract": [current_year, {"$toInt": "$birth_year"}]},
+                    "first_name": 1,
+                    "last_name": 1
+                }
+            },
+            {
+                "$bucket": {
+                    "groupBy": "$age",
+                    "boundaries": [0, 18, 30, 45, 65, 80, 120],
+                    "default": "Unknown",
+                    "output": {
+                        "count": {"$sum": 1}
+                    }
+                }
+            }
+        ]
+        age_results = await patients_collection.aggregate(age_pipeline).to_list(length=10)
+        
+        return AgentResponse(
+            status="success",
+            message="Demographics data retrieved successfully",
+            data={
+                "gender_distribution": gender_results,
+                "age_distribution": age_results
+            }
+        )
+    except Exception as e:
+        logger.error(f"Error retrieving demographics: {e}")
+        return AgentResponse(
+            status="error",
+            message=f"Error retrieving demographics data: {str(e)}"
+        )
+
+
+@app.post("/api/analytics/patient-trends", response_model=AgentResponse)
+async def get_patient_trends(request: AnalyticsRequest):
+    """Get patient registration trends over time"""
+    try:
+        start_date = datetime.fromisoformat(request.time_frame.start_date.replace('Z', '+00:00'))
+        end_date = datetime.fromisoformat(request.time_frame.end_date.replace('Z', '+00:00'))
+        
+        # Determine grouping format
+        date_format = "%Y-%m-%d"
+        if request.time_frame.grouping == "week":
+            date_format = "%Y-W%W"
+        elif request.time_frame.grouping == "month":
+            date_format = "%Y-%m"
+            
+        patients_collection = await get_patients_collection()
+        
+        # Find patients created between dates
+        date_pipeline = [
+            {
+                "$match": {
+                    "created_at": {
+                        "$gte": start_date,
+                        "$lte": end_date
+                    }
+                }
+            },
+            {
+                "$project": {
+                    "date_str": {"$dateToString": {"format": date_format, "date": "$created_at"}}
+                }
+            },
+            {
+                "$group": {
+                    "_id": "$date_str",
+                    "count": {"$sum": 1}
+                }
+            },
+            {
+                "$sort": {"_id": 1}
+            }
+        ]
+        
+        trend_results = await patients_collection.aggregate(date_pipeline).to_list(length=1000)
+        
+        return AgentResponse(
+            status="success",
+            message="Patient trends data retrieved successfully",
+            data={
+                "trends": trend_results,
+                "period": {
+                    "start": start_date.isoformat(),
+                    "end": end_date.isoformat(),
+                    "grouping": request.time_frame.grouping
+                }
+            }
+        )
+    except Exception as e:
+        logger.error(f"Error retrieving patient trends: {e}")
+        return AgentResponse(
+            status="error",
+            message=f"Error retrieving patient trends data: {str(e)}"
+        )
+
+
+@app.post("/api/analytics/clinical-metrics", response_model=AgentResponse)
+async def get_clinical_metrics(request: AnalyticsRequest):
+    """Get clinical metrics such as diagnosis trends, observation values, etc."""
+    try:
+        observations_collection = await get_observations_collection()
+        
+        # Filter by date range if provided
+        match_stage = {}
+        if "time_frame" in request and request.time_frame:
+            start_date = datetime.fromisoformat(request.time_frame.start_date.replace('Z', '+00:00'))
+            end_date = datetime.fromisoformat(request.time_frame.end_date.replace('Z', '+00:00'))
+            match_stage = {
+                "$match": {
+                    "effective_date": {
+                        "$gte": start_date.isoformat(),
+                        "$lte": end_date.isoformat()
+                    }
+                }
+            }
+        
+        # Get top diagnoses
+        diagnosis_pipeline = [
+            match_stage,
+            {"$match": {"code_system": "http://loinc.org"}},
+            {"$group": {"_id": "$code", "count": {"$sum": 1}}},
+            {"$sort": {"count": -1}},
+            {"$limit": 10}
+        ]
+        if not match_stage:
+            diagnosis_pipeline.pop(0)  # Remove empty match stage
+            
+        diagnosis_results = await observations_collection.aggregate(diagnosis_pipeline).to_list(length=10)
+        
+        return AgentResponse(
+            status="success",
+            message="Clinical metrics retrieved successfully",
+            data={
+                "top_diagnoses": diagnosis_results
+            }
+        )
+    except Exception as e:
+        logger.error(f"Error retrieving clinical metrics: {e}")
+        return AgentResponse(
+            status="error",
+            message=f"Error retrieving clinical metrics: {str(e)}"
+        )
+
+
+# Startup and shutdown events
+@app.on_event("startup")
+async def startup_db_client():
+    await connect_to_mongodb()
+
+
+@app.on_event("shutdown")
+async def shutdown_db_client():
+    await close_mongodb_connection()
 
 
 @app.get("/health")

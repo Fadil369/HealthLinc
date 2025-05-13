@@ -10,8 +10,9 @@ Thank you for your interest in contributing to the HealthLinc Ecosystem! This do
 4. [Coding Standards](#coding-standards)
 5. [Pull Request Process](#pull-request-process)
 6. [Testing](#testing)
-7. [Documentation](#documentation)
-8. [Security](#security)
+7. [Agent Module Development](#agent-module-development)
+8. [Documentation](#documentation)
+9. [Security](#security)
 
 ## Code of Conduct
 
@@ -99,12 +100,83 @@ feature/your-feature
 
 * Write tests for new features and bug fixes
 * Ensure existing tests pass
+* Run integration tests for agent interactions
+* For agent modules, include tests for:
+  * API endpoints
+  * Configuration handling
+  * Integration with other agents
+
+## Agent Module Development
+
+When developing new agent modules or enhancing existing ones:
+
+1. **Follow the Standard Structure**:
+
+   ```plaintext
+   agentname/
+   ├── main.py            # Main application entry point
+   ├── Dockerfile         # Container definition
+   ├── config.yaml        # Agent configuration
+   ├── requirements.txt   # Python dependencies
+   ├── prompts/           # AI prompts for specific tasks
+   │   └── task_name.txt
+   ├── data/              # Agent-specific data files
+   └── templates/         # Output templates (if applicable)
+   ```
+
+2. **Implement Required Endpoints**:
+   * `/health` - Health check endpoint
+   * Primary function endpoints specific to the agent's purpose
+   * Documentation endpoints
+   * Error reporting endpoints
+
+3. **Configuration**:
+   * Use the standard configuration structure
+   * Support environment variable overrides
+   * Document all configuration options
+   * Include security settings
+   * Define external service connections
+
+4. **Docker Integration**:
+   * Ensure the Dockerfile properly sets up the environment
+   * Add the service to docker-compose.yml
+   * Include health checks
+   * Configure appropriate network access
+   * Set up volume mounts for development
+
+5. **Documentation**:
+   * Update AGENTS.md with details about your agent
+   * Include API documentation
+   * Document integration points with other agents
+   * Provide example API calls
+
+6. **Frontend Integration**:
+   * Create API client libraries in frontend/clinician-portal/src/lib/
+   * Develop React hooks for simplified component integration
+   * Add utility functions for data formatting
+
+7. **Testing**:
+   * Write unit tests for agent functionality
+   * Create integration tests for agent interactions
+   * Test security mechanisms
+   * Validate performance under load
+
+8. **Agent-Specific Guidelines**:
+   * **DocuLinc**: Include template validation and versioning
+   * **MatchLinc**: Maintain coding rule sets with effective dates
+   * **ReviewerLinc**: Support contract comparison and historical tracking
+   * **ClaimTrackerLinc**: Implement robust claim identification and deduplication
+
+For more details on the agent architecture, see the [AGENTS.md](AGENTS.md) file.
 * For backend:
+
   ```bash
   cd backend/linc-agents/<agent-name>
   python -m pytest
   ```
+
 * For frontend:
+
   ```bash
   cd frontend/<portal-name>
   npm test

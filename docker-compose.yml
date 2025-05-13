@@ -98,7 +98,6 @@ services:
     networks:
       - healthlinc-backend
       - healthlinc-frontend
-
   notifylinc:
     build:
       context: ./backend/linc-agents/notifylinc
@@ -118,6 +117,102 @@ services:
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3004/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - healthlinc-backend
+      
+  # DocuLinc Agent - Enhanced Clinical Documentation
+  doculinc:
+    build:
+      context: ./backend/linc-agents/doculinc
+    ports:
+      - "3005:3005"
+    environment:
+      - PORT=3005
+      - ENVIRONMENT=development
+      - FHIR_SERVER_URL=http://fhir-gateway:8000/fhir
+      - AUTH_SERVICE_URL=http://authlinc:3003
+      - LOG_LEVEL=info
+      - JWT_SECRET=${JWT_SECRET:-healthlinc-dev-secret-change-in-production}
+    volumes:
+      - ./backend/linc-agents/doculinc:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3005/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - healthlinc-backend
+
+  # MatchLinc Agent - Diagnosis-Procedure Validation
+  matchlinc:
+    build:
+      context: ./backend/linc-agents/matchlinc
+    ports:
+      - "3006:3006"
+    environment:
+      - PORT=3006
+      - ENVIRONMENT=development
+      - FHIR_SERVER_URL=http://fhir-gateway:8000/fhir
+      - AUTH_SERVICE_URL=http://authlinc:3003
+      - LOG_LEVEL=info
+      - JWT_SECRET=${JWT_SECRET:-healthlinc-dev-secret-change-in-production}
+    volumes:
+      - ./backend/linc-agents/matchlinc:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3006/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - healthlinc-backend
+      
+  # ReviewerLinc Module - Fee Schedule Management
+  reviewerlinc:
+    build:
+      context: ./backend/linc-agents/reviewerlinc
+    ports:
+      - "3007:3007"
+    environment:
+      - PORT=3007
+      - ENVIRONMENT=development
+      - FHIR_SERVER_URL=http://fhir-gateway:8000/fhir
+      - AUTH_SERVICE_URL=http://authlinc:3003
+      - LOG_LEVEL=info
+      - JWT_SECRET=${JWT_SECRET:-healthlinc-dev-secret-change-in-production}
+    volumes:
+      - ./backend/linc-agents/reviewerlinc:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3007/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    networks:
+      - healthlinc-backend
+      
+  # ClaimTrackerLinc Agent - Claim Tracking with Duplicate Detection
+  claimtrackerlinc:
+    build:
+      context: ./backend/linc-agents/claimtrackerlinc
+    ports:
+      - "3008:3008"
+    environment:
+      - PORT=3008
+      - ENVIRONMENT=development
+      - FHIR_SERVER_URL=http://fhir-gateway:8000/fhir
+      - AUTH_SERVICE_URL=http://authlinc:3003
+      - LOG_LEVEL=info
+      - JWT_SECRET=${JWT_SECRET:-healthlinc-dev-secret-change-in-production}
+    volumes:
+      - ./backend/linc-agents/claimtrackerlinc:/app
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3008/health"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -167,12 +262,15 @@ services:
     volumes:
       - ./frontend/clinician-portal:/app
       - /app/node_modules
-    restart: unless-stopped
-    depends_on:
+    restart: unless-stopped    depends_on:
       - fhir-gateway
       - recordlinc
       - authlinc
       - notifylinc
+      - doculinc
+      - matchlinc
+      - reviewerlinc
+      - claimtrackerlinc
     networks:
       - healthlinc-frontend
 

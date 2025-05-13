@@ -1,0 +1,132 @@
+[
+  {
+    "procedure_code": "99213",
+    "procedure_system": "http://www.ama-assn.org/go/cpt",
+    "procedure_display": "Office/outpatient visit est",
+    "compatible_diagnoses": [
+      {
+        "code_range": "A00-Z99",
+        "description": "Any medically necessary diagnosis",
+        "notes": "Must document appropriate history, exam and medical decision making"
+      }
+    ],
+    "documentation_requirements": [
+      "Two of three key components: Expanded problem focused history; Expanded problem focused examination; Low complexity medical decision making",
+      "Typically 15 minutes spent face-to-face with patient/family",
+      "Must document medical necessity for the service"
+    ]
+  },
+  {
+    "procedure_code": "29827",
+    "procedure_system": "http://www.ama-assn.org/go/cpt",
+    "procedure_display": "Arthroscopy, shoulder, surgical; with rotator cuff repair",
+    "compatible_diagnoses": [
+      {
+        "code_range": "M75.1-M75.12",
+        "description": "Rotator cuff tear",
+        "notes": "Must specify laterality"
+      },
+      {
+        "code_range": "S46.0-S46.02",
+        "description": "Injury of muscle(s) and tendon(s) of the rotator cuff of shoulder",
+        "notes": "Must document trauma; specify encounter type"
+      }
+    ],
+    "documentation_requirements": [
+      "Document size of tear and location",
+      "Document failed conservative management",
+      "Document functional limitations",
+      "Document surgical technique and findings",
+      "Document medical necessity for surgical intervention"
+    ]
+  },
+  {
+    "procedure_code": "93000",
+    "procedure_system": "http://www.ama-assn.org/go/cpt",
+    "procedure_display": "Electrocardiogram, routine ECG with at least 12 leads; with interpretation and report",
+    "compatible_diagnoses": [
+      {
+        "code_range": "I00-I99",
+        "description": "Diseases of the circulatory system",
+        "notes": "Most cardiovascular conditions qualify"
+      },
+      {
+        "code_range": "R00-R03",
+        "description": "Symptoms involving the circulatory system",
+        "notes": "Includes palpitations, tachycardia, abnormal BP"
+      },
+      {
+        "code_range": "R07.1-R07.9",
+        "description": "Chest pain",
+        "notes": "Document location and character of pain"
+      }
+    ],
+    "documentation_requirements": [
+      "Document symptoms or condition necessitating ECG",
+      "Document interpretation of results",
+      "Link findings to patient management"
+    ]
+  },
+  {
+    "procedure_code": "70450",
+    "procedure_system": "http://www.ama-assn.org/go/cpt",
+    "procedure_display": "CT head/brain without contrast",
+    "compatible_diagnoses": [
+      {
+        "code_range": "S00-S09",
+        "description": "Head injuries",
+        "notes": "Document mechanism of injury"
+      },
+      {
+        "code_range": "R51",
+        "description": "Headache",
+        "notes": "Document severity, duration, and character; usually requires additional symptoms to justify CT"
+      },
+      {
+        "code_range": "G40-G47",
+        "description": "Episodic and paroxysmal disorders",
+        "notes": "Includes seizures, migraines with new presentation"
+      },
+      {
+        "code_range": "R55",
+        "description": "Syncope and collapse",
+        "notes": "Document associated symptoms suggesting central origin"
+      }
+    ],
+    "documentation_requirements": [
+      "Document specific neurological symptoms/signs",
+      "For trauma, document GCS and risk factors",
+      "Document why CT is medically necessary over alternative imaging",
+      "For headaches, document red flags or neurological deficits"
+    ]
+  },
+  {
+    "procedure_code": "97110",
+    "procedure_system": "http://www.ama-assn.org/go/cpt",
+    "procedure_display": "Therapeutic exercises",
+    "compatible_diagnoses": [
+      {
+        "code_range": "M00-M99",
+        "description": "Diseases of the musculoskeletal system and connective tissue",
+        "notes": "Must document specific condition being treated"
+      },
+      {
+        "code_range": "S00-T88",
+        "description": "Injury, poisoning and certain other consequences of external causes",
+        "notes": "Appropriate for post-traumatic rehabilitation"
+      },
+      {
+        "code_range": "G80-G83",
+        "description": "Cerebral palsy and other paralytic syndromes",
+        "notes": "Document functional goals"
+      }
+    ],
+    "documentation_requirements": [
+      "Document specific exercises performed",
+      "Document functional deficits being addressed",
+      "Document skilled therapy intervention (not just supervision)",
+      "Document objective measurements of progress",
+      "Document expected goals and plan"
+    ]
+  }
+]

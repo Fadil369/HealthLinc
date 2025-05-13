@@ -32,7 +32,8 @@ import {
   Logout as LogoutIcon,
   AccountCircle as AccountIcon,
   HealthAndSafety as HealthIcon,
-  Settings as SettingsIcon
+  Settings as SettingsIcon,
+  BarChart as AnalyticsIcon
 } from '@mui/icons-material';
 
 import { useRouter } from 'next/router';
@@ -65,7 +66,6 @@ export default function ClinicianLayout({ children }) {
     await signOut({ redirect: false });
     router.push('/login');
   };
-
   const menuItems = [
     { text: 'Dashboard', icon: <DashboardIcon />, path: '/dashboard' },
     { text: 'Patients', icon: <PersonIcon />, path: '/patients' },
@@ -73,7 +73,7 @@ export default function ClinicianLayout({ children }) {
     { text: 'Medical Records', icon: <MedicalIcon />, path: '/records' },
     { text: 'Claims', icon: <ReceiptIcon />, path: '/claims' },
     { text: 'Clinical Tools', icon: <HospitalIcon />, path: '/clinical-tools' },
-    { text: 'Analytics', icon: <HealthIcon />, path: '/analytics' },
+    { text: 'Analytics', icon: <AnalyticsIcon />, path: '/analytics' },
   ];
 
   const drawer = (
