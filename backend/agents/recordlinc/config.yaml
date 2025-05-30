@@ -1,0 +1,35 @@
+## RecordLinc Configuration
+
+# Service Configuration
+service:
+  name: RecordLinc
+  version: 1.0.0
+  description: LINC Agent for patient record management
+
+# API Configuration
+api:
+  port: 3002
+  host: 0.0.0.0
+  prefix: /agents/record
+  
+# FHIR Server Configuration
+fhir:
+  server_url: ${FHIR_SERVER_URL:http://fhir-gateway:8000/fhir}
+  version: R4
+
+# Authentication Configuration
+auth:
+  service_url: ${AUTH_SERVICE_URL:http://authlinc:3003}
+  required: true
+  
+# Logging Configuration
+logging:
+  level: ${LOG_LEVEL:info}
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+# Agent Configuration
+agent:
+  timeout: 30  # seconds
+  retry:
+    max_attempts: 3
+    backoff_factor: 2

@@ -1,0 +1,53 @@
+# FHIR Gateway Configuration
+
+server:
+  port: 8000
+  host: 0.0.0.0
+  base_url: '/fhir'
+  version: R4
+  name: 'HealthLinc FHIR Gateway'
+
+# Security settings
+security:
+  auth_required: true
+  jwt:
+    secret_key: 'replace_with_actual_secret_in_production'
+    algorithm: 'HS256'
+    expiration_minutes: 60
+  cors:
+    allow_origins:
+      - 'http://localhost:3000'
+      - 'https://healthlinc.app'
+    
+# FHIR Resource configuration
+resources:
+  Patient:
+    search_params:
+      - name
+      - identifier
+      - birthdate
+      - gender
+      - address
+    extensions:
+      - url: 'https://healthlinc.app/fhir/StructureDefinition/patient-consent'
+  Claim:
+    search_params:
+      - identifier
+      - patient
+      - created
+      - status
+      - provider
+      - insurer
+    extensions:
+      - url: 'https://healthlinc.app/fhir/StructureDefinition/claim-aivalidated'
+
+# Integration endpoints
+integrations:
+  hl7:
+    enabled: true
+    port: 8888
+    outbound_endpoint: 'http://localhost:3005/hl7/outbound'
+  
+  linc_agents:
+    ClaimLinc: 'http://localhost:3001/agents/claim'
+    RecordLinc: 'http://localhost:3002/agents/record'

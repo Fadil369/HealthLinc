@@ -1,0 +1,58 @@
+FROM python:3.11-slim as base
+
+# Set working directory
+WORKDIR /app
+
+# Create common layer with shared dependencies
+FROM base as common
+COPY common-requirements.txt .
+RUN pip install --no-cache-dir -r common-requirements.txt
+
+# RecordLinc Service
+FROM common as recordlinc
+WORKDIR /app/recordlinc
+COPY linc-agents/recordlinc/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY linc-agents/recordlinc/ .
+ENV PORT=3002 \
+    PYTHONUNBUFFERED=1 \
+    FHIR_SERVER_URL=http://fhir-gateway:8000/fhir \
+    AUTH_SERVICE_URL=http://authlinc:3003
+EXPOSE 3002
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3002"]
+
+# AuthLinc Service
+FROM common as authlinc
+WORKDIR /app/authlinc
+COPY linc-agents/authlinc/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY linc-agents/authlinc/ .
+ENV PORT=3003 \
+    PYTHONUNBUFFERED=1
+EXPOSE 3003
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3003"]
+
+# NotifyLinc Service
+FROM common as notifylinc
+WORKDIR /app/notifylinc
+COPY linc-agents/notifylinc/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY linc-agents/notifylinc/ .
+ENV PORT=3004 \
+    PYTHONUNBUFFERED=1 \
+    AUTH_SERVICE_URL=http://authlinc:3003
+EXPOSE 3004
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3004"]
+
+# ClaimLinc Service
+FROM common as claimlinc
+WORKDIR /app/claimlinc
+COPY linc-agents/claimlinc/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY linc-agents/claimlinc/ .
+ENV PORT=3005 \
+    PYTHONUNBUFFERED=1 \
+    FHIR_SERVER_URL=http://fhir-gateway:8000/fhir \
+    AUTH_SERVICE_URL=http://authlinc:3003
+EXPOSE 3005
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "3005"]

@@ -1,0 +1,158 @@
+[
+  {
+    "payer_id": "BCBS001",
+    "payer_name": "BlueCross BlueShield",
+    "contract_id": "BCBS-CONTRACT-2025",
+    "effective_date": "2025-01-01",
+    "end_date": "2025-12-31",
+    "status": "active",
+    "last_updated": "2025-01-01T00:00:00Z",
+    "terms": [
+      {
+        "term_id": "BCBS-TERM-001",
+        "description": "Standard E&M Rates",
+        "value": "110% of Medicare",
+        "effective_date": "2025-01-01",
+        "category": "reimbursement"
+      },
+      {
+        "term_id": "BCBS-TERM-002",
+        "description": "Preventive Services",
+        "value": "100% of billed charges",
+        "effective_date": "2025-01-01",
+        "category": "reimbursement"
+      },
+      {
+        "term_id": "BCBS-TERM-003",
+        "description": "Timely Filing",
+        "value": "90 days",
+        "effective_date": "2025-01-01",
+        "category": "billing"
+      },
+      {
+        "term_id": "BCBS-TERM-004",
+        "description": "Payment Terms",
+        "value": "30 days",
+        "effective_date": "2025-01-01",
+        "category": "payment"
+      }
+    ]
+  },
+  {
+    "payer_id": "AETNA001",
+    "payer_name": "Aetna",
+    "contract_id": "AETNA-CONTRACT-2025",
+    "effective_date": "2025-01-01",
+    "end_date": "2025-06-30",
+    "status": "active",
+    "last_updated": "2025-01-01T00:00:00Z",
+    "terms": [
+      {
+        "term_id": "AETNA-TERM-001",
+        "description": "Standard E&M Rates",
+        "value": "105% of Medicare",
+        "effective_date": "2025-01-01",
+        "category": "reimbursement"
+      },
+      {
+        "term_id": "AETNA-TERM-002",
+        "description": "Preventive Services",
+        "value": "95% of billed charges",
+        "effective_date": "2025-01-01",
+        "category": "reimbursement"
+      },
+      {
+        "term_id": "AETNA-TERM-003",
+        "description": "Timely Filing",
+        "value": "120 days",
+        "effective_date": "2025-01-01",
+        "category": "billing"
+      },
+      {
+        "term_id": "AETNA-TERM-004",
+        "description": "Payment Terms",
+        "value": "45 days",
+        "effective_date": "2025-01-01",
+        "category": "payment"
+      }
+    ]
+  },
+  {
+    "payer_id": "CIGNA001",
+    "payer_name": "Cigna",
+    "contract_id": "CIGNA-CONTRACT-2025",
+    "effective_date": "2025-03-01",
+    "end_date": "2026-02-28",
+    "status": "active",
+    "last_updated": "2025-03-01T00:00:00Z",
+    "terms": [
+      {
+        "term_id": "CIGNA-TERM-001",
+        "description": "Standard E&M Rates",
+        "value": "115% of Medicare",
+        "effective_date": "2025-03-01",
+        "category": "reimbursement"
+      },
+      {
+        "term_id": "CIGNA-TERM-002",
+        "description": "Preventive Services",
+        "value": "100% of billed charges",
+        "effective_date": "2025-03-01",
+        "category": "reimbursement"
+      },
+      {
+        "term_id": "CIGNA-TERM-003",
+        "description": "Timely Filing",
+        "value": "90 days",
+        "effective_date": "2025-03-01",
+        "category": "billing"
+      },
+      {
+        "term_id": "CIGNA-TERM-004",
+        "description": "Payment Terms",
+        "value": "30 days",
+        "effective_date": "2025-03-01",
+        "category": "payment"
+      }
+    ]
+  },
+  {
+    "payer_id": "UHC001",
+    "payer_name": "UnitedHealthcare",
+    "contract_id": "UHC-CONTRACT-2025",
+    "effective_date": "2025-01-01",
+    "end_date": "2025-12-31",
+    "status": "active",
+    "last_updated": "2025-01-01T00:00:00Z",
+    "terms": [
+      {
+        "term_id": "UHC-TERM-001",
+        "description": "Standard E&M Rates",
+        "value": "112% of Medicare",
+        "effective_date": "2025-01-01",
+        "category": "reimbursement"
+      },
+      {
+        "term_id": "UHC-TERM-002",
+        "description": "Preventive Services",
+        "value": "98% of billed charges",
+        "effective_date": "2025-01-01",
+        "category": "reimbursement"
+      },
+      {
+        "term_id": "UHC-TERM-003",
+        "description": "Timely Filing",
+        "value": "90 days",
+        "effective_date": "2025-01-01",
+        "category": "billing"
+      },
+      {
+        "term_id": "UHC-TERM-004",
+        "description": "Payment Terms",
+        "value": "30 days",
+        "effective_date": "2025-01-01",
+        "category": "payment"
+      }
+    ]
+  }
+]

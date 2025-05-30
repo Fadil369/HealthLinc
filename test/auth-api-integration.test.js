@@ -89,7 +89,7 @@ class AuthAPIIntegrationTests {
       firstName: 'Integration',
       lastName: 'Test',
       email: `integration.test.${Date.now()}@example.com`,
-      password: 'SecurePassword123!',
+      password: 'TestP@ssw0rd#2024',
       role: 'user'
     };
 
@@ -138,7 +138,7 @@ class AuthAPIIntegrationTests {
       firstName: 'Duplicate',
       lastName: 'Test',
       email: `duplicate.test.${Date.now()}@example.com`,
-      password: 'SecurePassword123!',
+      password: 'TestP@ssw0rd#2024',
       role: 'user'
     };
 
@@ -167,7 +167,7 @@ class AuthAPIIntegrationTests {
       firstName: 'Login',
       lastName: 'Test',
       email: `login.test.${Date.now()}@example.com`,
-      password: 'LoginPassword123!',
+      password: 'L0gin#P@ssw0rd',
       role: 'user'
     };
 
@@ -238,7 +238,7 @@ class AuthAPIIntegrationTests {
       firstName: 'Profile',
       lastName: 'Test',
       email: `profile.test.${Date.now()}@example.com`,
-      password: 'ProfilePassword123!',
+      password: 'Pr0file#P@ssw0rd',
       role: 'user'
     };
 
@@ -295,7 +295,7 @@ class AuthAPIIntegrationTests {
       firstName: 'UpdateProfile',
       lastName: 'Test',
       email: `update.profile.test.${Date.now()}@example.com`,
-      password: 'UpdatePassword123!',
+      password: 'Upd@teP@ssw0rd#',
       role: 'user'
     };
 

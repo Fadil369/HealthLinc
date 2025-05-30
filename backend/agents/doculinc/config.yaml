@@ -1,0 +1,36 @@
+# DocuLinc Agent Configuration
+
+# Server configuration
+server:
+  host: 0.0.0.0
+  port: 3005
+  debug: true
+
+# Security settings
+security:
+  jwt_secret: ${JWT_SECRET}
+  token_expiry: 3600
+
+# Documentation templates configuration
+templates:
+  storage_type: "database"  # options: file, database
+  refresh_interval: 3600    # seconds
+
+# Medical necessity enhancement
+medical_necessity:
+  ai_model: "gpt-4"
+  enhance_threshold: 70     # score below which enhancement is recommended
+  
+# External service connections
+services:
+  fhir_server:
+    url: ${FHIR_SERVER_URL}
+    timeout: 30
+  auth_service:
+    url: ${AUTH_SERVICE_URL}
+    timeout: 10
+
+# Logging configuration
+logging:
+  level: ${LOG_LEVEL}
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

@@ -1,0 +1,344 @@
+[
+  {
+    "id": "template-general-exam",
+    "name": "General Physical Examination",
+    "description": "Standard template for comprehensive physical examinations",
+    "specialty": "Primary Care",
+    "sections": [
+      {
+        "name": "Chief Complaint",
+        "description": "Patient's main concern in their own words",
+        "required": true,
+        "fields": [
+          {
+            "id": "cc-statement",
+            "type": "text",
+            "label": "Chief complaint",
+            "placeholder": "Document the patient's main concern in their own words",
+            "required": true
+          },
+          {
+            "id": "cc-duration",
+            "type": "text",
+            "label": "Duration",
+            "placeholder": "How long has the patient been experiencing these symptoms?",
+            "required": true
+          }
+        ]
+      },
+      {
+        "name": "History of Present Illness",
+        "description": "Detailed account of the development of the patient's illness",
+        "required": true,
+        "fields": [
+          {
+            "id": "hpi-onset",
+            "type": "text",
+            "label": "Onset",
+            "placeholder": "When and how did the symptoms begin?",
+            "required": true
+          },
+          {
+            "id": "hpi-location",
+            "type": "text",
+            "label": "Location",
+            "placeholder": "Where is the pain/symptom located?",
+            "required": true
+          },
+          {
+            "id": "hpi-quality",
+            "type": "text",
+            "label": "Quality",
+            "placeholder": "What does the pain/symptom feel like?",
+            "required": false
+          },
+          {
+            "id": "hpi-severity",
+            "type": "select",
+            "label": "Severity",
+            "options": ["Mild", "Moderate", "Severe"],
+            "required": true
+          },
+          {
+            "id": "hpi-timing",
+            "type": "text",
+            "label": "Timing",
+            "placeholder": "When does it occur? Is it constant or intermittent?",
+            "required": false
+          },
+          {
+            "id": "hpi-context",
+            "type": "text",
+            "label": "Context",
+            "placeholder": "What was the patient doing when it started?",
+            "required": false
+          },
+          {
+            "id": "hpi-modifying-factors",
+            "type": "text",
+            "label": "Modifying Factors",
+            "placeholder": "What makes it better or worse?",
+            "required": false
+          },
+          {
+            "id": "hpi-associated-symptoms",
+            "type": "text",
+            "label": "Associated Symptoms",
+            "placeholder": "Other symptoms that occur with the main complaint",
+            "required": false
+          },
+          {
+            "id": "hpi-functional-impact",
+            "type": "textarea",
+            "label": "Functional Impact",
+            "placeholder": "How does this condition affect the patient's daily activities?",
+            "required": true,
+            "medical_necessity": true
+          },
+          {
+            "id": "hpi-treatment-history",
+            "type": "textarea",
+            "label": "Previous Treatments",
+            "placeholder": "What treatments has the patient tried so far?",
+            "required": false,
+            "medical_necessity": true
+          }
+        ]
+      },
+      {
+        "name": "Review of Systems",
+        "description": "Systematic review of body systems",
+        "required": false,
+        "fields": [
+          {
+            "id": "ros-constitutional",
+            "type": "checkboxes",
+            "label": "Constitutional",
+            "options": ["Fever", "Weight loss", "Fatigue", "Night sweats"],
+            "required": false
+          },
+          {
+            "id": "ros-cardiovascular",
+            "type": "checkboxes",
+            "label": "Cardiovascular",
+            "options": ["Chest pain", "Palpitations", "Edema", "Orthopnea"],
+            "required": false
+          }
+        ]
+      },
+      {
+        "name": "Physical Examination",
+        "description": "Objective findings from physical examination",
+        "required": true,
+        "fields": [
+          {
+            "id": "pe-vitals",
+            "type": "group",
+            "label": "Vital Signs",
+            "fields": [
+              {
+                "id": "pe-bp",
+                "type": "text",
+                "label": "Blood Pressure",
+                "required": true
+              },
+              {
+                "id": "pe-hr",
+                "type": "text",
+                "label": "Heart Rate",
+                "required": true
+              },
+              {
+                "id": "pe-rr",
+                "type": "text",
+                "label": "Respiratory Rate",
+                "required": false
+              },
+              {
+                "id": "pe-temp",
+                "type": "text",
+                "label": "Temperature",
+                "required": false
+              },
+              {
+                "id": "pe-o2",
+                "type": "text",
+                "label": "O2 Saturation",
+                "required": false
+              }
+            ]
+          },
+          {
+            "id": "pe-general",
+            "type": "textarea",
+            "label": "General Appearance",
+            "placeholder": "Overall appearance, distress level, etc.",
+            "required": true
+          },
+          {
+            "id": "pe-heent",
+            "type": "textarea",
+            "label": "HEENT",
+            "placeholder": "Head, eyes, ears, nose, throat examination findings",
+            "required": false
+          },
+          {
+            "id": "pe-neck",
+            "type": "textarea",
+            "label": "Neck",
+            "placeholder": "Neck examination findings",
+            "required": false
+          },
+          {
+            "id": "pe-chest",
+            "type": "textarea",
+            "label": "Chest/Lungs",
+            "placeholder": "Respiratory examination findings",
+            "required": false
+          },
+          {
+            "id": "pe-cv",
+            "type": "textarea",
+            "label": "Cardiovascular",
+            "placeholder": "Heart examination findings",
+            "required": false
+          },
+          {
+            "id": "pe-abd",
+            "type": "textarea",
+            "label": "Abdomen",
+            "placeholder": "Abdominal examination findings",
+            "required": false
+          },
+          {
+            "id": "pe-ext",
+            "type": "textarea",
+            "label": "Extremities",
+            "placeholder": "Examination findings of arms and legs",
+            "required": false
+          },
+          {
+            "id": "pe-neuro",
+            "type": "textarea",
+            "label": "Neurological",
+            "placeholder": "Neurological examination findings",
+            "required": false
+          },
+          {
+            "id": "pe-skin",
+            "type": "textarea",
+            "label": "Skin",
+            "placeholder": "Skin examination findings",
+            "required": false
+          },
+          {
+            "id": "pe-psych",
+            "type": "textarea",
+            "label": "Psychiatric",
+            "placeholder": "Mental status examination findings",
+            "required": false
+          },
+          {
+            "id": "pe-musculoskeletal",
+            "type": "textarea",
+            "label": "Musculoskeletal",
+            "placeholder": "Detailed examination of affected joints/muscles including ROM, strength, stability",
+            "required": false,
+            "medical_necessity": true
+          }
+        ]
+      },
+      {
+        "name": "Assessment",
+        "description": "Clinical impression and diagnosis",
+        "required": true,
+        "fields": [
+          {
+            "id": "a-diagnoses",
+            "type": "diagnoses",
+            "label": "Diagnoses",
+            "required": true,
+            "medical_necessity": true,
+            "helper_text": "Select specific, detailed diagnoses with appropriate ICD-10 codes"
+          },
+          {
+            "id": "a-clinical-reasoning",
+            "type": "textarea",
+            "label": "Clinical Reasoning",
+            "placeholder": "Explain your clinical reasoning for this diagnosis",
+            "required": true,
+            "medical_necessity": true
+          },
+          {
+            "id": "a-severity",
+            "type": "select",
+            "label": "Severity",
+            "options": ["Mild", "Moderate", "Severe"],
+            "required": true,
+            "medical_necessity": true
+          }
+        ]
+      },
+      {
+        "name": "Plan",
+        "description": "Treatment plan and follow-up",
+        "required": true,
+        "fields": [
+          {
+            "id": "p-treatments",
+            "type": "treatments",
+            "label": "Treatments",
+            "required": true,
+            "helper_text": "Select appropriate CPT codes for planned procedures"
+          },
+          {
+            "id": "p-medications",
+            "type": "medications",
+            "label": "Medications",
+            "required": false
+          },
+          {
+            "id": "p-imaging",
+            "type": "text",
+            "label": "Imaging",
+            "required": false
+          },
+          {
+            "id": "p-labs",
+            "type": "text",
+            "label": "Laboratory Tests",
+            "required": false
+          },
+          {
+            "id": "p-referrals",
+            "type": "text",
+            "label": "Referrals",
+            "required": false
+          },
+          {
+            "id": "p-follow-up",
+            "type": "text",
+            "label": "Follow-up",
+            "required": true
+          },
+          {
+            "id": "p-medical-necessity",
+            "type": "textarea",
+            "label": "Medical Necessity Justification",
+            "placeholder": "Explain why the recommended treatments are medically necessary",
+            "required": true,
+            "medical_necessity": true,
+            "helper_text": "Document why conservative measures are insufficient and how the recommended treatment will improve function"
+          }
+        ]
+      }
+    ],
+    "medical_necessity_elements": [
+      "Document functional limitations caused by the condition",
+      "Include quantifiable measurements where possible",
+      "Describe failed conservative treatments",
+      "Connect treatments directly to functional improvements",
+      "Justify the medical necessity of each recommended procedure"
+    ]
+  }
+]

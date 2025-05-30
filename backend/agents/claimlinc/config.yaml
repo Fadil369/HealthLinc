@@ -1,0 +1,38 @@
+# ClaimLinc Configuration
+
+# Agent information
+name: ClaimLinc
+version: 1.0.0
+description: LINC Agent for healthcare claims processing
+
+# Runtime configuration
+logging:
+  level: INFO
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
+# API endpoints (for production)
+endpoints:
+  fhir: https://api.healthlinc.app/fhir
+  clearinghouse: https://clearing.healthlinc.app/api/v1
+  payers:
+    - name: Aetna
+      endpoint: https://api.aetna.com/v1/claims
+      auth_type: oauth2
+    - name: United
+      endpoint: https://api.unitedhealthcare.com/v2/claims
+      auth_type: api_key
+    - name: BlueCross
+      endpoint: https://api.bcbs.com/v1/claims 
+      auth_type: oauth2
+
+# Default timeouts (seconds)
+timeouts:
+  fhir_query: 10
+  payer_submission: 30
+  clearinghouse: 15
+
+# Feature flags
+features:
+  use_ai_validation: true
+  automatic_resubmission: true
+  real_time_eligibility: true

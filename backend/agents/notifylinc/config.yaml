@@ -1,0 +1,70 @@
+## NotifyLinc Configuration
+
+# Service Configuration
+service:
+  name: NotifyLinc
+  version: 1.0.0
+  description: LINC Agent for notifications and alerts
+
+# API Configuration
+api:
+  port: 3004
+  host: 0.0.0.0
+  prefix: /agents/notify
+  
+# Authentication Configuration
+auth:
+  service_url: ${AUTH_SERVICE_URL:http://authlinc:3003}
+  required: true
+
+# Email Configuration
+email:
+  smtp:
+    server: ${SMTP_SERVER:smtp.gmail.com}
+    port: ${SMTP_PORT:587}
+    username: ${SMTP_USERNAME:noreply@healthlinc.app}
+    password: ${SMTP_PASSWORD:change-in-production}
+    use_tls: true
+  default_sender: ${DEFAULT_SENDER:HealthLinc <noreply@healthlinc.app>}
+  templates_dir: ./templates/email
+
+# SMS Configuration
+sms:
+  provider: ${SMS_PROVIDER:twilio}  # twilio, sns, etc.
+  twilio:
+    account_sid: ${TWILIO_ACCOUNT_SID:}
+    auth_token: ${TWILIO_AUTH_TOKEN:}
+    from_number: ${TWILIO_FROM_NUMBER:}
+  aws_sns:
+    region: ${AWS_REGION:us-west-2}
+    access_key_id: ${AWS_ACCESS_KEY_ID:}
+    secret_access_key: ${AWS_SECRET_ACCESS_KEY:}
+
+# Push Notification Configuration
+push:
+  provider: ${PUSH_PROVIDER:firebase}
+  firebase:
+    credentials_file: ${FIREBASE_CREDENTIALS_FILE:}
+    database_url: ${FIREBASE_DATABASE_URL:}
+  
+# Slack Configuration
+slack:
+  webhook_url: ${SLACK_WEBHOOK_URL:}
+  default_channel: ${SLACK_DEFAULT_CHANNEL:healthlinc-alerts}
+
+# Teams Configuration
+teams:
+  webhook_url: ${TEAMS_WEBHOOK_URL:}
+
+# Logging Configuration
+logging:
+  level: ${LOG_LEVEL:info}
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+# Notification Configuration
+notification:
+  retry:
+    max_attempts: 3
+    backoff_factor: 2
+  delivery_tracking: true
+  store_sent_days: 30
