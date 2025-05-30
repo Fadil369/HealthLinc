@@ -1,0 +1,211 @@
+services:
+  # Frontend application
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: brainsait-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - gateway
+    networks:
+      - brainsait-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # API Gateway
+  gateway:
+    build:
+      context: ./backend/gateway
+      dockerfile: Dockerfile
+    container_name: brainsait-gateway
+    ports:
+      - "8000:8000"
+    environment:
+      - JWT_SECRET=${JWT_SECRET:-brainsait2025supersecret}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - AUTH_SERVICE_URL=http://auth:8000
+      - CLAIMLINC_SERVICE_URL=http://claimlinc:8000
+      - PAYMENT_SERVICE_URL=http://payments:8002
+      - AGENTS_SERVICE_URL=http://agents:8004
+    volumes:
+      - ./backend/gateway:/app
+      - ./logs/gateway:/app/logs
+    networks:
+      - brainsait-network
+    depends_on:
+      - auth
+      - claimlinc
+      - payments
+      - agents
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # Authentication Service
+  auth:
+    build:
+      context: ./backend/auth
+      dockerfile: Dockerfile
+    container_name: brainsait-auth
+    environment:
+      - JWT_SECRET=${JWT_SECRET:-brainsait2025supersecret}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - DB_PATH=/app/data/brainsait.db
+    volumes:
+      - ./backend/auth:/app
+      - ./data/auth:/app/data
+      - ./logs/auth:/app/logs
+    networks:
+      - brainsait-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # ClaimLinc Service (NPHIES Integration)
+  claimlinc:
+    build:
+      context: ./backend/claimlinc
+      dockerfile: Dockerfile
+    container_name: brainsait-claimlinc
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - NPHIES_API_URL=${NPHIES_API_URL:-http://172.16.6.66:7000}
+      - NPHIES_BASE_URL=${NPHIES_BASE_URL:-https://HSB.nphies.sa/$process-message}
+      - NPHIES_CLIENT_ID=${NPHIES_CLIENT_ID:-your_nphies_client_id}
+      - NPHIES_CLIENT_SECRET=${NPHIES_CLIENT_SECRET:-your_nphies_client_secret}
+    volumes:
+      - ./backend/claimlinc:/app
+      - ./logs/claimlinc:/app/logs
+    networks:
+      - brainsait-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # Payments Service
+  payments:
+    build:
+      context: ./backend/payments
+      dockerfile: Dockerfile
+    container_name: brainsait-payments
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - STRIPE_API_KEY=${STRIPE_API_KEY:-your_stripe_api_key}
+      - STRIPE_WEBHOOK_SECRET=${STRIPE_WEBHOOK_SECRET:-your_stripe_webhook_secret}
+    volumes:
+      - ./backend/payments:/app
+      - ./logs/payments:/app/logs
+    networks:
+      - brainsait-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8002/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # AI Agents Service
+  agents:
+    build:
+      context: ./backend/agents
+      dockerfile: Dockerfile
+    container_name: brainsait-agents
+    environment:
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-your_openai_key}
+    volumes:
+      - ./backend/agents:/app
+      - ./logs/agents:/app/logs
+    networks:
+      - brainsait-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8004/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # Redis for caching and pub/sub
+  redis:
+    image: redis:alpine
+    container_name: brainsait-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data
+    networks:
+      - brainsait-network
+    command: redis-server --appendonly yes
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 20s
+
+  # ChromaDB for vector database and AI embeddings
+  chromadb:
+    image: ghcr.io/chroma-core/chroma:latest
+    container_name: brainsait-chromadb
+    environment:
+      - CHROMA_DB_IMPL=duckdb+parquet
+      - CHROMA_PERSIST_DIRECTORY=/chroma/data
+    volumes:
+      - ./data/chromadb:/chroma/data
+    networks:
+      - brainsait-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+      
+  # HAPI FHIR Server for healthcare data
+  fhir-server:
+    image: hapiproject/hapi:latest
+    container_name: brainsait-fhir
+    ports:
+      - "8080:8080"
+    environment:
+      - HAPI_FHIR_VERSION=R4
+      - HAPI_FHIR_ALLOW_MULTIPLE_DELETE=true
+      - HAPI_FHIR_ALLOW_EXTERNAL_REFERENCES=true
+    volumes:
+      - ./data/hapi:/data/hapi
+    networks:
+      - brainsait-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/fhir/metadata"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+networks:
+  brainsait-network:
+    driver: bridge

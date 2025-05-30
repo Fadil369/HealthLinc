@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: brainsait-frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: brainsait-frontend
+  template:
+    metadata:
+      labels:
+        app: brainsait-frontend
+    spec:
+      containers:
+      - name: frontend
+        image: brainsait-frontend:latest
+        ports:
+        - containerPort: 80
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: brainsait-frontend
+spec:
+  selector:
+    app: brainsait-frontend
+  ports:
+  - port: 80
+    targetPort: 80
+  type: LoadBalancer

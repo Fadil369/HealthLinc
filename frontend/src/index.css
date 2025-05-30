@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+  }
+  
+  .dark {
+    color-scheme: dark;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+  }
+  
+  html {
+    @apply antialiased scroll-smooth;
+  }
+
+  body {
+    @apply bg-white dark:bg-dark-950 text-neutral-900 dark:text-dark-50;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* RTL specific adjustments */
+  [dir="rtl"] .reverse-on-rtl {
+    @apply transform scale-x-[-1];
+  }
+  
+  /* Improve focus styles for keyboard navigation */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-accent-500;
+  }
+  
+  /* Animations */
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+}
+
+@layer components {
+  .shimmer {
+    @apply bg-gradient-to-r from-transparent via-white/10 to-transparent bg-[length:1000px_100%];
+    animation: shimmer 2s infinite;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-200 hover:shadow-lg hover:scale-102;
+  }
+}
+
+@layer utilities {
+  .rtl-grid {
+    @apply grid;
+    direction: inherit;
+  }
+  
+  .rtl-rotate-180 {
+    @apply rtl:rotate-180;
+  }
+  
+  .font-inter {
+    font-family: 'Inter', sans-serif;
+  }
+}
