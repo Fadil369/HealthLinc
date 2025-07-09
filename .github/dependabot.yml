@@ -1,0 +1,22 @@
+version: 2
+updates:
+  # For JavaScript/TypeScript using npm or yarn
+  - package-ecosystem: "npm"
+    directory: "/" # Adjust if your package.json is in a subdirectory
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+
+  # For Python using pip
+  - package-ecosystem: "pip"
+    directory: "/" # Adjust if your requirements.txt or pyproject.toml is in a subdirectory
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+
+  # For Docker, if you have Dockerfiles
+  - package-ecosystem: "docker"
+    directory: "/" # Adjust if your Dockerfile is in a subdirectory
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
