@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthFlicks Demo - BrainSAIT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+        
+        .container {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .video-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .demo-content {
+            text-align: center;
+            padding: 2rem;
+            max-width: 600px;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature:hover {
+            transform: translateY(-4px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .feature-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .demo-button {
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 2rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .coming-soon {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .tech-stack {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        
+        .mockup-phone {
+            position: absolute;
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 300px;
+            height: 600px;
+            background: #1a1a1a;
+            border-radius: 30px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            border: 2px solid #333;
+        }
+        
+        .mockup-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #4a90e2 0%, #7b68ee 100%);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mockup-content {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            color: white;
+        }
+        
+        .mockup-title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .mockup-desc {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+        
+        .mockup-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .mockup-stats {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.7rem;
+        }
+        
+        .play-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        
+        .play-button:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        @media (max-width: 768px) {
+            .mockup-phone {
+                display: none;
+            }
+            
+            .title {
+                font-size: 2rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="video-container">
+            <div class="coming-soon">
+                🚧 In Development
+            </div>
+            
+            <div class="demo-content">
+                <div class="logo">🎥 HealthFlicks</div>
+                <h1 class="title">TikTok-Style Health Education</h1>
+                <p class="subtitle">
+                    Making medical information engaging, digestible, and shareable through short-form vertical videos
+                </p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <div class="feature-icon">🎬</div>
+                        <div class="feature-title">Short-Form Videos</div>
+                        <div class="feature-desc">15-90 second educational content</div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">👨‍⚕️</div>
+                        <div class="feature-title">Verified Professionals</div>
+                        <div class="feature-desc">Content from certified healthcare providers</div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">🧠</div>
+                        <div class="feature-title">AI-Powered</div>
+                        <div class="feature-desc">Personalized recommendations & fact-checking</div>
+                    </div>
+                    
+                    <div class="feature">
+                        <div class="feature-icon">🌍</div>
+                        <div class="feature-title">Multilingual</div>
+                        <div class="feature-desc">Arabic & English support</div>
+                    </div>
+                </div>
+                
+                <button class="demo-button" onclick="showImplementation()">
+                    View Implementation Details
+                </button>
+            </div>
+            
+            <div class="mockup-phone">
+                <div class="mockup-screen">
+                    <button class="play-button" onclick="playDemo()">▶</button>
+                    <div class="mockup-content">
+                        <div class="mockup-title">How to Check Your Blood Pressure</div>
+                        <div class="mockup-desc">Learn proper technique for accurate readings</div>
+                        <div class="mockup-actions">
+                            <div class="mockup-stats">
+                                <span>👁️ 12.5K</span>
+                                <span>❤️ 982</span>
+                                <span>💬 89</span>
+                            </div>
+                            <div>Dr. Sarah Johnson</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tech-stack">
+                Built with React + TypeScript + Framer Motion + Tailwind CSS
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function playDemo() {
+            alert('🎥 Demo video would play here!\\n\\nThis is a preview of the HealthFlicks component.\\n\\nThe full implementation includes:\\n• Swipe navigation\\n• Video controls\\n• User interactions\\n• AI recommendations\\n• Healthcare professional verification');
+        }
+        
+        function showImplementation() {
+            const details = `
+🎯 HealthFlicks Implementation Details:
+
+✅ COMPLETED:
+• TikTok-style video player component
+• Swipe-based navigation (up/down)
+• Video controls (play/pause/mute)
+• User engagement features (like/save/share)
+• Healthcare professional verification UI
+• Medical content categories
+• Progress indicators
+• Responsive design
+
+🔧 TECHNICAL FEATURES:
+• React with TypeScript
+• Framer Motion for animations
+• Tailwind CSS for styling
+• Mock data for demonstration
+• Mobile-first responsive design
+
+🚀 NEXT STEPS:
+• Backend API integration
+• Video upload system
+• AI-powered recommendations
+• Real-time analytics
+• Content moderation system
+• HIPAA compliance features
+
+📱 The component is ready for integration with the BrainSAIT platform!
+            `;
+            alert(details);
+        }
+        
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            const features = document.querySelectorAll('.feature');
+            features.forEach((feature, index) => {
+                feature.style.animationDelay = `${index * 0.2}s`;
+                feature.style.animation = 'fadeInUp 0.6s ease forwards';
+            });
+        });
+        
+        // Add CSS animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            .feature {
+                opacity: 0;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>

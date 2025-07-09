@@ -22,6 +22,7 @@ import { RCMOptimizer } from './pages/RCMOptimizer';
 import { MonitorCompliance } from './pages/MonitorCompliance';
 import { IoTDataHub } from './pages/IoTDataHub';
 import { Settings } from './pages/Settings';
+import { HealthFlicks } from './pages/HealthFlicks';
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
                   <Route path="clinical-notes" element={<ClinicalNotes />} />
                   <Route path="prior-auth" element={<PriorAuth />} />
                   <Route path="telehealth" element={<TelehealthConcierge />} />
+                  <Route path="healthflicks" element={<HealthFlicks />} />
                   <Route path="rcm-optimizer" element={<RCMOptimizer />} />
                   <Route path="monitor-compliance" element={<MonitorCompliance />} />
                   <Route path="iot-data-hub" element={<IoTDataHub />} />
