@@ -14,6 +14,11 @@ export default defineConfig(({ mode }) => {
         '@': resolve(__dirname, 'src'),
       },
     },
+    test: {
+      globals: true,
+      environment: 'jsdom',
+      setupFiles: './src/test/setup.ts',
+    },
     optimizeDeps: {
       exclude: ['lucide-react'],
       include: ['react', 'react-dom', 'react-router-dom'],
