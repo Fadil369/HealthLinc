@@ -3,17 +3,51 @@ main = "src/index.ts"
 compatibility_date = "2025-05-12"
 node_compat = true
 
+# Production KV Namespaces - will be created during setup
 [[kv_namespaces]]
 binding = "HEALTHLINC_TOKENS"
-id = "your-kv-namespace-id" # Replace with actual KV ID after creation
+preview_id = "healthlinc-tokens-preview"
+id = "healthlinc-tokens-prod"
 
 [[kv_namespaces]]
 binding = "HEALTHLINC_LOGS"
-id = "your-logs-kv-id" # Replace with actual KV ID after creation
+preview_id = "healthlinc-logs-preview"
+id = "healthlinc-logs-prod"
 
+# Environment Variables
 [vars]
-ENVIRONMENT = "development"
-ALLOWED_ORIGINS = "http://localhost:3000,https://healthlinc.app"
+ENVIRONMENT = "production"
+ALLOWED_ORIGINS = "https://thefadil.site,https://brainsait.io,https://healthlinc.brainsait.io,https://api.thefadil.site"
 
+# Production Agent Endpoints (updated for your domains)
+AUTHLINC_URL = "https://authlinc.thefadil.site"
+CLAIMLINC_URL = "https://claimlinc.thefadil.site"  
+MATCHLINC_URL = "https://matchlinc.brainsait.io"
+DOCULINC_URL = "https://doculinc.brainsait.io"
+NOTIFYLINC_URL = "https://notifylinc.thefadil.site"
+RECORDLINC_URL = "https://recordlinc.brainsait.io"
+REVIEWERLINC_URL = "https://reviewerlinc.brainsait.io"
+CLAIMTRACKERLINC_URL = "https://claimtrackerlinc.thefadil.site"
+NPHIESLINC_URL = "https://nphieslinc.thefadil.site"
+
+# NPHIES Integration
+NPHIES_INTEGRATION_URL = "https://nphies.brainsait.io"
+FHIR_GATEWAY_URL = "https://fhir.thefadil.site"
+
+# Scheduled Tasks
 [triggers]
 crons = ["0 */6 * * *"] # Run cleanup every 6 hours
+
+# Custom domains for your zones
+[[routes]]
+pattern = "api.thefadil.site/mcp/*"
+zone_name = "thefadil.site"
+
+[[routes]]
+pattern = "healthlinc.brainsait.io/mcp/*"
+zone_name = "brainsait.io"
+
+# Durable Objects for state management (if needed)
+[[migrations]]
+tag = "v1"
+new_classes = ["HealthLincState"]

@@ -1,0 +1,160 @@
+{
+    "resourceType": "Bundle",
+    "id": "284b2d52-21f4-45bf-92dd-654933df1928",
+    "meta": {
+        "profile": [
+            "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+        ]
+    },
+    "type": "message",
+    "timestamp": "2021-12-02T05:06:16.904Z",
+    "entry": [
+        {
+            "fullUrl": "urn:uuid:3fa23591-f89b-4ad9-aa38-0cf23d801928",
+            "resource": {
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+                    ]
+                },
+                "resourceType": "MessageHeader",
+                "id": "3fa23591-f89b-4ad9-aa38-0cf23d801928",
+                "eventCoding": {
+                    "system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+                    "code": "status-check"
+                },
+                "destination": [
+                    {
+                        "endpoint": "http://nphies.sa/license/payer-license/N-I-00001",
+                        "receiver": {
+                            "type": "Organization",
+                            "identifier": {
+                                "system": "http://nphies.sa/license/payer-license",
+                                "value": "N-I-00001"
+                            }
+                        }
+                    }
+                ],
+                "sender": {
+                    "type": "Organization",
+                    "identifier": {
+                        "system": "http://nphies.sa/license/provider-license",
+                        "value": "N-F-00002"
+                    }
+                },
+                "source": {
+                    "endpoint": "http://nphies.sa/license/provider-license/N-F-00002"
+                },
+                "focus": [
+                    {
+                        "reference": "http://saudicentralpharmacy.sa.com/Task/951928"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://saudicentralpharmacy.sa.com/Task/951928",
+            "resource": {
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/task|1.0.0"
+                    ]
+                },
+                "resourceType": "Task",
+                "id": "951928",
+                "identifier": [
+                    {
+                        "system": "http://saudicentralpharmacy.sa.com/task",
+                        "value": "610212"
+                    }
+                ],
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://nphies.sa/terminology/CodeSystem/task-code",
+                            "code": "status"
+                        }
+                    ]
+                },
+                "focus": {
+                    "type": "Claim",
+                    "identifier": {
+                        "system": "http://saudicentralpharmacy.sa.com/claim",
+                        "value": "req_00112482284"
+                    }
+                },
+                "authoredOn": "2021-12-02",
+                "lastModified": "2021-12-02",
+                "status": "requested",
+                "intent": "order",
+                "priority": "routine",
+                "requester": {
+                    "reference": "http://saudicentralpharmacy.sa.com/Organization/b1b3432921324f97af3be9fd0b1a34fa"
+                },
+                "owner": {
+                    "reference": "http://sni.com.sa/Organization/bff3aa1fbd3648619ac082357bf135db"
+                }
+            }
+        },
+        {
+            "fullUrl": "http://saudicentralpharmacy.sa.com/Organization/b1b3432921324f97af3be9fd0b1a34fa",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "b1b3432921324f97af3be9fd0b1a34fa",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://nphies.sa/license/provider-license",
+                        "value": "N-F-00002"
+                    }
+                ],
+                "active": true,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+                                "code": "prov"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Saudi Central Pharmacy"
+            }
+        },
+        {
+            "fullUrl": "http://sni.com.sa/Organization/bff3aa1fbd3648619ac082357bf135db",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "bff3aa1fbd3648619ac082357bf135db",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/insurer-organization|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://nphies.sa/license/payer-license",
+                        "value": "N-I-00001"
+                    }
+                ],
+                "active": true,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+                                "code": "ins"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Saudi National Insurance"
+            }
+        }
+    ]
+}

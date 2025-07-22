@@ -1,0 +1,203 @@
+{
+	"resourceType": "Bundle",
+	"id": "7bd98814-1feb-460d-b129-b9639b12ec8e",
+	"meta": {
+		"profile": [
+			"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+		]
+	},
+	"type": "message",
+	"timestamp": "2023-11-29T05:54:39.383Z",
+	"entry": [
+		{
+			"fullUrl": "urn:uuid:c7ac07d0-6b09-4fc0-b04b-7fb2f1026159",
+			"resource": {
+				"resourceType": "MessageHeader",
+				"id": "c7ac07d0-6b09-4fc0-b04b-7fb2f1026159",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+					]
+				},
+				"eventCoding": {
+					"system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+					"code": "payment-reconciliation"
+				},
+				"destination": [
+					{
+						"endpoint": "http://nphies.sa/license/provider-license/PR-FHIR",
+						"receiver": {
+							"type": "Organization",
+							"identifier": {
+								"system": "http://nphies.sa/license/provider-license",
+								"value": "PR-FHIR"
+							}
+						}
+					}
+				],
+				"sender": {
+					"type": "Organization",
+					"identifier": {
+						"system": "http://nphies.sa/license/payer-license",
+						"value": "INS-FHIR"
+					}
+				},
+				"source": {
+					"endpoint": "http://nphies.sa/license/payer-license/INS-FHIR"
+				},
+				"focus": [
+					{
+						"reference": "http://pseudo-payer.com.sa/PaymentReconciliation/653316"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://pseudo-payer.com.sa/PaymentReconciliation/653316",
+			"resource": {
+				"resourceType": "PaymentReconciliation",
+				"id": "653316",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/payment-reconciliation|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://pseudo-payer.com.sa/paymentreconciliation",
+						"value": "922743"
+					}
+				],
+				"status": "active",
+				"period": {
+					"start": "2023-11-29T05:54:39.383Z",
+					"end": "2023-11-29T05:54:39.383Z"
+				},
+				"created": "2023-11-29T05:54:39.383Z",
+				"paymentIssuer": {
+					"reference": "http://pseudo-payer.com.sa/Organization/11"
+				},
+				"outcome": "complete",
+				"disposition": "Prompt payment made for the month of November, 2023",
+				"paymentDate": "2023-11-29",
+				"paymentAmount": {
+					"value": 230000,
+					"currency": "SAR"
+				},
+				"requestor": {
+					"reference": "http://pseudo-payer.com.sa/Organization/10"
+				},
+				"paymentIdentifier": {
+					"type": {
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/payment-method",
+								"code": "eft"
+							}
+						]
+					},
+					"system": "http://saudinationalbank/payment",
+					"value": "URN-987590432322"
+				},
+				"detail": [
+					{
+						"extension": [
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-component-payment",
+								"valueMoney": {
+									"value": 230000,
+									"currency": "SAR"
+								}
+							},
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-component-early-fee",
+								"valueMoney": {
+									"value": 0,
+									"currency": "SAR"
+								}
+							}
+						],
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/payment-type",
+									"code": "advance"
+								}
+							]
+						},
+						"submitter": {
+							"reference": "organization/10"
+						},
+						"date": "2023-11-29",
+						"payee": {
+							"reference": "http://pseudo-payer.com.sa/Organization/10"
+						},
+						"amount": {
+							"value": 230000,
+							"currency": "SAR"
+						}
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://pseudo-payer.com.sa/Organization/10",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "10",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://nphies.sa/license/provider-license",
+						"value": "PR-FHIR"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "prov"
+							}
+						]
+					}
+				],
+				"name": "Saudi General Hospital"
+			}
+		},
+		{
+			"fullUrl": "http://pseudo-payer.com.sa/Organization/11",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "11",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/insurer-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://nphies.sa/license/payer-license",
+						"value": "INS-FHIR"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "ins"
+							}
+						]
+					}
+				]
+			}
+		}
+	]
+}

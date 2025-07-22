@@ -29,12 +29,17 @@ export interface LogEntry {
 }
 
 // LINC Agent types
-export type LINCAgent = 'ClaimLinc' | 'RecordLinc' | 'AuthLinc' | 'NotifyLinc';
+export type LINCAgent = 'ClaimLinc' | 'RecordLinc' | 'AuthLinc' | 'NotifyLinc' | 'NphiesLinc' | 'MatchLinc' | 'DocuLinc' | 'ClaimTrackerLinc' | 'ReviewerLinc';
 
 // Define allowed tasks per agent
 export const ALLOWED_TASKS: Record<LINCAgent, string[]> = {
   'ClaimLinc': ['submit', 'verify', 'dispute', 'check'],
   'RecordLinc': ['create', 'read', 'update', 'delete', 'search'],
-  'AuthLinc': ['login', 'verify', 'reset', 'permissions'],
-  'NotifyLinc': ['alert', 'reminder', 'broadcast']
+  'AuthLinc': ['login', 'verify', 'reset', 'permissions', 'validate'],
+  'NotifyLinc': ['alert', 'reminder', 'broadcast', 'send', 'notify'],
+  'NphiesLinc': ['process_bundle', 'transform', 'route', 'extract', 'submit_to_nphies'],
+  'MatchLinc': ['validate', 'match', 'check_compatibility'],
+  'DocuLinc': ['generate', 'enhance', 'template'],
+  'ClaimTrackerLinc': ['track', 'status', 'update', 'monitor'],
+  'ReviewerLinc': ['review', 'approve', 'reject', 'audit']
 };

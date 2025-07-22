@@ -1,0 +1,374 @@
+{
+	"resourceType": "Bundle",
+	"id": "738af8fc-b20a-422d-ba1d-6b809bb62298",
+	"meta": {
+		"profile": [
+			"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+		]
+	},
+	"type": "message",
+	"timestamp": "2022-09-15T18:10:44.732+00:00",
+	"entry": [
+		{
+			"fullUrl": "http://pseudo-payer.com.sa/MessageHeader/235561cc-1b34-45f8-8e96-f10d56212298",
+			"resource": {
+				"resourceType": "MessageHeader",
+				"id": "235561cc-1b34-45f8-8e96-f10d56212298",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+					]
+				},
+				"eventCoding": {
+					"system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+					"code": "advanced-authorization"
+				},
+				"destination": [
+					{
+						"endpoint": "http://provider.com.sa",
+						"receiver": {
+							"type": "Organization",
+							"identifier": {
+								"system": "http://nphies.sa/license/provider-license",
+								"value": "PR-FHIR"
+							}
+						}
+					}
+				],
+				"sender": {
+					"type": "Organization",
+					"identifier": {
+						"system": "http://nphies.sa/license/payer-license",
+						"value": "INS-FHIR"
+					}
+				},
+				"source": {
+					"endpoint": "http://pseudo-payer.com.sa"
+				},
+				"focus": [
+					{
+						"reference": "http://pseudo-payer.com.sa/ClaimResponse/402298"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://pseudo-payer.com.sa/ClaimResponse/402298",
+			"resource": {
+				"resourceType": "ClaimResponse",
+				"id": "402298",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/advanced-authorization|1.0.0"
+					]
+				},
+				"extension": [
+					{
+						"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-adjudication-reissue",
+						"valueCodeableConcept": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/reissue-reason",
+									"code": "cancel"
+								}
+							]
+						}
+					},
+					{
+						"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-advancedAuth-reason",
+						"valueCodeableConcept": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/advancedAuth-reason",
+									"code": "referral"
+								}
+							]
+						}
+					},
+					{
+						"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-newborn",
+						"valueBoolean": false
+					},
+					{
+						"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-serviceProvider",
+						"valueReference": {
+							"reference": "http://pseudo-payer.com.sa/Organization/3"
+						}
+					},
+					{
+						"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-diagnosis",
+						"extension": [
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-diagnosis-sequence",
+								"valuePositiveInt": 1
+							},
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-diagnosis-diagnosisCodeableConcept",
+								"valueCodeableConcept": {
+									"coding": [
+										{
+											"system": "http://hl7.org/fhir/sid/icd-10-am",
+											"code": "K01.1"
+										}
+									]
+								}
+							},
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-diagnosis-type",
+								"valueCodeableConcept": {
+									"coding": [
+										{
+											"system": "http://nphies.sa/terminology/CodeSystem/diagnosis-type",
+											"code": "principal"
+										}
+									]
+								}
+							}
+						]
+					},
+					{
+						"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-diagnosis",
+						"extension": [
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-diagnosis-sequence",
+								"valuePositiveInt": 2
+							},
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-diagnosis-diagnosisCodeableConcept",
+								"valueCodeableConcept": {
+									"coding": [
+										{
+											"system": "http://hl7.org/fhir/sid/icd-10-am",
+											"code": "V49.4"
+										}
+									]
+								}
+							},
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-diagnosis-type",
+								"valueCodeableConcept": {
+									"coding": [
+										{
+											"system": "http://nphies.sa/terminology/CodeSystem/diagnosis-type",
+											"code": "secondary"
+										}
+									]
+								}
+							}
+						]
+					}
+				],
+				"identifier": [
+					{
+						"system": "http://pseudo-payer.com.sa/advanced-priorauth",
+						"value": "AdvAuth-402298"
+					}
+				],
+				"status": "active",
+				"type": {
+					"coding": [
+						{
+							"system": "http://terminology.hl7.org/CodeSystem/claim-type",
+							"code": "oral"
+						}
+					]
+				},
+				"subType": {
+					"coding": [
+						{
+							"system": "http://nphies.sa/terminology/CodeSystem/claim-subtype",
+							"code": "op"
+						}
+					]
+				},
+				"use": "preauthorization",
+				"patient": {
+					"reference": "http://pseudo-payer.com.sa/Patient/3"
+				},
+				"created": "2022-07-18",
+				"insurer": {
+					"reference": "http://pseudo-payer.com.sa/Organization/11"
+				},
+				"outcome": "complete",
+				"preAuthRef": "AdAuth-150123-1428",
+				"preAuthPeriod": {
+					"start": "2022-09-15T18:10:44.732+00:00",
+					"end": "2022-10-15T18:10:44.732+00:00"
+				},
+				"processNote": [
+					{
+						"number": "1",
+						"type": "display",
+						"text": "Cancelling the Adavanced Authoraization, issued for the wrong provider"
+					}
+				],
+				"insurance": [
+					{
+						"sequence": 1,
+						"focal": true,
+						"coverage": {
+							"reference": "http://pseudo-payer.com.sa/Coverage/3"
+						}
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://pseudo-payer.com.sa/Patient/3",
+			"resource": {
+				"resourceType": "Patient",
+				"id": "3",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/patient|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"code": "PRC"
+								}
+							]
+						},
+						"system": "http://nphies.sa/identifier/iqama",
+						"value": "00000000003"
+					}
+				],
+				"active": true,
+				"name": [
+					{
+						"text": "Muhammad Ali Abbas",
+						"family": "Abbas",
+						"given": [
+							"Muhammad",
+							"Ali"
+						]
+					}
+				],
+				"gender": "male",
+				"_gender": {
+					"extension": [
+						{
+							"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-ksa-administrative-gender",
+							"valueCodeableConcept": {
+								"coding": [
+									{
+										"system": "http://nphies.sa/terminology/CodeSystem/ksa-administrative-gender",
+										"code": "male"
+									}
+								]
+							}
+						}
+					]
+				},
+				"birthDate": "2010-08-21"
+			}
+		},
+		{
+			"fullUrl": "http://pseudo-payer.com.sa/Organization/3",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "3",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"use": "official",
+						"system": "http://nphies.sa/license/provider-license",
+						"value": "PR-FHIR"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "prov"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://pseudo-payer.com.sa/Organization/11",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "11",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/insurer-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"use": "official",
+						"system": "http://nphies.sa/license/payer-license",
+						"value": "INS-FHIR"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "ins"
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://pseudo-payer.com.sa/Coverage/3",
+			"resource": {
+				"resourceType": "Coverage",
+				"id": "3",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/coverage|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://pseudo-payer.com.sa/memberid",
+						"value": "0000000001-03"
+					}
+				],
+				"status": "active",
+				"type": {
+					"coding": [
+						{
+							"system": "http://nphies.sa/terminology/CodeSystem/coverage-type",
+							"code": "EHCPOL"
+						}
+					]
+				},
+				"beneficiary": {
+					"reference": "Patient/3"
+				},
+				"relationship": {
+					"coding": [
+						{
+							"system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+							"code": "self"
+						}
+					]
+				},
+				"payor": [
+					{
+						"reference": "http://pseudo-payer.com.sa/Organization/11"
+					}
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,23 @@
+
+1. This sample is to help using both ICD-10-AM code and text for supportingInfo category "chief-complaint"
+Chief-complaint.json              
+
+2. The below samples are to be used ONLY as technical references to the newly added extensions; 
+no coherrent and cohesive business stories applied in and through these samples
+                 
+EligRequest for Extension_siteEligibility.json 
+Extension_episodeID_ClaimRequest.json              
+Extension_invoice-Claim Request.json               
+Extension_invoice-Claim Response.json              
+Extension_newborn_ClaimRequest.json                
+Extension_newborn_EligRequest.json                 
+Extension_newborn_PreauthRequest.json              
+Extension_siteEligibility-EligResponse.json  
+
+3. The below samples are for reference purposes only - these will NOT be accepted by NPHIES
+  
+ERROR_Duplicate CodeSystems.json                   
+ERROR_Invalid element.json                         
+ERROR_Item outside activation period.json          
+ERROR_Multiple CodeSystems from same ValueSet.json 
+        

@@ -1,0 +1,115 @@
+name = "brainsait-unified"
+main = "dist/worker.js"
+compatibility_date = "2024-05-30"
+compatibility_flags = ["nodejs_compat"]
+
+# Build configuration
+[build]
+command = "npm run build:worker"
+
+# Environment variables for production
+[env.production]
+name = "brainsait-unified-prod"
+[env.production.vars]
+NODE_ENV = "production"
+LOG_LEVEL = "error"
+CACHE_TTL = "3600"
+API_VERSION = "v1"
+OAUTH_REDIRECT_URL = "https://care.brainsait.io/auth/callback"
+
+# Workers AI binding for production
+[env.production.ai]
+binding = "AI"
+
+# Environment variables for staging
+[env.staging]
+name = "brainsait-unified-staging"
+[env.staging.vars]
+NODE_ENV = "staging"
+LOG_LEVEL = "debug"
+CACHE_TTL = "300"
+API_VERSION = "v1"
+OAUTH_REDIRECT_URL = "https://staging-care.brainsait.io/auth/callback"
+
+# Workers AI binding for staging
+[env.staging.ai]
+binding = "AI"
+
+# Development environment
+[env.development]
+name = "brainsait-unified-dev"
+[env.development.vars]
+NODE_ENV = "development"
+LOG_LEVEL = "debug"
+CACHE_TTL = "60"
+API_VERSION = "v1"
+OAUTH_REDIRECT_URL = "http://localhost:5174/auth/callback"
+
+# Workers AI binding for development
+[env.development.ai]
+binding = "AI"
+
+# Durable Objects configuration (disabled for now)
+# [[durable_objects.bindings]]
+# name = "CHAT_SESSION"
+# class_name = "ChatSession"
+
+# [[durable_objects.bindings]]
+# name = "USER_SESSION"
+# class_name = "UserSession"
+
+# Durable Objects migrations (disabled for now)
+# [[migrations]]
+# tag = "v1"
+# new_sqlite_classes = [ "ChatSession", "UserSession" ]
+
+# KV namespace bindings
+[[kv_namespaces]]
+binding = "BRAINSAIT_KV"
+id = "9b32ccc42b2d4b3aba515a400e96a740"
+
+# Production KV namespace
+[[env.production.kv_namespaces]]
+binding = "BRAINSAIT_KV"
+id = "9b32ccc42b2d4b3aba515a400e96a740"
+
+# Staging KV namespace
+[[env.staging.kv_namespaces]]
+binding = "BRAINSAIT_KV"
+id = "staging-kv-namespace-id"
+
+# Custom domains
+[env.production.route]
+pattern = "care.brainsait.io/*"
+zone_name = "brainsait.io"
+
+[env.staging.route]
+pattern = "staging-care.brainsait.io/*"
+zone_name = "brainsait.io"
+
+# Analytics and monitoring
+[observability]
+enabled = true
+
+# Workers AI binding for AI capabilities (default)
+[ai]
+binding = "AI"
+
+# Rate limiting (removed CPU limits for free plan compatibility)
+# [limits]
+# cpu_ms = 50000
+
+# Vectorize binding for embeddings (commented out for dev)
+# [[vectorize]]
+# binding = "VECTORIZE"
+# index_name = "brainsait-embeddings"
+
+# Queue bindings for async processing (commented out for dev)
+# [[queues.producers]]
+# binding = "TASK_QUEUE"
+# queue = "brainsait-tasks"
+
+# [[queues.consumers]]
+# queue = "brainsait-tasks"
+# max_batch_size = 10
+# max_batch_timeout = 30

@@ -1,0 +1,487 @@
+{
+	"resourceType": "Bundle",
+	"id": "b715edfd-8ed6-4559-aa03-fbc857eb22aa",
+	"meta": {
+		"profile": [
+			"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+		]
+	},
+	"type": "message",
+	"timestamp": "2021-11-30T08:52:26.132+03:00",
+	"entry": [
+		{
+			"fullUrl": "http://nphies.sa/MessageHeader/47755e39-5908-44bf-becb-bae789bdc6e7",
+			"resource": {
+				"resourceType": "MessageHeader",
+				"id": "47755e39-5908-44bf-becb-bae789bdc6e7",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+					],
+					"tag": [
+						{
+							"system": "http://nphies.sa/terminology/CodeSystem/meta-tags",
+							"code": "queued-messages"
+						}
+					]
+				},
+				"eventCoding": {
+					"system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+					"code": "poll-response"
+				},
+				"destination": [
+					{
+						"endpoint": "http://nphies.sa/license/provider-license/N-F-00001",
+						"receiver": {
+							"type": "Organization",
+							"identifier": {
+								"system": "http://nphies.sa/license/provider-license",
+								"value": "N-F-00001"
+							}
+						}
+					}
+				],
+				"sender": {
+					"type": "Organization",
+					"identifier": {
+						"system": "http://nphies.sa/license/nphies",
+						"value": "NPHIES"
+					}
+				},
+				"source": {
+					"endpoint": "http://nphies.sa/"
+				},
+				"response": {
+					"identifier": "cb681f6e-a1a8-42bc-8d34-fc7bd7c694e0",
+					"code": "ok"
+				}
+			}
+		},
+		{
+			"fullUrl": "http://nphies.sa/Task/69281c45-da6e-4f40-985f-7c9b08f9768e",
+			"resource": {
+				"resourceType": "Task",
+				"id": "69281c45-da6e-4f40-985f-7c9b08f9768e",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/task|1.0.0"
+					],
+					"tag": [
+						{
+							"code": "NPHIES generated",
+							"display": "NPHIES generated"
+						}
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://nphies.sa/task",
+						"value": "139"
+					}
+				],
+				"status": "completed",
+				"intent": "order",
+				"priority": "stat",
+				"code": {
+					"coding": [
+						{
+							"system": "http://nphies.sa/terminology/CodeSystem/task-code",
+							"code": "poll"
+						}
+					]
+				},
+				"authoredOn": "2021-11-30",
+				"lastModified": "2021-11-30",
+				"requester": {
+					"reference": "Organization/10"
+				},
+				"owner": {
+					"identifier": {
+						"system": "http://nphies.sa/license/nphies",
+						"value": "NPHIES"
+					}
+				},
+				"input": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/task-input-type",
+									"code": "include-message-type"
+								}
+							]
+						},
+						"valueCode": "claim-response"
+					}
+				],
+				"output": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/ValueSet/task-output-type",
+									"code": "response"
+								}
+							]
+						},
+						"valueReference": {
+							"reference": "http://nphies.sa/Bundle/b0e34661-3b06-11ec-b009-39eda7432945"
+						}
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://nphies.sa/Bundle/b0e34661-3b06-11ec-b009-39eda7432945",
+			"resource": {
+				"resourceType": "Bundle",
+				"id": "b0e34661-3b06-11ec-b009-39eda7432945",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+					]
+				},
+				"type": "message",
+				"timestamp": "2021-11-01T13:48:49.299+03:00",
+				"entry": [
+					{
+						"fullUrl": "http://N-F-00001.com.sa/MessageHeader/b0e34662-3b06-11ec-b009-e1ad19b60bd0",
+						"resource": {
+							"resourceType": "MessageHeader",
+							"id": "b0e34662-3b06-11ec-b009-e1ad19b60bd0",
+							"meta": {
+								"profile": [
+									"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+								]
+							},
+							"eventCoding": {
+								"system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+								"code": "claim-response"
+							},
+							"destination": [
+								{
+									"endpoint": "http://10.1.24.10/",
+									"receiver": {
+										"type": "Organization",
+										"identifier": {
+											"system": "http://nphies.sa/license/provider-license",
+											"value": "N-F-00001"
+										}
+									}
+								}
+							],
+							"sender": {
+								"type": "Organization",
+								"identifier": {
+									"system": "http://nphies.sa/license/payer-license",
+									"value": "N-I-00001"
+								}
+							},
+							"source": {
+								"endpoint": "http://insurer.com"
+							},
+							"focus": [
+								{
+									"reference": "http://N-F-00001.com.sa/ClaimResponse/MsGOgpXbvV"
+								}
+							]
+						}
+					},
+					{
+						"fullUrl": "http://N-F-00001.com.sa/ClaimResponse/MsGOgpXbvV",
+						"resource": {
+							"resourceType": "ClaimResponse",
+							"id": "MsGOgpXbvV",
+							"meta": {
+								"profile": [
+									"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/claim-response|1.0.0"
+								]
+							},
+							"extension": [
+								{
+									"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-adjudication-outcome",
+									"valueCodeableConcept": {
+										"coding": [
+											{
+												"system": "http://nphies.sa/terminology/CodeSystem/adjudication-outcome",
+												"code": "approved"
+											}
+										]
+									}
+								},
+								{
+									"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-adjudication-reissue",
+									"valueCodeableConcept": {
+										"coding": [
+											{
+												"system": "http://nphies.sa/terminology/CodeSystem/reissue-reason",
+												"code": "audit"
+											}
+										]
+									}
+								}
+							],
+							"identifier": [
+								{
+									"system": "http://insurer.com/",
+									"value": "MsGOgpXbvV"
+								}
+							],
+							"status": "active",
+							"type": {
+								"coding": [
+									{
+										"system": "http://terminology.hl7.org/CodeSystem/claim-type",
+										"code": "professional"
+									}
+								]
+							},
+							"use": "claim",
+							"patient": {
+								"reference": "http://N-F-00001.com.sa/Patient/3"
+							},
+							"created": "2021-11-01",
+							"insurer": {
+								"reference": "Organization/11"
+							},
+							"requestor": {
+								"reference": "http://N-F-00001.com.sa/Organization/0cc53891bee64a7b89f55fa545dce6b4"
+							},
+							"request": {
+								"type": "Claim",
+								"identifier": {
+									"system": "http://happyvalley.com/claim",
+									"value": "iMXbxXMGMR"
+								}
+							},
+							"outcome": "complete",
+							"item": [
+								{
+									"extension": [
+										{
+											"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-adjudication-outcome",
+											"valueCodeableConcept": {
+												"coding": [
+													{
+														"system": "http://nphies.sa/terminology/CodeSystem/adjudication-outcome",
+														"code": "approved"
+													}
+												]
+											}
+										}
+									],
+									"itemSequence": 1,
+									"adjudication": [
+										{
+											"category": {
+												"coding": [
+													{
+														"system": "http://terminology.hl7.org/CodeSystem/adjudication",
+														"code": "benefit"
+													}
+												]
+											},
+											"amount": {
+												"value": 285,
+												"currency": "SAR"
+											}
+										},
+										{
+											"category": {
+												"coding": [
+													{
+														"system": "http://terminology.hl7.org/CodeSystem/adjudication",
+														"code": "eligible"
+													}
+												]
+											},
+											"amount": {
+												"value": 100,
+												"currency": "SAR"
+											}
+										}
+									]
+								}
+							],
+							"total": [
+								{
+									"category": {
+										"coding": [
+											{
+												"system": "http://terminology.hl7.org/CodeSystem/adjudication",
+												"code": "benefit"
+											}
+										]
+									},
+									"amount": {
+										"value": 285,
+										"currency": "SAR"
+									}
+								},
+								{
+									"category": {
+										"coding": [
+											{
+												"system": "http://terminology.hl7.org/CodeSystem/adjudication",
+												"code": "eligible"
+											}
+										]
+									},
+									"amount": {
+										"value": 100,
+										"currency": "SAR"
+									}
+								}
+							]
+						}
+					},
+					{
+						"fullUrl": "http://N-F-00001.com.sa/Patient/3",
+						"resource": {
+							"resourceType": "Patient",
+							"id": "3",
+							"meta": {
+								"profile": [
+									"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/patient|1.0.0"
+								]
+							},
+							"identifier": [
+								{
+									"type": {
+										"coding": [
+											{
+												"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+												"code": "PRC"
+											}
+										]
+									},
+									"system": "http://nphies.sa/identifier/iqama",
+									"value": "00000000003"
+								}
+							],
+							"active": true,
+							"name": [
+								{
+									"text": "Muhammad Ali Abbas",
+									"family": "Abbas",
+									"given": [
+										"Muhammad",
+										"Ali"
+									]
+								}
+							],
+							"gender": "male",
+							"_gender": {
+								"extension": [
+									{
+										"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-ksa-administrative-gender",
+										"valueCodeableConcept": {
+											"coding": [
+												{
+													"system": "http://nphies.sa/terminology/CodeSystem/ksa-administrative-gender",
+													"code": "male"
+												}
+											]
+										}
+									}
+								]
+							},
+							"birthDate": "2010-08-21"
+						}
+					},
+					{
+						"fullUrl": "http://N-F-00001.com.sa/Organization/11",
+						"resource": {
+							"resourceType": "Organization",
+							"id": "11",
+							"meta": {
+								"profile": [
+									"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/insurer-organization|1.0.0"
+								]
+							},
+							"identifier": [
+								{
+									"use": "official",
+									"system": "http://nphies.sa/license/payer-license",
+									"value": "N-I-00001"
+								}
+							],
+							"active": true,
+							"type": [
+								{
+									"coding": [
+										{
+											"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+											"code": "ins"
+										}
+									]
+								}
+							]
+						}
+					},
+					{
+						"fullUrl": "http://N-F-00001.com.sa/Organization/0cc53891bee64a7b89f55fa545dce6b4",
+						"resource": {
+							"resourceType": "Organization",
+							"id": "0cc53891bee64a7b89f55fa545dce6b4",
+							"meta": {
+								"profile": [
+									"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0"
+								]
+							},
+							"identifier": [
+								{
+									"system": "http://nphies.sa/license/provider-license",
+									"value": "N-F-00001"
+								}
+							],
+							"active": true,
+							"type": [
+								{
+									"coding": [
+										{
+											"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+											"code": "prov"
+										}
+									],
+									"text": "PR-34-309"
+								}
+							],
+							"name": "Ibby Davydoch"
+						}
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://sgh.com.sa/Organization/10",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "10",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"use": "official",
+						"system": "http://nphies.sa/license/provider-license",
+						"value": "N-F-00001"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "prov"
+							}
+						]
+					}
+				]
+			}
+		}
+	]
+}

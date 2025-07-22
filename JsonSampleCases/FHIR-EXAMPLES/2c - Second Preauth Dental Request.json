@@ -1,0 +1,679 @@
+{
+	"resourceType": "Bundle",
+	"id": "9004205a-65cc-4b97-af94-a04cb5e99051",
+	"meta": {
+		"profile": [
+			"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+		]
+	},
+	"type": "message",
+	"timestamp": "2021-10-07T09:39:10.32+03:00",
+	"entry": [
+		{
+			"fullUrl": "urn:uuid:54cf5884-662c-4f1d-85a2-a4a923a99051",
+			"resource": {
+				"resourceType": "MessageHeader",
+				"id": "54cf5884-662c-4f1d-85a2-a4a923a99051",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+					]
+				},
+				"eventCoding": {
+					"system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+					"code": "priorauth-request"
+				},
+				"destination": [
+					{
+						"endpoint": "http://nphies.sa/license/payer-license/N-I-00001",
+						"receiver": {
+							"type": "Organization",
+							"identifier": {
+								"system": "http://nphies.sa/license/payer-license",
+								"value": "N-I-00001"
+							}
+						}
+					}
+				],
+				"sender": {
+					"type": "Organization",
+					"identifier": {
+						"system": "http://nphies.sa/license/provider-license",
+						"value": "N-F-00003"
+					}
+				},
+				"source": {
+					"endpoint": "http://saudidentalclinic.com.sa/N-F-00003"
+				},
+				"focus": [
+					{
+						"reference": "http://saudidentalclinic.com.sa/Claim/299051"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Claim/299051",
+			"resource": {
+				"resourceType": "Claim",
+				"id": "299051",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/oral-priorauth|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://saudidentalclinic.com.sa/authorization",
+						"value": "req_299051"
+					}
+				],
+				"status": "active",
+				"type": {
+					"coding": [
+						{
+							"system": "http://terminology.hl7.org/CodeSystem/claim-type",
+							"code": "oral"
+						}
+					]
+				},
+				"subType": {
+					"coding": [
+						{
+							"system": "http://nphies.sa/terminology/CodeSystem/claim-subtype",
+							"code": "op"
+						}
+					]
+				},
+				"use": "preauthorization",
+				"patient": {
+					"reference": "http://saudidentalclinic.com.sa/Patient/3"
+				},
+				"created": "2021-10-07",
+				"insurer": {
+					"reference": "http://saudidentalclinic.com.sa/Organization/bff3aa1fbd3648619ac082357bf135db"
+				},
+				"provider": {
+					"reference": "http://saudidentalclinic.com.sa/Organization/b1b3432921324f97af3be9fd0b1a14ae"
+				},
+				"priority": {
+					"coding": [
+						{
+							"system": "http://terminology.hl7.org/CodeSystem/processpriority",
+							"code": "normal"
+						}
+					]
+				},
+				"related": [
+					{
+						"claim": {
+							"identifier": {
+								"system": "http://saudidentalclinic.com.sa/authorization",
+								"value": "req_298390"
+							}
+						},
+						"relationship": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/related-claim-relationship",
+									"code": "prior"
+								}
+							]
+						}
+					}
+				],
+				"payee": {
+					"type": {
+						"coding": [
+							{
+								"system": "http://terminology.hl7.org/CodeSystem/payeetype",
+								"code": "provider"
+							}
+						]
+					}
+				},
+				"careTeam": [
+					{
+						"sequence": 1,
+						"provider": {
+							"reference": "http://saudidentalclinic.com.sa/Practitioner/7"
+						},
+						"role": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/claimcareteamrole",
+									"code": "primary"
+								}
+							]
+						},
+						"qualification": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/practice-codes",
+									"code": "22.00"
+								}
+							]
+						}
+					}
+				],
+				"supportingInfo": [
+					{
+						"sequence": 1,
+						"category": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/claim-information-category",
+									"code": "attachment"
+								}
+							]
+						},
+						"valueAttachment": {
+							"contentType": "image/jpeg",
+							"title": "Sara Khan X-Ray.jpg",
+							"creation": "2021-10-07",
+							"data": "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"
+						}
+					}
+				],
+				"diagnosis": [
+					{
+						"sequence": 1,
+						"diagnosisCodeableConcept": {
+							"coding": [
+								{
+									"system": "http://hl7.org/fhir/sid/icd-10-am",
+									"code": "K01.1"
+								}
+							]
+						},
+						"type": [
+							{
+								"coding": [
+									{
+										"system": "http://nphies.sa/terminology/CodeSystem/diagnosis-type",
+										"code": "principal"
+									}
+								]
+							}
+						]
+					}
+				],
+				"insurance": [
+					{
+						"sequence": 1,
+						"focal": true,
+						"coverage": {
+							"reference": "http://saudidentalclinic.com.sa/Coverage/3"
+						}
+					}
+				],
+				"item": [
+					{
+						"sequence": 1,
+						"careTeamSequence": [
+							1
+						],
+						"diagnosisSequence": [
+							1
+						],
+						"extension": [
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-tax",
+								"valueMoney": {
+									"value": 30,
+									"currency": "SAR"
+								}
+							},
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-patient-share",
+								"valueMoney": {
+									"value": 40,
+									"currency": "SAR"
+								}
+							},
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-package",
+								"valueBoolean": false
+							}
+						],
+						"productOrService": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/oral-health-op",
+									"code": "012",
+									"display": "Periodic oral examination"
+								}
+							]
+						},
+						"servicedDate": "2021-10-07",
+						"quantity": {
+							"value": 1
+						},
+						"unitPrice": {
+							"value": 200,
+							"currency": "SAR"
+						},
+						"net": {
+							"value": 230,
+							"currency": "SAR"
+						}
+					},
+					{
+						"sequence": 2,
+						"careTeamSequence": [
+							1
+						],
+						"diagnosisSequence": [
+							1
+						],
+						"extension": [
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-tax",
+								"valueMoney": {
+									"value": 45,
+									"currency": "SAR"
+								}
+							},
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-patient-share",
+								"valueMoney": {
+									"value": 60,
+									"currency": "SAR"
+								}
+							},
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-package",
+								"valueBoolean": false
+							}
+						],
+						"productOrService": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/oral-health-op",
+									"code": "515",
+									"display": "Metallic restoration five surfaces direct"
+								}
+							]
+						},
+						"servicedDate": "2021-10-07",
+						"quantity": {
+							"value": 1
+						},
+						"unitPrice": {
+							"value": 300,
+							"currency": "SAR"
+						},
+						"net": {
+							"value": 345,
+							"currency": "SAR"
+						},
+						"bodySite": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/fdi-oral-region",
+									"code": "13",
+									"display": "UPPER RIGHT; PERMANENT TEETH # 3"
+								}
+							]
+						}
+					},
+					{
+						"sequence": 3,
+						"careTeamSequence": [
+							1
+						],
+						"diagnosisSequence": [
+							1
+						],
+						"informationSequence": [
+							1
+						],
+						"extension": [
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-tax",
+								"valueMoney": {
+									"value": 195,
+									"currency": "SAR"
+								}
+							},
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-patient-share",
+								"valueMoney": {
+									"value": 100,
+									"currency": "SAR"
+								}
+							},
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-package",
+								"valueBoolean": false
+							}
+						],
+						"productOrService": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/oral-health-op",
+									"code": "618",
+									"display": "Full crown metallic indirect"
+								}
+							]
+						},
+						"servicedDate": "2021-10-07",
+						"quantity": {
+							"value": 1
+						},
+						"unitPrice": {
+							"value": 1300,
+							"currency": "SAR"
+						},
+						"net": {
+							"value": 1495,
+							"currency": "SAR"
+						},
+						"bodySite": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/fdi-oral-region",
+									"code": "37",
+									"display": "LOWER LEFT; PERMANENT TEETH # 7"
+								}
+							]
+						}
+					}
+				],
+				"total": {
+					"value": 2070,
+					"currency": "SAR"
+				}
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Organization/b1b3432921324f97af3be9fd0b1a14ae",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "b1b3432921324f97af3be9fd0b1a14ae",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://nphies.sa/license/provider-license",
+						"value": "N-F-00003"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "prov"
+							}
+						]
+					}
+				],
+				"name": "Saudi Dentist Clinic"
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Patient/3",
+			"resource": {
+				"resourceType": "Patient",
+				"id": "3",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/patient|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"code": "PRC"
+								}
+							]
+						},
+						"system": "http://nphies.sa/identifier/iqama",
+						"value": "0000000003"
+					}
+				],
+				"active": true,
+				"name": [
+					{
+						"text": "Sara Khan",
+						"family": "Khan",
+						"given": [
+							"Sara"
+						]
+					}
+				],
+				"gender": "female",
+				"_gender": {
+					"extension": [
+						{
+							"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-ksa-administrative-gender",
+							"valueCodeableConcept": {
+								"coding": [
+									{
+										"system": "http://nphies.sa/terminology/CodeSystem/ksa-administrative-gender",
+										"code": "female"
+									}
+								]
+							}
+						}
+					]
+				},
+				"birthDate": "1974-03-13"
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Patient/123454186",
+			"resource": {
+				"resourceType": "Patient",
+				"id": "123454186",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/patient|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"code": "PRC",
+									"display": "iqama"
+								}
+							]
+						},
+						"system": "http://nphies.sa/identifier/iqama",
+						"value": "0000000001"
+					}
+				],
+				"active": true,
+				"name": [
+					{
+						"use": "official",
+						"text": "Ahmad Khaled Abbas",
+						"family": "Ahmad",
+						"given": [
+							"Khaled",
+							"Abbas"
+						]
+					}
+				],
+				"telecom": [
+					{
+						"system": "phone",
+						"value": "+966512345691"
+					}
+				],
+				"gender": "male",
+				"_gender": {
+					"extension": [
+						{
+							"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-ksa-administrative-gender",
+							"valueCodeableConcept": {
+								"coding": [
+									{
+										"system": "http://nphies.sa/terminology/CodeSystem/ksa-administrative-gender",
+										"code": "male",
+										"display": "Male"
+									}
+								]
+							}
+						}
+					]
+				},
+				"birthDate": "1984-12-25"
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Organization/bff3aa1fbd3648619ac082357bf135db",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "bff3aa1fbd3648619ac082357bf135db",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/insurer-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://nphies.sa/license/payer-license",
+						"value": "N-I-00001"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "ins"
+							}
+						]
+					}
+				],
+				"name": "Saudi National Insurance"
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Coverage/3",
+			"resource": {
+				"resourceType": "Coverage",
+				"id": "3",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/coverage|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://sni.com.sa/memberid",
+						"value": "0000000003"
+					}
+				],
+				"status": "active",
+				"type": {
+					"coding": [
+						{
+							"system": "http://nphies.sa/terminology/CodeSystem/coverage-type",
+							"code": "EHCPOL",
+							"display": "extended healthcare"
+						}
+					]
+				},
+				"subscriber": {
+					"reference": "http://saudidentalclinic.com.sa/Patient/123454186"
+				},
+				"beneficiary": {
+					"reference": "http://saudidentalclinic.com.sa/Patient/3"
+				},
+				"relationship": {
+					"coding": [
+						{
+							"system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+							"code": "spouse",
+							"display": "Spouse"
+						}
+					]
+				},
+				"payor": [
+					{
+						"reference": "http://saudidentalclinic.com.sa/Organization/bff3aa1fbd3648619ac082357bf135db"
+					}
+				],
+				"class": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+									"code": "group"
+								}
+							]
+						},
+						"value": "CB135",
+						"name": "Insurance Group A"
+					},
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+									"code": "plan"
+								}
+							]
+						},
+						"value": "ABC123",
+						"name": "Insurance Group A"
+					}
+				],
+				"network": "Golden C"
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Practitioner/7",
+			"resource": {
+				"resourceType": "Practitioner",
+				"id": "7",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/practitioner|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"code": "MD"
+								}
+							]
+						},
+						"system": "http://nphies.sa/license/practitioner-license",
+						"value": "N-P-00002"
+					}
+				],
+				"active": true,
+				"name": [
+					{
+						"use": "official",
+						"text": "Dr. Yasser Mahfooz",
+						"family": "Yasser",
+						"given": [
+							"Dr.",
+							"Mahfooz"
+						]
+					}
+				]
+			}
+		}
+	]
+}

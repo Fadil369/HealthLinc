@@ -1,0 +1,79 @@
+agent_name: nphieslinc
+version: "1.0.0"
+description: "NPHIES Integration Agent for HealthLinc"
+
+port: 3009
+host: "0.0.0.0"
+
+# NPHIES Integration Settings
+nphies:
+  integration_service_url: "http://localhost:3010"
+  supported_message_types:
+    - "eligibility-request"
+    - "eligibility-response"
+    - "priorauth-request" 
+    - "priorauth-response"
+    - "claim-request"
+    - "claim-response"
+    - "communication-request"
+    - "communication-response"
+    - "prescriber-request"
+    - "prescriber-response"
+    - "payment-notice"
+    - "payment-reconciliation"
+
+# Agent Routing Configuration
+agent_routing:
+  authlinc:
+    url: "http://localhost:3003"
+    tasks:
+      - "validate"
+      - "check"
+      - "login"
+  claimlinc:
+    url: "http://localhost:3001"
+    tasks:
+      - "submit"
+      - "verify"
+      - "dispute"
+  notifylinc:
+    url: "http://localhost:3006"
+    tasks:
+      - "send"
+      - "notify"
+  matchlinc:
+    url: "http://localhost:3004"
+    tasks:
+      - "validate"
+      - "match"
+  recordlinc:
+    url: "http://localhost:3007"
+    tasks:
+      - "create"
+      - "update"
+      - "retrieve"
+  doculinc:
+    url: "http://localhost:3005"
+    tasks:
+      - "generate"
+      - "enhance"
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+# Security Settings
+security:
+  cors_origins:
+    - "http://localhost:3000"
+    - "https://healthlinc.app"
+  max_request_size: "10MB"
+  timeout_seconds: 30
+
+# Performance Settings
+performance:
+  max_concurrent_requests: 100
+  request_timeout: 30
+  retry_attempts: 3
+  retry_delay: 1

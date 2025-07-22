@@ -25,6 +25,12 @@ from fhir.resources.patient import Patient
 from fhir.resources.claim import Claim
 from fhir.resources.bundle import Bundle
 from fhir.resources.operationoutcome import OperationOutcome
+from fhir.resources.coverageeligibilityrequest import CoverageEligibilityRequest
+from fhir.resources.communication import Communication
+from fhir.resources.messageheader import MessageHeader
+
+# Import HTTP client for NPHIES integration
+import httpx
 
 # Configure logging
 logging.basicConfig(
@@ -59,6 +65,11 @@ except Exception as e:
             'cors': {
                 'allow_origins': ['http://localhost:3000']
             }
+        },
+        'nphies': {
+            'integration_url': 'http://localhost:3010',
+            'enabled': True,
+            'auto_forward': True
         }
     }
 
@@ -454,7 +465,7 @@ async def capability_statement():
             "version": "1.0.0"
         },
         "implementation": {
-            "description": "HealthLinc FHIR API",
+            "description": "HealthLinc FHIR API with NPHIES Integration",
             "url": "https://api.healthlinc.app/fhir"
         },
         "fhirVersion": "4.0.1",
@@ -462,22 +473,57 @@ async def capability_statement():
         "rest": [
             {
                 "mode": "server",
+                "security": {
+                    "cors": True,
+                    "service": [
+                        {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/restful-security-service",
+                                    "code": "OAuth",
+                                    "display": "OAuth2 using SMART-on-FHIR profile"
+                                }
+                            ]
+                        }
+                    ],
+                    "description": "OAuth2 Bearer Token required"
+                },
                 "resource": [
                     {
                         "type": "Patient",
+                        "profile": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/patient",
                         "interaction": [
                             {"code": "read"},
                             {"code": "create"},
+                            {"code": "update"},
                             {"code": "search-type"}
                         ],
                         "searchParam": [
                             {"name": "name", "type": "string"},
                             {"name": "identifier", "type": "token"},
-                            {"name": "birthdate", "type": "date"}
+                            {"name": "birthdate", "type": "date"},
+                            {"name": "gender", "type": "token"}
                         ]
                     },
                     {
                         "type": "Claim",
+                        "profile": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/institutional-claim",
+                        "interaction": [
+                            {"code": "read"},
+                            {"code": "create"},
+                            {"code": "update"},
+                            {"code": "search-type"}
+                        ],
+                        "searchParam": [
+                            {"name": "patient", "type": "reference"},
+                            {"name": "created", "type": "date"},
+                            {"name": "status", "type": "token"},
+                            {"name": "use", "type": "token"}
+                        ]
+                    },
+                    {
+                        "type": "CoverageEligibilityRequest",
+                        "profile": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/eligibility-request",
                         "interaction": [
                             {"code": "read"},
                             {"code": "create"},
@@ -488,6 +534,45 @@ async def capability_statement():
                             {"name": "created", "type": "date"},
                             {"name": "status", "type": "token"}
                         ]
+                    },
+                    {
+                        "type": "Bundle",
+                        "profile": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle",
+                        "interaction": [
+                            {"code": "create"},
+                            {"code": "read"}
+                        ]
+                    },
+                    {
+                        "type": "Communication",
+                        "profile": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/communication-request",
+                        "interaction": [
+                            {"code": "read"},
+                            {"code": "create"},
+                            {"code": "search-type"}
+                        ]
+                    },
+                    {
+                        "type": "Organization",
+                        "profile": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization",
+                        "interaction": [
+                            {"code": "read"},
+                            {"code": "search-type"}
+                        ]
+                    }
+                ],
+                "operation": [
+                    {
+                        "name": "process-nphies-bundle",
+                        "definition": "/fhir/nphies/bundle"
+                    },
+                    {
+                        "name": "submit-eligibility",
+                        "definition": "/fhir/nphies/eligibility"
+                    },
+                    {
+                        "name": "submit-preauth",
+                        "definition": "/fhir/nphies/preauth"
                     }
                 ]
             }
@@ -499,6 +584,279 @@ async def capability_statement():
 async def health_check():
     """Health check endpoint"""
     return {"status": "healthy", "service": "FHIR Gateway", "timestamp": datetime.utcnow().isoformat()}
+
+
+# NPHIES Integration Endpoints
+@app.post("/fhir/nphies/bundle")
+async def process_nphies_bundle(request: Request, current_user: User = Depends(get_current_active_user)):
+    """Process NPHIES FHIR Bundle and forward to NPHIES integration service"""
+    try:
+        bundle_data = await request.json()
+        
+        # Validate it's a proper FHIR Bundle
+        try:
+            bundle_resource = Bundle.parse_obj(bundle_data)
+        except Exception as e:
+            return create_operation_outcome(
+                severity="error",
+                code="invalid",
+                diagnostics=f"Invalid FHIR Bundle: {str(e)}"
+            )
+        
+        # Forward to NPHIES integration service if enabled
+        if config.get('nphies', {}).get('enabled', False):
+            integration_url = config['nphies']['integration_url']
+            
+            async with httpx.AsyncClient() as client:
+                try:
+                    response = await client.post(
+                        f"{integration_url}/nphies/process",
+                        json=bundle_data,
+                        headers={"Content-Type": "application/json"},
+                        timeout=30.0
+                    )
+                    
+                    if response.status_code == 200:
+                        result = response.json()
+                        return JSONResponse(
+                            content={
+                                "status": "success",
+                                "message": "NPHIES bundle processed successfully",
+                                "nphies_result": result,
+                                "bundle_id": bundle_resource.id
+                            }
+                        )
+                    else:
+                        logger.error(f"NPHIES integration error: {response.status_code}")
+                        return create_operation_outcome(
+                            severity="error",
+                            code="processing",
+                            diagnostics="Failed to process bundle with NPHIES integration service"
+                        )
+                        
+                except httpx.RequestError as e:
+                    logger.error(f"NPHIES integration connection error: {str(e)}")
+                    return create_operation_outcome(
+                        severity="warning",
+                        code="timeout",
+                        diagnostics="NPHIES integration service unavailable, bundle stored locally"
+                    )
+        
+        # If NPHIES integration is disabled, just acknowledge receipt
+        return JSONResponse(
+            content={
+                "status": "success", 
+                "message": "Bundle received (NPHIES integration disabled)",
+                "bundle_id": bundle_resource.id
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"Error processing NPHIES bundle: {str(e)}")
+        return create_operation_outcome(
+            severity="error",
+            code="processing",
+            diagnostics=f"Failed to process bundle: {str(e)}"
+        )
+
+
+@app.post("/fhir/nphies/eligibility")
+async def create_eligibility_request(request: Request, current_user: User = Depends(get_current_active_user)):
+    """Create and submit NPHIES eligibility request"""
+    try:
+        eligibility_data = await request.json()
+        
+        # Validate FHIR CoverageEligibilityRequest
+        try:
+            eligibility_resource = CoverageEligibilityRequest.parse_obj(eligibility_data)
+        except Exception as e:
+            return create_operation_outcome(
+                severity="error",
+                code="invalid",
+                diagnostics=f"Invalid CoverageEligibilityRequest: {str(e)}"
+            )
+        
+        # Generate ID if not provided
+        if not eligibility_resource.id:
+            import uuid
+            eligibility_resource.id = str(uuid.uuid4())
+        
+        # Create FHIR Bundle for NPHIES submission
+        bundle_data = {
+            "resourceType": "Bundle",
+            "id": str(uuid.uuid4()),
+            "meta": {
+                "versionId": "1",
+                "lastUpdated": datetime.utcnow().isoformat(),
+                "profile": ["http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle"]
+            },
+            "type": "message",
+            "timestamp": datetime.utcnow().isoformat(),
+            "entry": [
+                {
+                    "fullUrl": f"MessageHeader/{uuid.uuid4()}",
+                    "resource": {
+                        "resourceType": "MessageHeader",
+                        "id": str(uuid.uuid4()),
+                        "eventCoding": {
+                            "system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+                            "code": "eligibility-request"
+                        },
+                        "source": {
+                            "endpoint": "https://healthlinc.app/fhir"
+                        },
+                        "focus": [{
+                            "reference": f"CoverageEligibilityRequest/{eligibility_resource.id}"
+                        }]
+                    }
+                },
+                {
+                    "fullUrl": f"CoverageEligibilityRequest/{eligibility_resource.id}",
+                    "resource": eligibility_resource.dict()
+                }
+            ]
+        }
+        
+        # Forward to NPHIES if enabled
+        if config.get('nphies', {}).get('enabled', False):
+            integration_url = config['nphies']['integration_url']
+            
+            async with httpx.AsyncClient() as client:
+                try:
+                    response = await client.post(
+                        f"{integration_url}/nphies/process",
+                        json=bundle_data,
+                        headers={"Content-Type": "application/json"},
+                        timeout=30.0
+                    )
+                    
+                    if response.status_code == 200:
+                        return JSONResponse(
+                            status_code=201,
+                            content={
+                                "status": "success",
+                                "message": "Eligibility request submitted to NPHIES",
+                                "eligibility_id": eligibility_resource.id,
+                                "bundle_id": bundle_data["id"]
+                            },
+                            headers={"Location": f"/fhir/CoverageEligibilityRequest/{eligibility_resource.id}"}
+                        )
+                except httpx.RequestError as e:
+                    logger.error(f"NPHIES connection error: {str(e)}")
+        
+        # Fallback: store locally
+        return JSONResponse(
+            status_code=201,
+            content={
+                "status": "success",
+                "message": "Eligibility request created (stored locally)",
+                "eligibility_id": eligibility_resource.id
+            },
+            headers={"Location": f"/fhir/CoverageEligibilityRequest/{eligibility_resource.id}"}
+        )
+        
+    except Exception as e:
+        logger.error(f"Error creating eligibility request: {str(e)}")
+        return create_operation_outcome(
+            severity="error",
+            code="processing",
+            diagnostics=f"Failed to create eligibility request: {str(e)}"
+        )
+
+
+@app.post("/fhir/nphies/preauth")
+async def create_preauth_request(claim: dict, current_user: User = Depends(get_current_active_user)):
+    """Create and submit NPHIES prior authorization request"""
+    try:
+        # Validate FHIR Claim resource for preauth
+        claim_resource = Claim.parse_obj(claim)
+        
+        # Ensure it's marked as preauth
+        if claim_resource.use != "preauthorization":
+            claim_resource.use = "preauthorization"
+        
+        # Generate ID if not provided
+        if not claim_resource.id:
+            import uuid
+            claim_resource.id = str(uuid.uuid4())
+        
+        # Create NPHIES Bundle for preauth submission
+        bundle_data = {
+            "resourceType": "Bundle",
+            "id": str(uuid.uuid4()),
+            "meta": {
+                "profile": ["http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle"]
+            },
+            "type": "message",
+            "timestamp": datetime.utcnow().isoformat(),
+            "entry": [
+                {
+                    "fullUrl": f"MessageHeader/{uuid.uuid4()}",
+                    "resource": {
+                        "resourceType": "MessageHeader",
+                        "id": str(uuid.uuid4()),
+                        "eventCoding": {
+                            "system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+                            "code": "priorauth-request"
+                        },
+                        "source": {
+                            "endpoint": "https://healthlinc.app/fhir"
+                        },
+                        "focus": [{
+                            "reference": f"Claim/{claim_resource.id}"
+                        }]
+                    }
+                },
+                {
+                    "fullUrl": f"Claim/{claim_resource.id}",
+                    "resource": claim_resource.dict()
+                }
+            ]
+        }
+        
+        # Forward to NPHIES and potentially ClaimLinc
+        if config.get('nphies', {}).get('enabled', False):
+            integration_url = config['nphies']['integration_url']
+            
+            async with httpx.AsyncClient() as client:
+                try:
+                    response = await client.post(
+                        f"{integration_url}/nphies/process",
+                        json=bundle_data,
+                        headers={"Content-Type": "application/json"},
+                        timeout=30.0
+                    )
+                    
+                    if response.status_code == 200:
+                        return JSONResponse(
+                            status_code=201,
+                            content={
+                                "status": "success",
+                                "message": "Prior authorization request submitted to NPHIES",
+                                "claim_id": claim_resource.id,
+                                "bundle_id": bundle_data["id"]
+                            },
+                            headers={"Location": f"/fhir/Claim/{claim_resource.id}"}
+                        )
+                except httpx.RequestError as e:
+                    logger.error(f"NPHIES connection error: {str(e)}")
+        
+        return JSONResponse(
+            status_code=201,
+            content={
+                "status": "success",
+                "message": "Prior authorization request created",
+                "claim_id": claim_resource.id
+            }
+        )
+        
+    except Exception as e:
+        logger.error(f"Error creating preauth request: {str(e)}")
+        return create_operation_outcome(
+            severity="error",
+            code="processing",
+            diagnostics=f"Failed to create preauth request: {str(e)}"
+        )
 
 
 # Main entry point

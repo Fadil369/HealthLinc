@@ -1,0 +1,199 @@
+[
+  {
+    "claim": {
+      "claim_id": "CLM-2025-00001",
+      "patient_id": "PAT-12345",
+      "patient_name": "John Smith",
+      "provider_id": "PROV-001",
+      "provider_name": "Dr. Jane Rodriguez",
+      "date_of_service": "2025-05-01T00:00:00Z",
+      "payer_id": "BCBS001",
+      "payer_name": "BlueCross BlueShield",
+      "total_charge": 225.00,
+      "procedures": [
+        {
+          "code": "99213",
+          "description": "Office/outpatient visit est",
+          "charge": 75.00
+        },
+        {
+          "code": "93000",
+          "description": "Electrocardiogram, routine ECG with at least 12 leads",
+          "charge": 150.00
+        }
+      ],
+      "diagnoses": [
+        {
+          "code": "I10",
+          "description": "Essential (primary) hypertension"
+        },
+        {
+          "code": "R07.9",
+          "description": "Chest pain, unspecified"
+        }
+      ],
+      "submission_date": "2025-05-01T14:30:00Z",
+      "status": "submitted",
+      "hash_signature": "a1b2c3d4e5f6g7h8i9j0"
+    },
+    "tracking_events": [
+      {
+        "event_type": "created",
+        "timestamp": "2025-05-01T14:25:00Z",
+        "user_id": "user-001",
+        "notes": "Initial claim tracking started"
+      },
+      {
+        "event_type": "status_update",
+        "timestamp": "2025-05-01T14:30:00Z",
+        "user_id": "user-001",
+        "old_status": "draft",
+        "new_status": "submitted",
+        "notes": "Claim submitted to payer"
+      }
+    ],
+    "duplicate_check_result": {
+      "is_duplicate": false,
+      "duplicate_claims": [],
+      "needs_review": false
+    }
+  },
+  {
+    "claim": {
+      "claim_id": "CLM-2025-00002",
+      "patient_id": "PAT-12345",
+      "patient_name": "John Smith",
+      "provider_id": "PROV-001",
+      "provider_name": "Dr. Jane Rodriguez",
+      "date_of_service": "2025-05-01T00:00:00Z",
+      "payer_id": "BCBS001",
+      "payer_name": "BlueCross BlueShield",
+      "total_charge": 225.00,
+      "procedures": [
+        {
+          "code": "99213",
+          "description": "Office/outpatient visit est",
+          "charge": 75.00
+        },
+        {
+          "code": "93000",
+          "description": "Electrocardiogram, routine ECG with at least 12 leads",
+          "charge": 150.00
+        }
+      ],
+      "diagnoses": [
+        {
+          "code": "I10",
+          "description": "Essential (primary) hypertension"
+        },
+        {
+          "code": "R07.9",
+          "description": "Chest pain, unspecified"
+        }
+      ],
+      "submission_date": "2025-05-05T09:15:00Z",
+      "status": "rejected",
+      "hash_signature": "a1b2c3d4e5f6g7h8i9j0"
+    },
+    "tracking_events": [
+      {
+        "event_type": "created",
+        "timestamp": "2025-05-05T09:10:00Z",
+        "user_id": "user-002",
+        "notes": "Initial claim tracking started"
+      },
+      {
+        "event_type": "status_update",
+        "timestamp": "2025-05-05T09:15:00Z",
+        "user_id": "user-002",
+        "old_status": "draft",
+        "new_status": "submitted",
+        "notes": "Claim submitted to payer"
+      },
+      {
+        "event_type": "status_update",
+        "timestamp": "2025-05-07T11:20:00Z",
+        "user_id": "system",
+        "old_status": "submitted",
+        "new_status": "rejected",
+        "notes": "Rejected by payer: Duplicate claim"
+      }
+    ],
+    "duplicate_check_result": {
+      "is_duplicate": true,
+      "duplicate_claims": [
+        {
+          "claim_id": "CLM-2025-00001",
+          "patient_id": "PAT-12345",
+          "date_of_service": "2025-05-01T00:00:00Z",
+          "match_type": "exact",
+          "similarity": 1.0
+        }
+      ],
+      "needs_review": false
+    }
+  },
+  {
+    "claim": {
+      "claim_id": "CLM-2025-00003",
+      "patient_id": "PAT-54321",
+      "patient_name": "Sarah Johnson",
+      "provider_id": "PROV-002",
+      "provider_name": "Dr. Michael Chen",
+      "date_of_service": "2025-05-03T00:00:00Z",
+      "payer_id": "AETNA001",
+      "payer_name": "Aetna",
+      "total_charge": 350.00,
+      "procedures": [
+        {
+          "code": "99214",
+          "description": "Office/outpatient visit est",
+          "charge": 110.00
+        },
+        {
+          "code": "20610",
+          "description": "Arthrocentesis, aspiration and/or injection, major joint or bursa",
+          "charge": 240.00
+        }
+      ],
+      "diagnoses": [
+        {
+          "code": "M17.11",
+          "description": "Unilateral primary osteoarthritis, right knee"
+        }
+      ],
+      "submission_date": "2025-05-03T16:45:00Z",
+      "status": "pending",
+      "hash_signature": "k1l2m3n4o5p6q7r8s9t0"
+    },
+    "tracking_events": [
+      {
+        "event_type": "created",
+        "timestamp": "2025-05-03T16:40:00Z",
+        "user_id": "user-001",
+        "notes": "Initial claim tracking started"
+      },
+      {
+        "event_type": "status_update",
+        "timestamp": "2025-05-03T16:45:00Z",
+        "user_id": "user-001",
+        "old_status": "draft",
+        "new_status": "submitted",
+        "notes": "Claim submitted to payer"
+      },
+      {
+        "event_type": "status_update",
+        "timestamp": "2025-05-04T09:30:00Z",
+        "user_id": "system",
+        "old_status": "submitted",
+        "new_status": "pending",
+        "notes": "Claim received by payer, under review"
+      }
+    ],
+    "duplicate_check_result": {
+      "is_duplicate": false,
+      "duplicate_claims": [],
+      "needs_review": false
+    }
+  }
+]

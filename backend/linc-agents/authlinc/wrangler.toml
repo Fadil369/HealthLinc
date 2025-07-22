@@ -1,0 +1,32 @@
+name = "authlinc"
+main = "worker.js"
+compatibility_date = "2025-05-12"
+node_compat = true
+
+# Environment variables
+[vars]
+ENVIRONMENT = "production"
+SERVICE_NAME = "authlinc"
+JWT_SECRET = "your-jwt-secret-key-change-in-production"
+ACCESS_TOKEN_EXPIRE_MINUTES = "60"
+REFRESH_TOKEN_EXPIRE_DAYS = "7"
+
+# Custom routes for your domains
+[[routes]]
+pattern = "authlinc.thefadil.site/*"
+zone_name = "thefadil.site"
+
+[[routes]]
+pattern = "auth.brainsait.io/*"
+zone_name = "brainsait.io"
+
+# Optional custom domain
+[[routes]]
+pattern = "api.thefadil.site/agents/auth/*"
+zone_name = "thefadil.site"
+
+# KV namespace for user sessions (if needed)
+[[kv_namespaces]]
+binding = "AUTH_SESSIONS"
+preview_id = "auth-sessions-preview"
+id = "auth-sessions-prod"

@@ -1,0 +1,750 @@
+{
+    "resourceType": "Bundle",
+    "id": "6b5ccee6-2133-4d73-9a97-5b6de9de6678",
+    "meta": {
+        "profile": [
+            "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+        ]
+    },
+    "type": "message",
+    "timestamp": "2021-05-25T09:41:11.000+03:00",
+    "entry": [
+        {
+            "fullUrl": "urn:uuid:6f36b71c-33f0-4535-b9a3-6bbf7b196554",
+            "resource": {
+                "resourceType": "MessageHeader",
+                "id": "6f36b71c-33f0-4535-b9a3-6bbf7b196554",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+                    ]
+                },
+                "eventCoding": {
+                    "system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+                    "code": "prescriber-request"
+                },
+                "destination": [
+                    {
+                        "endpoint": "http://nphies.sa/license/payer-license/INS-FHIR",
+                        "receiver": {
+                            "type": "Organization",
+                            "identifier": {
+                                "system": "http://nphies.sa/license/payer-license",
+                                "value": "INS-FHIR"
+                            }
+                        }
+                    }
+                ],
+                "sender": {
+                    "type": "Organization",
+                    "identifier": {
+                        "system": "http://nphies.sa/license/provider-license",
+                        "value": "PR-FHIR"
+                    }
+                },
+                "source": {
+                    "endpoint": "http://nphies.sa/license/provider-license/PR-FHIR"
+                },
+                "focus": [
+                    {
+                        "reference": "http://provider.com/Claim/696574"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://provider.com/Claim/696574",
+            "resource": {
+                "resourceType": "Claim",
+                "id": "696574",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/prescriber-priorauth|1.0.0"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-eligibility-response",
+                        "valueReference": {
+                            "identifier": {
+                                "system": "http://pseudo-payer.com.sa/coverageeligibilityresponse",
+                                "value": "ec7723b0-5365-4295-b578-9f95c494b609"
+                            }
+                        }
+                    }
+                ],
+                "identifier": [
+                    {
+                        "system": "http://provider.com/prescription",
+                        "value": "ERX-ALL-ReN2926574"
+                    }
+                ],
+                "status": "active",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/claim-type",
+                            "code": "professional"
+                        }
+                    ]
+                },
+                "subType": {
+                    "coding": [
+                        {
+                            "system": "http://nphies.sa/terminology/CodeSystem/claim-subtype",
+                            "code": "op"
+                        }
+                    ]
+                },
+                "use": "predetermination",
+                "patient": {
+                    "reference": "http://provider.com/Patient/433434"
+                },
+                "created": "2023-01-09",
+                "insurer": {
+                    "reference": "http://provider.com/Organization/15a485e8b3a14457b5b009dc2be45097"
+                },
+                "provider": {
+                    "reference": "http://provider.com/Organization/0cc53891bee64a7b89f55fa545dce6b4"
+                },
+                "priority": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/processpriority",
+                            "code": "normal"
+                        }
+                    ]
+                },
+                "related": [
+                    {
+                        "claim": {
+                            "identifier": {
+                                "system": "http://provider.com/prescription",
+                                "value": "ERX-ALL-N2926574"
+                            }
+                        },
+                        "relationship": {
+                            "coding": [
+                                {
+                                    "system": "http://nphies.sa/terminology/CodeSystem/related-claim-relationship",
+                                    "code": "appealing"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "careTeam": [
+                    {
+                        "sequence": 1,
+                        "provider": {
+                            "reference": "http://provider.com/Practitioner/70"
+                        },
+                        "role": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/claimcareteamrole",
+                                    "code": "primary"
+                                }
+                            ]
+                        },
+                        "qualification": {
+                            "coding": [
+                                {
+                                    "system": "http://nphies.sa/terminology/CodeSystem/practice-codes",
+                                    "code": "08.26"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "supportingInfo": [
+                    {
+                        "sequence": 1,
+                        "category": {
+                            "coding": [
+                                {
+                                    "system": "http://nphies.sa/terminology/CodeSystem/claim-information-category",
+                                    "code": "days-supply"
+                                }
+                            ]
+                        },
+                        "valueQuantity": {
+                            "value": "7",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "d"
+                        }
+                    },
+                    {
+                        "sequence": 2,
+                        "category": {
+                            "coding": [
+                                {
+                                    "system": "http://nphies.sa/terminology/CodeSystem/claim-information-category",
+                                    "code": "days-supply"
+                                }
+                            ]
+                        },
+                        "valueQuantity": {
+                            "value": "5",
+                            "system": "http://unitsofmeasure.org",
+                            "code": "d"
+                        }
+                    },
+                    {
+                        "sequence": 3,
+                        "category": {
+                            "coding": [
+                                {
+                                    "system": "http://nphies.sa/terminology/CodeSystem/claim-information-category",
+                                    "code": "vital-sign-weight"
+                                }
+                            ]
+                        },
+                        "valueQuantity": {
+                            "value": 65,
+                            "system": "http://unitsofmeasure.org",
+                            "code": "kg"
+                        }
+                    },
+                    {
+                        "sequence": 4,
+                        "category": {
+                            "coding": [
+                                {
+                                    "system": "http://nphies.sa/terminology/CodeSystem/claim-information-category",
+                                    "code": "attachment",
+                                    "display": "Attachment"
+                                }
+                            ]
+                        },
+                        "valueAttachment": {
+                            "contentType": "application/pdf",
+                            "data": "JVBERi0xLjcNCiW1tbW1DQoxIDAgb2JqDQo8PC9UeXBlL0NhdGFsb2cvUGFnZXMgMiAwIFIvTGFuZyhlbi1VUykgL1N0cnVjdFRyZWVSb290IDEwIDAgUi9NYXJrSW5mbzw8L01hcmtlZCB0cnVlPj4vTWV0YWRhdGEgMjAgMCBSL1ZpZXdlclByZWZlcmVuY2VzIDIxIDAgUj4+DQplbmRvYmoNCjIgMCBvYmoNCjw8L1R5cGUvUGFnZXMvQ291bnQgMS9LaWRzWyAzIDAgUl0gPj4NCmVuZG9iag0KMyAwIG9iag0KPDwvVHlwZS9QYWdlL1BhcmVudCAyIDAgUi9SZXNvdXJjZXM8PC9Gb250PDwvRjEgNSAwIFI+Pi9FeHRHU3RhdGU8PC9HUzcgNyAwIFIvR1M4IDggMCBSPj4vUHJvY1NldFsvUERGL1RleHQvSW1hZ2VCL0ltYWdlQy9JbWFnZUldID4+L01lZGlhQm94WyAwIDAgNjEyIDc5Ml0gL0NvbnRlbnRzIDQgMCBSL0dyb3VwPDwvVHlwZS9Hcm91cC9TL1RyYW5zcGFyZW5jeS9DUy9EZXZpY2VSR0I+Pi9UYWJzL1MvU3RydWN0UGFyZW50cyAwPj4NCmVuZG9iag0KNCAwIG9iag0KPDwvRmlsdGVyL0ZsYXRlRGVjb2RlL0xlbmd0aCAxOTA+Pg0Kc3RyZWFtDQp4nK2OwQqCQBRF9wPzD3epgePMaDMNRJBakSAUCS2ihUSJUGZZ/98ULiJoVW/x4MLlngN/geHQz+J5Aj4aIUpiXCjhjD/PCAkOZb82Etc9JeseakqinBJ/KiA1Mwr5gRJhexwCWjIuQygTsCBEfrK92UqjbO0mylcadGlGycYZN82+OFZ16Xqhg/Te3qpD5W6Rp5RMLGVJyS86UgWMm3edl0UH3xW3yvX6zrnG/5BBKJgW35AfIEyyGA820E1qDQplbmRzdHJlYW0NCmVuZG9iag0KNSAwIG9iag0KPDwvVHlwZS9Gb250L1N1YnR5cGUvVHJ1ZVR5cGUvTmFtZS9GMS9CYXNlRm9udC9CQ0RFRUUrQ2FsaWJyaS1Cb2xkL0VuY29kaW5nL1dpbkFuc2lFbmNvZGluZy9Gb250RGVzY3JpcHRvciA2IDAgUi9GaXJzdENoYXIgMzIvTGFzdENoYXIgMTE3L1dp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cyMiPgo8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiAgeG1sbnM6cGRmPSJodHRwOi8vbnMuYWRvYmUuY29tL3BkZi8xLjMvIj4KPHBkZjpQcm9kdWNlcj5NaWNyb3NvZnTCriBXb3JkIGZvciBPZmZpY2UgMzY1PC9wZGY6UHJvZHVjZXI+PC9yZGY6RGVzY3JpcHRpb24+CjxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iPgo8ZGM6Y3JlYXRvcj48cmRmOlNlcT48cmRmOmxpPlByb2R1Y3QgVGVhbTwvcmRmOmxpPjwvcmRmOlNlcT48L2RjOmNyZWF0b3I+PC9yZGY6RGVzY3JpcHRpb24+CjxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiICB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iPgo8eG1wOkNyZWF0b3JUb29sPk1pY3Jvc29mdMKuIFdvcmQgZm9yIE9mZmljZSAzNjU8L3htcDpDcmVhdG9yVG9vbD48eG1wOkNyZWF0ZURhdGU+MjAyMy0xMC0wNFQxNToxMjowMCswMzowMDwveG1wOkNyZWF0ZURhdGU+PHhtcDpNb2RpZnlEYXRlPjIwMjMtMTAtMDRUMTU6MTI6MDArMDM6MDA8L3htcDpNb2RpZnlEYXRlPjwvcmRmOkRlc2NyaXB0aW9uPgo8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiAgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iPgo8eG1wTU06RG9jdW1lbnRJRD51dWlkOkZENTAzNUI0LUFCMEYtNEM4Qy04QTEzLUZFQ0EzMDdEOTQ1NzwveG1wTU06RG9jdW1lbnRJRD48eG1wTU06SW5zdGFuY2VJRD51dWlkOkZENTAzNUI0LUFCMEYtNEM4Qy04QTEzLUZFQ0EzMDdEOTQ1NzwveG1wTU06SW5zdGFuY2VJRD48L3JkZjpEZXNjcmlwdGlvbj4KICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgCjwvcmRmOlJERj48L3g6eG1wbWV0YT48P3hwYWNrZXQgZW5kPSJ3Ij8+DQplbmRzdHJlYW0NCmVuZG9iag0KMjEgMCBvYmoNCjw8L0Rpc3BsYXlEb2NUaXRsZSB0cnVlPj4NCmVuZG9iag0KMjIgMCBvYmoNCjw8L1R5cGUvWFJlZi9TaXplIDIyL1dbIDEgNCAyXSAvUm9vdCAxIDAgUi9JbmZvIDkgMCBSL0lEWzxCNDM1NTBGRDBGQUI4QzRDOEExM0ZFQ0EzMDdEOTQ1Nz48QjQzNTUwRkQwRkFCOEM0QzhBMTNGRUNBMzA3RDk0NTc+XSAvRmlsdGVyL0ZsYXRlRGVjb2RlL0xlbmd0aCA4NT4+DQpzdHJlYW0NCnicLcuhAYAwDETRS1sKllExDMAAMEAVhkmYA4nEYyjhjog8kXzAp1bz3QMfmziInSRcJBaSFrGL2+/Mg4giiUaY+D+zdzkwb2fSDWRcyfQALz+/DLYNCmVuZHN0cmVhbQ0KZW5kb2JqDQp4cmVmDQowIDIzDQowMDAwMDAwMDEwIDY1NTM1IGYNCjAwMDAwMDAwMTcgMDAwMDAgbg0KMDAwMDAwMDE2NiAwMDAwMCBuDQowMDAwMDAwMjIyIDAwMDAwIG4NCjAwMDAwMDA0ODYgMDAwMDAgbg0KMDAwMDAwMDc1MCAwMDAwMCBuDQowMDAwMDAwOTIzIDAwMDAwIG4NCjAwMDAwMDExNjcgMDAwMDAgbg0KMDAwMDAwMTIyMCAwMDAwMCBuDQowMDAwMDAxMjczIDAwMDAwIG4NCjAwMDAwMDAwMTEgNjU1MzUgZg0KMDAwMDAwMDAxMiA2NTUzNSBmDQowMDAwMDAwMDEzIDY1NTM1IGYNCjAwMDAwMDAwMTQgNjU1MzUgZg0KMDAwMDAwMDAxNSA2NTUzNSBmDQowMDAwMDAwMDE2IDY1NTM1IGYNCjAwMDAwMDAwMTcgNjU1MzUgZg0KMDAwMDAwMDAwMCA2NTUzNSBmDQowMDAwMDAxOTM0IDAwMDAwIG4NCjAwMDAwMDIxNjEgMDAwMDAgbg0KMDAwMDAzMDM2OSAwMDAwMCBuDQowMDAwMDMzNTM0IDAwMDAwIG4NCjAwMDAwMzM1NzkgMDAwMDAgbg0KdHJhaWxlcg0KPDwvU2l6ZSAyMy9Sb290IDEgMCBSL0luZm8gOSAwIFIvSURbPEI0MzU1MEZEMEZBQjhDNEM4QTEzRkVDQTMwN0Q5NDU3PjxCNDM1NTBGRDBGQUI4QzRDOEExM0ZFQ0EzMDdEOTQ1Nz5dID4+DQpzdGFydHhyZWYNCjMzODYzDQolJUVPRg0KeHJlZg0KMCAwDQp0cmFpbGVyDQo8PC9TaXplIDIzL1Jvb3QgMSAwIFIvSW5mbyA5IDAgUi9JRFs8QjQzNTUwRkQwRkFCOEM0QzhBMTNGRUNBMzA3RDk0NTc+PEI0MzU1MEZEMEZBQjhDNEM4QTEzRkVDQTMwN0Q5NDU3Pl0gL1ByZXYgMzM4NjMvWFJlZlN0bSAzMzU3OT4+DQpzdGFydHhyZWYNCjM0NDc5DQolJUVPRg==",
+                            "title": "Appealing Justification.pdf",
+                            "creation": "2023-10-04T15:13:06.285+03:00"
+                        }
+                    }
+                ],
+                "diagnosis": [
+                    {
+                        "sequence": 1,
+                        "diagnosisCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/sid/icd-10-am",
+                                    "code": "G44.2"
+                                }
+                            ]
+                        },
+                        "type": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://nphies.sa/terminology/CodeSystem/diagnosis-type",
+                                        "code": "principal"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "sequence": 2,
+                        "diagnosisCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/sid/icd-10-am",
+                                    "code": "G44.3"
+                                }
+                            ]
+                        },
+                        "type": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://nphies.sa/terminology/CodeSystem/diagnosis-type",
+                                        "code": "secondary"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "insurance": [
+                    {
+                        "sequence": 1,
+                        "focal": true,
+                        "coverage": {
+                            "reference": "http://provider.com/Coverage/41"
+                        }
+                    }
+                ],
+                "item": [
+                    {
+                        "extension": [
+                            {
+                                "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-package",
+                                "valueBoolean": false
+                            },
+                            {
+                                "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-medicationRequest",
+                                "valueReference": {
+                                    "reference": "http://provider.com/medicationRequest/998"
+                                }
+                            },
+                            {
+                                "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-strength",
+                                "valueString": "500mg"
+                            }
+                        ],
+                        "sequence": 1,
+                        "careTeamSequence": [
+                            1
+                        ],
+                        "diagnosisSequence": [
+                            1
+                        ],
+                        "informationSequence": [
+                            1,4
+                        ],
+                        "productOrService": {
+                            "coding": [
+                                {
+                                    "system": "http://nphies.sa/terminology/CodeSystem/scientific-codes",
+                                    "code": "7000000961-500-100000073665"
+                                }
+                            ]
+                        },
+                        "quantity": {
+                            "value": 2
+                        }
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-package",
+                                "valueBoolean": false
+                            },
+                            {
+                                "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-medicationRequest",
+                                "valueReference": {
+                                    "reference": "http://provider.com/medicationRequest/999"
+                                }
+                            },
+                            {
+                                "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-strength",
+                                "valueString": "200mg"
+                            },
+                            {
+                                "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-absence-of-scientific-code",
+                                "valueCodeableConcept": {
+                                    "coding": [
+                                        {
+                                            "system": "http://nphies.sa/terminology/CodeSystem/scientific-code-absence-reason",
+                                            "code": "allergy"
+                                        }
+                                    ]
+                                }
+                            }
+                        ],
+                        "sequence": 2,
+                        "careTeamSequence": [
+                            1
+                        ],
+                        "diagnosisSequence": [
+                            2
+                        ],
+                        "informationSequence": [
+                            2
+                        ],
+                        "productOrService": {
+                            "coding": [
+                                {
+                                    "system": "http://nphies.sa/terminology/CodeSystem/medication-codes",
+                                    "code": "06285097000049"
+                                },
+                                {
+                                    "system": "http://provider.com/medication-codes",
+                                    "code": "8000000463"
+                                }
+                            ]
+                        },
+                        "quantity": {
+                            "value": 1
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://provider.com/Organization/0cc53891bee64a7b89f55fa545dce6b4",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "0cc53891bee64a7b89f55fa545dce6b4",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://nphies.sa/license/provider-license",
+                        "value": "PR-FHIR"
+                    }
+                ],
+                "active": true,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+                                "code": "prov"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Test Hospital"
+            }
+        },
+        {
+            "fullUrl": "http://provider.com/Patient/433434",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "433434",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/patient|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                                    "code": "NI"
+                                }
+                            ]
+                        },
+                        "system": "http://nphies.sa/identifier/nationalid",
+                        "value": "1111111125"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "use": "official",
+                        "text": "Rana Mohammed hassan",
+                        "family": "hassan",
+                        "given": [
+                            "Rana",
+                            "Mohammed"
+                        ]
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "0919494984"
+                    }
+                ],
+                "gender": "female",
+                "_gender": {
+                    "extension": [
+                        {
+                            "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-ksa-administrative-gender",
+                            "valueCodeableConcept": {
+                                "coding": [
+                                    {
+                                        "system": "http://nphies.sa/terminology/CodeSystem/ksa-administrative-gender",
+                                        "code": "female"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "birthDate": "1989-10-12"
+            }
+        },
+        {
+            "fullUrl": "http://provider.com/Organization/15a485e8b3a14457b5b009dc2be45097",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "15a485e8b3a14457b5b009dc2be45097",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/insurer-organization|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://nphies.sa/license/payer-license",
+                        "value": "INS-FHIR"
+                    }
+                ],
+                "active": true,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+                                "code": "ins"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Testing Payer"
+            }
+        },
+        {
+            "fullUrl": "http://provider.com/Coverage/41",
+            "resource": {
+                "resourceType": "Coverage",
+                "id": "41",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/coverage|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://pseudo-payer.com.sa/memberid",
+                        "value": "43344334"
+                    }
+                ],
+                "status": "active",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://nphies.sa/terminology/CodeSystem/coverage-type",
+                            "code": "EHCPOL",
+                            "display": "extended healthcare"
+                        }
+                    ]
+                },
+                "subscriber": {
+                    "reference": "http://provider.com/Patient/433434"
+                },
+                "subscriberId": "43344334",
+                "beneficiary": {
+                    "reference": "http://provider.com/Patient/433434"
+                },
+                "relationship": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+                            "code": "self",
+                            "display": "Self"
+                        }
+                    ]
+                },
+                "period": {
+                    "start": "2022-12-11",
+                    "end": "2023-12-11"
+                },
+                "payor": [
+                    {
+                        "reference": "http://provider.com/Organization/15a485e8b3a14457b5b009dc2be45097"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://provider.com/Practitioner/70",
+            "resource": {
+                "resourceType": "Practitioner",
+                "id": "70",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/practitioner|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                                    "code": "MD"
+                                }
+                            ]
+                        },
+                        "system": "http://nphies.sa/license/practitioner-license",
+                        "value": "MDH-5700"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "use": "official",
+                        "text": "Ahmed abdulhalem",
+                        "family": "abdulhalem",
+                        "given": [
+                            "Ahmed",
+                            "abdulhalem"
+                        ]
+                    }
+                ],
+                "gender": "male"
+            }
+        },
+        {
+            "fullUrl": "http://provider.com/medicationRequest/998",
+            "resource": {
+                "resourceType": "MedicationRequest",
+                "id": "998",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/medicationRequest|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://provider.com/medicationrequest",
+                        "value": "9988811"
+                    }
+                ],
+                "status": "active",
+                "intent": "order",
+                "medicationCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://nphies.sa/terminology/CodeSystem/scientific-codes",
+                            "code": "7000000961-500-100000073665"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "http://provider.com/Patient/433434"
+                },
+                "authoredOn": "2023-01-09",
+                "requester": {
+                    "reference": "http://provider.com/Practitioner/70"
+                },
+                "note": [
+                    {
+                        "time": "2023-01-09",
+                        "text": "Annotation note for reference goes here"
+                    }
+                ],
+                "dosageInstruction": [
+                    {
+                        "sequence": 1,
+                        "text": "2 tbls daily for 7 days",
+                        "patientInstruction": "take 2 tablets daily for 7 days",
+                        "timing": {
+                            "repeat": {
+                                "boundsPeriod": {
+                                    "start": "2023-01-23T09:41:11.000+03:00",
+                                    "end": "2023-01-30T09:41:11.000+03:00"
+                                },
+                                "duration": 7,
+                                "durationUnit": "d",
+                                "frequency": "2",
+                                "period": "1",
+                                "periodUnit": "d",
+                                "count": "2"
+                            }
+                        },
+                        "doseAndRate": [
+                            {
+                                "doseQuantity": {
+                                    "value": 1,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "tbl"
+                                }
+                            }
+                        ],
+                        "route": {
+                            "coding": [
+                                {
+                                    "system": "http://nphies.sa/terminology/CodeSystem/route-of-admin",
+                                    "code": "EBPROA0079",
+                                    "display": "oral"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://provider.com/medicationRequest/999",
+            "resource": {
+                "resourceType": "MedicationRequest",
+                "id": "999",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/medicationRequest|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://provider.com/medicationrequest",
+                        "value": "9988812"
+                    }
+                ],
+                "status": "active",
+                "intent": "order",
+                "medicationCodeableConcept": {
+                    "coding": [
+                        {
+                            "system": "http://nphies.sa/terminology/CodeSystem/medication-codes",
+                            "code": "06285097000049"
+                        },
+                        {
+                            "system": "http://provider.com/medication-codes",
+                            "code": "8000000463"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "http://provider.com/Patient/433434"
+                },
+                "authoredOn": "2023-01-09",
+                "requester": {
+                    "reference": "http://provider.com/Practitioner/70"
+                },
+                "dosageInstruction": [
+                    {
+                        "sequence": 2,
+                        "text": "1 tbl daily for 5 days",
+                        "patientInstruction": "take 1 tablet daily for 5 days",
+                        "timing": {
+                            "repeat": {
+                                "boundsPeriod": {
+                                    "start": "2023-01-23T09:41:11.000+03:00",
+                                    "end": "2023-01-27T09:41:11.000+03:00"
+                                },
+                                "duration": 5,
+                                "durationUnit": "d",
+                                "frequency": "1",
+                                "period": "1",
+                                "periodUnit": "d",
+                                "count": "2"
+                            }
+                        },
+                        "doseAndRate": [
+                            {
+                                "doseQuantity": {
+                                    "value": 1,
+                                    "system": "http://unitsofmeasure.org",
+                                    "code": "tbl"
+                                }
+                            }
+                        ],
+                        "route": {
+                            "coding": [
+                                {
+                                    "system": "http://nphies.sa/terminology/CodeSystem/route-of-admin",
+                                    "code": "EBPROA0079",
+                                    "display": "oral"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}

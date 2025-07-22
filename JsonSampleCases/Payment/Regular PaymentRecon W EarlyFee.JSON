@@ -1,0 +1,214 @@
+{
+    "resourceType": "Bundle",
+    "id": "9a991269-c60f-49b4-89f2-1e80286a79e0",
+    "meta": {
+        "profile": [
+            "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+        ]
+    },
+    "type": "message",
+    "timestamp": "2023-11-29T06:01:53.190Z",
+    "entry": [
+        {
+            "fullUrl": "urn:uuid:e53e663c-dd39-4ce6-9a94-05e87bef25e1",
+            "resource": {
+                "resourceType": "MessageHeader",
+                "id": "e53e663c-dd39-4ce6-9a94-05e87bef25e1",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+                    ]
+                },
+                "eventCoding": {
+                    "system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+                    "code": "payment-reconciliation"
+                },
+                "destination": [
+                    {
+                        "endpoint": "http://nphies.sa/license/provider-license/PR-FHIR",
+                        "receiver": {
+                            "type": "Organization",
+                            "identifier": {
+                                "system": "http://nphies.sa/license/provider-license",
+                                "value": "PR-FHIR"
+                            }
+                        }
+                    }
+                ],
+                "sender": {
+                    "type": "Organization",
+                    "identifier": {
+                        "system": "http://nphies.sa/license/payer-license",
+                        "value": "INS-FHIR"
+                    }
+                },
+                "source": {
+                    "endpoint": "http://nphies.sa/license/payer-license/INS-FHIR"
+                },
+                "focus": [
+                    {
+                        "reference": "http://pseudo-payer.com.sa/PaymentReconciliation/820547"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://pseudo-payer.com.sa/PaymentReconciliation/820547",
+            "resource": {
+                "resourceType": "PaymentReconciliation",
+                "id": "820547",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/payment-reconciliation|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://pseudo-payer.com.sa/paymentreconciliation",
+                        "value": "703776"
+                    }
+                ],
+                "status": "active",
+                "period": {
+                    "start": "2023-11-01T05:54:39.383Z",
+                    "end": "2023-11-29T06:01:53.190Z"
+                },
+                "created": "2023-11-29T06:01:53.190Z",
+                "paymentIssuer": {
+                    "reference": "http://pseudo-payer.com.sa/Organization/11"
+                },
+                "outcome": "complete",
+                "disposition": "Payment made for the month of November, 2023",
+                "paymentDate": "2023-11-29",
+                "paymentAmount": {
+                    "value": 725,
+                    "currency": "SAR"
+                },
+                "requestor": {
+                    "reference": "http://pseudo-payer.com.sa/Organization/10"
+                },
+                "paymentIdentifier": {
+                    "type": {
+                        "coding": [
+                            {
+                                "system": "http://nphies.sa/terminology/CodeSystem/payment-method",
+                                "code": "eft"
+                            }
+                        ]
+                    },
+                    "system": "http://saudinationalbank/payment",
+                    "value": "URN-987590432323"
+                },
+                "detail": [
+                    {
+                        "extension": [
+                            {
+                                "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-component-payment",
+                                "valueMoney": {
+                                    "value": 1725,
+                                    "currency": "SAR"
+                                }
+                            },
+                            {
+                                "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-component-early-fee",
+                                "valueMoney": {
+                                    "value": -1000,
+                                    "currency": "SAR"
+                                }
+                            }
+                        ],
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/payment-type",
+                                    "code": "payment"
+                                }
+                            ]
+                        },
+                        "request": {
+                            "identifier": {
+                                "system": "http://Provider_BaseURL.com.sa/claim",
+                                "value": "446291"
+                            }
+                        },
+                        "response": {
+                            "identifier": {
+                                "system": "http://pseudo-payer.com.sa/claimresponse",
+                                "value": "3725bedd-3b04-4e37-a1ee-87ca69dc5986"
+                            }
+                        },
+                        "submitter": {
+                            "reference": "organization/10"
+                        },
+                        "date": "2023-11-29",
+                        "payee": {
+                            "reference": "http://pseudo-payer.com.sa/Organization/10"
+                        },
+                        "amount": {
+                            "value": 725,
+                            "currency": "SAR"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://pseudo-payer.com.sa/Organization/10",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "10",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://nphies.sa/license/provider-license",
+                        "value": "PR-FHIR"
+                    }
+                ],
+                "active": true,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+                                "code": "prov"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://pseudo-payer.com.sa/Organization/11",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "11",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/insurer-organization|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://nphies.sa/license/payer-license",
+                        "value": "INS-FHIR"
+                    }
+                ],
+                "active": true,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+                                "code": "ins"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

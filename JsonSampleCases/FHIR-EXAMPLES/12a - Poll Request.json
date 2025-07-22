@@ -1,0 +1,141 @@
+{
+	"resourceType": "Bundle",
+	"id": "b715edfd-8ed6-4559-aa03-fbc857eb2905",
+	"meta": {
+		"profile": [
+			"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+		]
+	},
+	"type": "message",
+	"timestamp": "2021-11-30T09:48:33.83+03:00",
+	"entry": [
+		{
+			"fullUrl": "urn:uuid:b715edfd-8ed6-4559-aa03-fbc857eb2905",
+			"resource": {
+				"resourceType": "MessageHeader",
+				"id": "b715edfd-8ed6-4559-aa03-fbc857eb2905",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+					]
+				},
+				"eventCoding": {
+					"system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+					"code": "poll-request"
+				},
+				"destination": [
+					{
+						"endpoint": "http://nphies.sa",
+						"receiver": {
+							"type": "Organization",
+							"identifier":  {
+								"system": "http://nphies.sa/license/nphies",
+								"value": "NPHIES"
+							}
+						}
+					}
+				],
+				"sender": {
+					"type": "Organization",
+					"identifier": {
+								"system": "http://nphies.sa/license/provider-license",
+								"value": "N-F-00001"
+							}
+				},
+				"source": {
+					"endpoint": "http://nphies.sa/license/provider-license/N-F-00001"
+				},
+				"focus": [
+					{
+						"reference": "http://sgh.com.sa/Task/2342905"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://sgh.com.sa/Task/2342905",
+			"resource": {
+				"resourceType": "Task",
+				"id": "2342905",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/task|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"use": "official",
+						"system": "http:/sgh.com.sa/task",
+						"value": "PlReq_202112022342905"
+					}
+				],
+				"status": "requested",
+				"intent": "order",
+				"priority": "stat",
+				"code": {
+					"coding": [
+						{
+							"system": "http://nphies.sa/terminology/CodeSystem/task-code",
+							"code": "poll"
+						}
+					]
+				},
+				"authoredOn": "2021-11-30",
+				"lastModified": "2021-11-30",
+				"requester": {
+					"reference": "Organization/10"
+				},
+				"owner": {
+					"identifier": {
+								"system": "http://nphies.sa/license/nphies",
+								"value": "NPHIES"
+							}
+				},
+				"input": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/task-input-type",
+									"code": "include-message-type"
+								}
+							]
+						},
+						"valueCode": "claim-response"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://sgh.com.sa/Organization/10",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "10",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"use": "official",
+						"system": "http://nphies.sa/license/provider-license",
+						"value": "N-F-00001"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "prov"
+							}
+						]
+					}
+				],
+				"name": "Saudi General Hospital (SGH)"
+			}
+		}
+	]
+}

@@ -1,0 +1,164 @@
+[
+  {
+    "payer_id": "BCBS001",
+    "payer_name": "BlueCross BlueShield",
+    "last_updated": "2025-01-01T00:00:00Z",
+    "updated_by": "admin@healthlinc.app",
+    "update_reason": "Annual contract update",
+    "items": [
+      {
+        "procedure_code": "99213",
+        "description": "Office/outpatient visit est",
+        "fee": 78.50,
+        "effective_date": "2025-01-01",
+        "end_date": "2025-12-31",
+        "payer_id": "BCBS001",
+        "payer_name": "BlueCross BlueShield"
+      },
+      {
+        "procedure_code": "99214",
+        "description": "Office/outpatient visit est",
+        "fee": 110.00,
+        "effective_date": "2025-01-01",
+        "end_date": "2025-12-31",
+        "payer_id": "BCBS001",
+        "payer_name": "BlueCross BlueShield"
+      },
+      {
+        "procedure_code": "99396",
+        "description": "Preventive visit est, 40-64 years",
+        "fee": 130.00,
+        "effective_date": "2025-01-01",
+        "end_date": "2025-12-31",
+        "payer_id": "BCBS001",
+        "payer_name": "BlueCross BlueShield"
+      },
+      {
+        "procedure_code": "29826",
+        "description": "Arthroscopy, shoulder, surgical; decompression of subacromial space",
+        "fee": 985.75,
+        "effective_date": "2025-01-01",
+        "end_date": "2025-12-31",
+        "payer_id": "BCBS001",
+        "payer_name": "BlueCross BlueShield"
+      },
+      {
+        "procedure_code": "93000",
+        "description": "Electrocardiogram, routine ECG with at least 12 leads",
+        "fee": 45.25,
+        "effective_date": "2025-01-01",
+        "end_date": "2025-12-31",
+        "payer_id": "BCBS001",
+        "payer_name": "BlueCross BlueShield"
+      }
+    ]
+  },
+  {
+    "payer_id": "AETNA001",
+    "payer_name": "Aetna",
+    "last_updated": "2025-01-01T00:00:00Z",
+    "updated_by": "admin@healthlinc.app",
+    "update_reason": "Initial contract setup",
+    "items": [
+      {
+        "procedure_code": "99213",
+        "description": "Office/outpatient visit est",
+        "fee": 75.00,
+        "effective_date": "2025-01-01",
+        "end_date": "2025-06-30",
+        "payer_id": "AETNA001",
+        "payer_name": "Aetna"
+      },
+      {
+        "procedure_code": "99214",
+        "description": "Office/outpatient visit est",
+        "fee": 105.00,
+        "effective_date": "2025-01-01",
+        "end_date": "2025-06-30",
+        "payer_id": "AETNA001",
+        "payer_name": "Aetna"
+      },
+      {
+        "procedure_code": "99396",
+        "description": "Preventive visit est, 40-64 years",
+        "fee": 125.00,
+        "effective_date": "2025-01-01",
+        "end_date": "2025-06-30",
+        "payer_id": "AETNA001",
+        "payer_name": "Aetna"
+      },
+      {
+        "procedure_code": "29826",
+        "description": "Arthroscopy, shoulder, surgical; decompression of subacromial space",
+        "fee": 950.00,
+        "effective_date": "2025-01-01",
+        "end_date": "2025-06-30",
+        "payer_id": "AETNA001",
+        "payer_name": "Aetna"
+      },
+      {
+        "procedure_code": "93000",
+        "description": "Electrocardiogram, routine ECG with at least 12 leads",
+        "fee": 42.50,
+        "effective_date": "2025-01-01",
+        "end_date": "2025-06-30",
+        "payer_id": "AETNA001",
+        "payer_name": "Aetna"
+      }
+    ]
+  },
+  {
+    "payer_id": "CIGNA001",
+    "payer_name": "Cigna",
+    "last_updated": "2025-03-01T00:00:00Z",
+    "updated_by": "admin@healthlinc.app",
+    "update_reason": "New contract",
+    "items": [
+      {
+        "procedure_code": "99213",
+        "description": "Office/outpatient visit est",
+        "fee": 82.00,
+        "effective_date": "2025-03-01",
+        "end_date": "2026-02-28",
+        "payer_id": "CIGNA001",
+        "payer_name": "Cigna"
+      },
+      {
+        "procedure_code": "99214",
+        "description": "Office/outpatient visit est",
+        "fee": 115.00,
+        "effective_date": "2025-03-01",
+        "end_date": "2026-02-28",
+        "payer_id": "CIGNA001",
+        "payer_name": "Cigna"
+      },
+      {
+        "procedure_code": "99396",
+        "description": "Preventive visit est, 40-64 years",
+        "fee": 135.00,
+        "effective_date": "2025-03-01",
+        "end_date": "2026-02-28",
+        "payer_id": "CIGNA001",
+        "payer_name": "Cigna"
+      },
+      {
+        "procedure_code": "29826",
+        "description": "Arthroscopy, shoulder, surgical; decompression of subacromial space",
+        "fee": 1015.00,
+        "effective_date": "2025-03-01",
+        "end_date": "2026-02-28",
+        "payer_id": "CIGNA001",
+        "payer_name": "Cigna"
+      },
+      {
+        "procedure_code": "93000",
+        "description": "Electrocardiogram, routine ECG with at least 12 leads",
+        "fee": 47.00,
+        "effective_date": "2025-03-01",
+        "end_date": "2026-02-28",
+        "payer_id": "CIGNA001",
+        "payer_name": "Cigna"
+      }
+    ]
+  }
+]

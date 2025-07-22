@@ -1,0 +1,401 @@
+{
+    "resourceType": "Bundle",
+    "id": "4250490e-98f0-4c23-9e7d-4cd2c7015451",
+    "meta": {
+        "profile": [
+            "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+        ]
+    },
+    "type": "message",
+    "timestamp": "2021-07-15T14:56:49.034+03:00",
+    "entry": [
+        {
+            "fullUrl": "urn:uuid:c19c71dc-cfad-4401-b1b5-c0f20e8f5451",
+            "resource": {
+                "resourceType": "MessageHeader",
+                "id": "c19c71dc-cfad-4401-b1b5-c0f20e8f5451",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+                    ]
+                },
+                "eventCoding": {
+                    "system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+                    "code": "eligibility-request"
+                },
+                "destination": [
+                    {
+                        "endpoint": "http://nphies.sa/license/payer-license/INS-FHIR",
+                        "receiver": {
+                            "type": "Organization",
+                            "identifier": {
+                                "system": "http://nphies.sa/license/payer-license",
+                                "value": "INS-FHIR"
+                            }
+                        }
+                    }
+                ],
+                "sender": {
+                    "type": "Organization",
+                    "identifier": {
+                        "system": "http://nphies.sa/license/provider-license",
+                        "value": "PR-FHIR"
+                    }
+                },
+                "source": {
+                    "endpoint": "http://nphies.sa/license/payer-license/PR-FHIR"
+                },
+                "focus": [
+                    {
+                        "reference": "http://alfayadsdc.com.sa/Coverageeligibilityrequest/54516"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://alfayadsdc.com.sa/Coverageeligibilityrequest/54516",
+            "resource": {
+                "resourceType": "CoverageEligibilityRequest",
+                "id": "54516",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/eligibility-request|1.0.0"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-transfer",
+                        "valueBoolean": true
+                    }
+                ],
+                "identifier": [
+                    {
+                        "system": "http://alfayadsdc.com.sa/identifier/coverageeligibilityrequest",
+                        "value": "req_16545233"
+                    }
+                ],
+                "status": "active",
+                "priority": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/processpriority",
+                            "code": "normal"
+                        }
+                    ]
+                },
+                "purpose": [
+                    "benefits",
+                    "validation"
+                ],
+                "patient": {
+                    "reference": "http://alfayadsdc.com.sa/Patient/123454186"
+                },
+                "servicedPeriod": {
+                    "start": "2021-10-15",
+                    "end": "2021-10-16"
+                },
+                "created": "2021-10-15",
+                "provider": {
+                    "reference": "http://alfayadsdc.com.sa/Organization/b1b3432921324f97af3be9fd0b1a14ae"
+                },
+                "insurer": {
+                    "reference": "http://alfayadsdc.com.sa/Organization/bff3aa1fbd3648619ac082357bf135db"
+                },
+                "facility": {
+                    "reference": "http://alfayadsdc.com.sa/Location/2be1133308ed422a9923931c5a475f63"
+                },
+                "insurance": [
+                    {
+                        "coverage": {
+                            "reference": "http://alfayadsdc.com.sa/Coverage/1333"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://alfayadsdc.com.sa/Organization/b1b3432921324f97af3be9fd0b1a14ae",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "b1b3432921324f97af3be9fd0b1a14ae",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://nphies.sa/license/provider-license",
+                        "value": "PR-FHIR"
+                    }
+                ],
+                "active": true,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+                                "code": "prov"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Al-Fayad Super Speciality Dental Clinic"
+            }
+        },
+        {
+            "fullUrl": "http://alfayadsdc.com.sa/Organization/bff3aa1fbd3648619ac082357bf135db",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "bff3aa1fbd3648619ac082357bf135db",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/insurer-organization|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://nphies.sa/license/payer-license",
+                        "value": "INS-FHIR"
+                    }
+                ],
+                "active": true,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+                                "code": "ins"
+                            }
+                        ]
+                    }
+                ],
+                "name": "Saudi National Insurance"
+            }
+        },
+        {
+            "fullUrl": "http://alfayadsdc.com.sa/Location/2be1133308ed422a9923931c5a475f63",
+            "resource": {
+                "resourceType": "Location",
+                "id": "2be1133308ed422a9923931c5a475f63",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/location|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://nphies.sa/license/location-license",
+                        "value": "GACH"
+                    }
+                ],
+                "status": "active",
+                "name": "Al-Fayad Super Speciality Dental Clinic",
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+                                "code": "GACH"
+                            }
+                        ]
+                    }
+                ],
+                "managingOrganization": {
+                    "reference": "http://alfayadsdc.com.sa/Organization/b1b3432921324f97af3be9fd0b1a14ae"
+                }
+            }
+        },
+        {
+            "fullUrl": "http://alfayadsdc.com.sa/Coverage/1333",
+            "resource": {
+                "resourceType": "Coverage",
+                "id": "1333",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/coverage|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "system": "http://sni.com.sa/memberid",
+                        "value": "0000000003"
+                    }
+                ],
+                "status": "active",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://nphies.sa/terminology/CodeSystem/coverage-type",
+                            "code": "EHCPOL",
+                            "display": "extended healthcare"
+                        }
+                    ]
+                },
+                "subscriber": {
+                    "reference": "http://alfayadsdc.com.sa/Patient/12345"
+                },
+                "beneficiary": {
+                    "reference": "http://alfayadsdc.com.sa/Patient/123454186"
+                },
+                "relationship": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+                            "code": "spouse",
+                            "display": "Spouse"
+                        }
+                    ]
+                },
+                "payor": [
+                    {
+                        "reference": "http://alfayadsdc.com.sa/Organization/bff3aa1fbd3648619ac082357bf135db"
+                    }
+                ],
+                "class": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+                                    "code": "group"
+                                }
+                            ]
+                        },
+                        "value": "CB135",
+                        "name": "Insurance Group A"
+                    },
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+                                    "code": "plan"
+                                }
+                            ]
+                        },
+                        "value": "ABC123",
+                        "name": "Insurance Group A"
+                    }
+                ],
+                "network": "Golden C"
+            }
+        },
+        {
+            "fullUrl": "http://alfayadsdc.com.sa/Patient/123454186",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "123454186",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/patient|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                                    "code": "PRC"
+                                }
+                            ]
+                        },
+                        "system": "http://nphies.sa/identifier/iqama",
+                        "value": "0000000003"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "text": "Sara Khan",
+                        "family": "Khan",
+                        "given": [
+                            "Sara"
+                        ]
+                    }
+                ],
+                "gender": "female",
+                "_gender": {
+                    "extension": [
+                        {
+                            "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-ksa-administrative-gender",
+                            "valueCodeableConcept": {
+                                "coding": [
+                                    {
+                                        "system": "http://nphies.sa/terminology/CodeSystem/ksa-administrative-gender",
+                                        "code": "female"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "birthDate": "1974-03-13"
+            }
+        },
+        {
+            "fullUrl": "http://alfayadsdc.com.sa/Patient/12345",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "12345",
+                "meta": {
+                    "profile": [
+                        "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/patient|1.0.0"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                                    "code": "PRC",
+                                    "display": "iqama"
+                                }
+                            ]
+                        },
+                        "system": "http://nphies.sa/identifier/iqama",
+                        "value": "0000000001"
+                    }
+                ],
+                "active": true,
+                "name": [
+                    {
+                        "use": "official",
+                        "text": "Ahmad Khaled Abbas",
+                        "family": "Ahmad",
+                        "given": [
+                            "Khaled",
+                            "Abbas"
+                        ]
+                    }
+                ],
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "+966512345691"
+                    }
+                ],
+                "gender": "male",
+                "_gender": {
+                    "extension": [
+                        {
+                            "url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-ksa-administrative-gender",
+                            "valueCodeableConcept": {
+                                "coding": [
+                                    {
+                                        "system": "http://nphies.sa/terminology/CodeSystem/ksa-administrative-gender",
+                                        "code": "male",
+                                        "display": "Male"
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                },
+                "birthDate": "1984-12-25"
+            }
+        }
+    ]
+}

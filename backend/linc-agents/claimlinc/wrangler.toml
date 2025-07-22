@@ -1,0 +1,26 @@
+name = "claimlinc"
+main = "worker.js"
+compatibility_date = "2025-05-12"
+node_compat = true
+
+[vars]
+ENVIRONMENT = "production"
+SERVICE_NAME = "claimlinc"
+
+[[routes]]
+pattern = "claimlinc.thefadil.site/*"
+zone_name = "thefadil.site"
+
+[[routes]]
+pattern = "claims.brainsait.io/*"
+zone_name = "brainsait.io"
+
+[[routes]]
+pattern = "api.thefadil.site/agents/claim/*"
+zone_name = "thefadil.site"
+
+# KV for claim tracking
+[[kv_namespaces]]
+binding = "CLAIMS_DATA"
+preview_id = "claims-data-preview"
+id = "claims-data-prod"

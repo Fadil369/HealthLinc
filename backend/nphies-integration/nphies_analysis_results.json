@@ -1,0 +1,1387 @@
+{
+  "analysis_metadata": {
+    "timestamp": "2025-07-22T10:59:11.284900",
+    "samples_directory": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases",
+    "files_analyzed": 159
+  },
+  "summary": {
+    "resource_types": {
+      "Organization": 329,
+      "Patient": 196,
+      "Bundle": 160,
+      "MessageHeader": 160,
+      "Coverage": 135,
+      "Claim": 86,
+      "Practitioner": 72,
+      "ClaimResponse": 33,
+      "Encounter": 23,
+      "MedicationRequest": 17,
+      "CoverageEligibilityResponse": 10,
+      "CoverageEligibilityRequest": 8,
+      "Location": 8,
+      "Task": 7,
+      "Communication": 6,
+      "PaymentReconciliation": 5,
+      "CommunicationRequest": 3,
+      "VisionPrescription": 3,
+      "PractitionerRole": 2,
+      "Unknown": 2,
+      "PaymentNotice": 1
+    },
+    "message_types": {
+      "claim-request": 42,
+      "priorauth-request": 32,
+      "priorauth-response": 13,
+      "prescriber-request": 12,
+      "eligibility-response": 10,
+      "eligibility-request": 8,
+      "advanced-authorization": 8,
+      "claim-response": 7,
+      "communication": 6,
+      "prescriber-response": 5,
+      "payment-reconciliation": 5,
+      "communication-request": 3,
+      "cancel-request": 2,
+      "poll-request": 1,
+      "poll-response": 1,
+      "payment-notice": 1,
+      "cancel-response": 1,
+      "batch-request": 1,
+      "status-check": 1,
+      "status-response": 1
+    },
+    "top_profiles": {
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/patient|1.0.0": 196,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0": 160,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0": 160,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/insurer-organization|1.0.0": 156,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0": 150,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/coverage|1.0.0": 135,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/practitioner|1.0.0": 72,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/policyholder-organization|1.0.0": 23,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/encounter|1.0.0": 23,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/medicationRequest|1.0.0": 17
+    },
+    "top_extensions": {
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-occupation": 42,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-provider-type": 38,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-adjudication-outcome": 32,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-episode": 24,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-encounter": 23,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-supportingInfo": 19,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-serviceEventType": 17,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-nationality": 15,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-eligibility-offline-reference": 13,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-eligibility-offline-date": 13
+    },
+    "top_code_systems": {
+      "ICD-10": 97,
+      "NPHIES_Procedures": 15,
+      "Scientific_Codes": 13,
+      "MOH_Category": 11
+    },
+    "top_procedure_codes": {
+      "83600-00-00": 9,
+      "7000000961-500-100000073665": 8,
+      "415": 8,
+      "Q1001": 6,
+      "012": 5,
+      "618": 5,
+      "83620-00-10": 5,
+      "06285096001627": 4,
+      "73050-18-50": 4,
+      "016": 4,
+      "515": 3,
+      "06285097000049": 3,
+      "8000000463": 3,
+      "42503-00-02": 3,
+      "96092-00-10": 3,
+      "434": 3,
+      "73050-18-60": 3,
+      "38618-00-00": 2,
+      "191-52.80": 2,
+      "IMCU": 2
+    },
+    "top_diagnosis_codes": {
+      "R07.1": 16,
+      "K01.1": 15,
+      "G44.2": 8,
+      "A01.1": 7,
+      "Z01.0": 6,
+      "I10": 5,
+      "T36.9": 4,
+      "S62.10": 4,
+      "G44.3": 3,
+      "Z38.0": 2,
+      "C25.4": 2,
+      "R51": 2,
+      "S83.1": 2,
+      "L40.9": 2,
+      "J45.0": 2,
+      "E28.2": 1,
+      "E13.32": 1,
+      "I25.11": 1,
+      "E11.65": 1,
+      "E10.73": 1
+    },
+    "coverage_types": {
+      "EHCPOL": 118,
+      "PUBLICPOL": 17
+    },
+    "organizations_count": 19,
+    "total_identifiers": 120
+  },
+  "detailed_findings": {
+    "identifier_systems": {
+      "http://nphies.sa/license/payer-license": 156,
+      "http://nphies.sa/license/provider-license": 150,
+      "http://nphies.sa/identifier/iqama": 143,
+      "http://sni.com.sa/memberid": 72,
+      "http://nphies.sa/license/practitioner-license": 72,
+      "http://pseudo-payer.com.sa/memberid": 58,
+      "http://nphies.sa/identifier/nationalid": 44,
+      "http://nphies.sa/identifier/organization": 17,
+      "http://provider.com/encounter": 17,
+      "http://provider.com/medicationrequest": 17,
+      "http://provider.com/claim": 15,
+      "http://provider.com/prescription": 12,
+      "http://sni.com.sa/authorizationresponse": 10,
+      "http://nphies.sa/license/location-license": 8,
+      "http://pseudo-payer.com.sa/advanced-priorauth": 8,
+      "http://sgh.com.sa/identifier/coverageeligibilityrequest": 7,
+      "http://pseudo-payer.com.sa/claimresponse": 7,
+      "http://sni.com.sa/fhir/coverageeligibilityresponse": 7,
+      "http://sgh.sa.com/claim": 7,
+      "http://Provider_BaseURL.com.sa/encounter": 6
+    },
+    "nphies_extensions": [
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-newborn",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-eligibility-offline-reference",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-eligibility-offline-date",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-adjudication-outcome",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-advancedAuth-reason",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-serviceProvider",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-referringProvider",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-diagnosis",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-supportingInfo",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-adjudication-reissue",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-priorauth-response",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-episode",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-encounter",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-accountingPeriod",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-provider-type",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-nationality",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-occupation",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-serviceEventType",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-triageCategory",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-triageDate",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-emergencyArrivalCode",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-emergencyDepartmentDisposition",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-emergencyServiceStart",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-eligibility-response",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-siteEligibility",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-authorization-offline-date",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-batch-identifier",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-batch-number",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-batch-period",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-transfer",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-transferAuthorizationNumber",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-transferAuthorizationPeriod",
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-transferAuthorizationProvider"
+    ],
+    "organizations": {
+      "b1b3432921324f97af3be9fd0b1a14ae": {
+        "name": "Saudi General Hospital",
+        "active": true,
+        "type": [
+          "prov"
+        ]
+      },
+      "bff3aa1fbd3648619ac082357bf135db": {
+        "name": "Saudi National Insurance",
+        "active": true,
+        "type": [
+          "ins"
+        ]
+      },
+      "3": {
+        "name": "Test Provider",
+        "active": true,
+        "type": [
+          "prov"
+        ]
+      },
+      "11": {
+        "name": "Saudi National Insurance",
+        "active": true,
+        "type": [
+          "ins"
+        ]
+      },
+      "4": {
+        "name": "Test Provider",
+        "active": true,
+        "type": [
+          "prov"
+        ]
+      },
+      "13": {
+        "name": "Test Policy Holder",
+        "active": true,
+        "type": []
+      },
+      "b1b3432921324f97af3be9fd0b1a34fa": {
+        "name": "Saudi Central Pharmacy",
+        "active": true,
+        "type": [
+          "prov"
+        ]
+      },
+      "0cc53891bee64a7b89f55fa545dce6b4": {
+        "name": "Test Provider",
+        "active": true,
+        "type": [
+          "prov"
+        ]
+      },
+      "15a485e8b3a14457b5b009dc2be45097": {
+        "name": "Test Payer",
+        "active": true,
+        "type": [
+          "ins"
+        ]
+      },
+      "04bf5cdbf4e44828b47aef550a5e878a": {
+        "name": "Test Provider",
+        "active": true,
+        "type": [
+          "prov"
+        ]
+      },
+      "d12bd28c9ca344debd45a6cd175781eb": {
+        "name": "Test Payer",
+        "active": true,
+        "type": [
+          "ins"
+        ]
+      },
+      "202182511572163": {
+        "name": "ELAL CONSTRUCTION - A",
+        "active": true,
+        "type": []
+      },
+      "10": {
+        "name": "Saudi Optical Clinic",
+        "active": true,
+        "type": [
+          "prov"
+        ]
+      },
+      "50": {
+        "name": "Unknown",
+        "active": true,
+        "type": [
+          "prov"
+        ]
+      },
+      "60": {
+        "name": "PseudoPayer Insurance Company",
+        "active": true,
+        "type": [
+          "ins"
+        ]
+      },
+      "bff3aa1fbd3648619ac082357bf135ab": {
+        "name": "Al-Fayad Super Speciality Dental Clinic",
+        "active": true,
+        "type": [
+          "prov"
+        ]
+      },
+      "bff3aa1fbd3648619ac082357bf135db1": {
+        "name": "ELAL CONSTRUCTION - A",
+        "active": true,
+        "type": []
+      },
+      "bff3aa1fbd3648619ac082357bf188db": {
+        "name": "ELAL CONSTRUCTION - A",
+        "active": true,
+        "type": []
+      },
+      "bff3aa1fbd3648619ac082357bf199db": {
+        "name": "ELAL CONSTRUCTION - B",
+        "active": true,
+        "type": []
+      }
+    },
+    "claim_patterns": {
+      "use_patterns": {
+        "claim_use_preauthorization": 32,
+        "claim_use_claim": 42,
+        "claim_use_predetermination": 12
+      },
+      "type_patterns": {
+        "claim_type_institutional": 25,
+        "claim_type_oral": 16,
+        "claim_type_professional": 27,
+        "claim_type_pharmacy": 12,
+        "claim_type_vision": 6
+      },
+      "subtype_patterns": {
+        "claim_subtype_ip": 20,
+        "claim_subtype_emr": 3,
+        "claim_subtype_op": 39
+      }
+    },
+    "patient_patterns": {
+      "nationality_patterns": {
+        "nationality_SAU": 15
+      },
+      "occupation_patterns": {
+        "occupation_student": 15,
+        "occupation_administration": 3,
+        "occupation_housewife": 6,
+        "occupation_business": 9,
+        "occupation_unemployed": 9
+      }
+    },
+    "provider_patterns": {
+      "org_types": {
+        "org_type_prov": 150,
+        "org_type_ins": 156
+      },
+      "provider_types": {
+        "provider_type_1": 16,
+        "provider_type_6": 6,
+        "provider_type_5": 16
+      }
+    }
+  },
+  "integration_mapping": {
+    "required_fields": {
+      "patient_identifiers": [
+        "national_id",
+        "iqama",
+        "medical_record_number"
+      ],
+      "organization_identifiers": [
+        "provider_license",
+        "payer_license"
+      ],
+      "claim_essentials": [
+        "status",
+        "type",
+        "use",
+        "patient",
+        "provider",
+        "insurer",
+        "total"
+      ],
+      "diagnosis_codes": [
+        "ICD-10-AM",
+        "ICD-10"
+      ],
+      "procedure_codes": [
+        "NPHIES_Procedures",
+        "MOH_Category",
+        "Scientific_Codes"
+      ]
+    },
+    "message_routing": {
+      "eligibility-request": [
+        "authlinc",
+        "recordlinc"
+      ],
+      "priorauth-request": [
+        "authlinc",
+        "doculinc",
+        "matchlinc"
+      ],
+      "claim-request": [
+        "claimlinc",
+        "claimtrackerlinc",
+        "matchlinc"
+      ],
+      "communication-request": [
+        "notifylinc",
+        "doculinc"
+      ],
+      "prescriber-request": [
+        "matchlinc",
+        "reviewerlinc"
+      ]
+    },
+    "code_system_mapping": {
+      "ICD-10": 97,
+      "NPHIES_Procedures": 15,
+      "MOH_Category": 11,
+      "Scientific_Codes": 13
+    },
+    "extension_priorities": {
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-occupation": 42,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-provider-type": 38,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-adjudication-outcome": 32,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-episode": 24,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-encounter": 23,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-supportingInfo": 19,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-serviceEventType": 17,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-nationality": 15,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-eligibility-offline-reference": 13,
+      "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-eligibility-offline-date": 13
+    }
+  },
+  "analyzed_files": [
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Newborn Elig Request.json",
+      "size_bytes": 9411,
+      "analyzed_at": "2025-07-22T10:59:10.943896",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Newborn Preauth request.json",
+      "size_bytes": 15749,
+      "analyzed_at": "2025-07-22T10:59:10.945060",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\AdvancedPreAuthJsonExample\\APA Sehati.json",
+      "size_bytes": 24521,
+      "analyzed_at": "2025-07-22T10:59:10.945060",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\AdvancedPreAuthJsonExample\\APA w all fields.json",
+      "size_bytes": 26636,
+      "analyzed_at": "2025-07-22T10:59:10.949440",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\AdvancedPreAuthJsonExample\\HCP APA Cancel.json",
+      "size_bytes": 4990,
+      "analyzed_at": "2025-07-22T10:59:10.956910",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\AdvancedPreAuthJsonExample\\HIC APA Cancel.json",
+      "size_bytes": 9432,
+      "analyzed_at": "2025-07-22T10:59:10.957897",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\ClaimResubmission\\_1 Preauth Dental Request with multiple items.json",
+      "size_bytes": 14774,
+      "analyzed_at": "2025-07-22T10:59:10.958905",
+      "sender": "N-F-00003"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\ClaimResubmission\\_2 First Preauth Dental Response.json",
+      "size_bytes": 18605,
+      "analyzed_at": "2025-07-22T10:59:10.960121",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\ClaimResubmission\\_3 Communication response - unsolicited.json",
+      "size_bytes": 23348,
+      "analyzed_at": "2025-07-22T10:59:10.961119",
+      "sender": "N-F-00003"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\ClaimResubmission\\_4 Second Preauth Dental Response.json",
+      "size_bytes": 18323,
+      "analyzed_at": "2025-07-22T10:59:10.962115",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\1.Claim Request_CNHI Virtual Discharge_first_month.json",
+      "size_bytes": 42677,
+      "analyzed_at": "2025-07-22T10:59:10.965328",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Authorization Request.json",
+      "size_bytes": 12571,
+      "analyzed_at": "2025-07-22T10:59:10.967322",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Authorization Request_8870671f-aae4-4593-9cbf-124d5f140bd5.json",
+      "size_bytes": 12952,
+      "analyzed_at": "2025-07-22T10:59:10.968563",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Authorization Request_CNHI emergency.json",
+      "size_bytes": 27331,
+      "analyzed_at": "2025-07-22T10:59:10.970557",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Authorization Request_to_virtually_discharge_the_patient.json",
+      "size_bytes": 34523,
+      "analyzed_at": "2025-07-22T10:59:10.972936",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Authorization Request__subsequent month.json",
+      "size_bytes": 12406,
+      "analyzed_at": "2025-07-22T10:59:10.973934",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Authorization Response.json",
+      "size_bytes": 7472,
+      "analyzed_at": "2025-07-22T10:59:10.975929",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Authorization Response_ subsequent month.json",
+      "size_bytes": 7475,
+      "analyzed_at": "2025-07-22T10:59:10.976926",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Authorization Response_2881cec8-1b38-40b3-aee9-ea94945281c0.json",
+      "size_bytes": 7467,
+      "analyzed_at": "2025-07-22T10:59:10.978197",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Authorization Response_a8835c62-bca7-4190-8dfe-48287560cf3f.json",
+      "size_bytes": 7320,
+      "analyzed_at": "2025-07-22T10:59:10.979196",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Claim Request_CNHI emergency.json",
+      "size_bytes": 40537,
+      "analyzed_at": "2025-07-22T10:59:10.982401",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Claim Request_CNHI referral.json",
+      "size_bytes": 40178,
+      "analyzed_at": "2025-07-22T10:59:10.984385",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Use Case2Emergency (Auth EMR).JSON",
+      "size_bytes": 20615,
+      "analyzed_at": "2025-07-22T10:59:10.987378",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\CNHI-FHIR-JSON\\Use Case2Emergency (Claim EMR).JSON",
+      "size_bytes": 21983,
+      "analyzed_at": "2025-07-22T10:59:10.988618",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Communication\\Communication Request ClaimItemSequence .json",
+      "size_bytes": 5858,
+      "analyzed_at": "2025-07-22T10:59:10.989615",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Communication\\Communication Request.json",
+      "size_bytes": 5803,
+      "analyzed_at": "2025-07-22T10:59:10.991609",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Communication\\Communication response - solicited.json",
+      "size_bytes": 27617,
+      "analyzed_at": "2025-07-22T10:59:10.992825",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Communication\\Communication response - unsolicited.json",
+      "size_bytes": 23663,
+      "analyzed_at": "2025-07-22T10:59:10.994820",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Communication\\Communication response ClaimItemSequence.json",
+      "size_bytes": 24248,
+      "analyzed_at": "2025-07-22T10:59:10.999657",
+      "sender": "N-F-00002"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\1a - Predetermination simple request (1).json",
+      "size_bytes": 11449,
+      "analyzed_at": "2025-07-22T10:59:11.001092",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\1a - Predetermination simple request.json",
+      "size_bytes": 11459,
+      "analyzed_at": "2025-07-22T10:59:11.003086",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\1b - Response to Predetermination simple request (approved).json",
+      "size_bytes": 8332,
+      "analyzed_at": "2025-07-22T10:59:11.006077",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\1b - Response to Predetermination simple request.json",
+      "size_bytes": 8332,
+      "analyzed_at": "2025-07-22T10:59:11.007621",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\2a Predetermination simple request two items .json",
+      "size_bytes": 14151,
+      "analyzed_at": "2025-07-22T10:59:11.009616",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\2b Response to Predetermination simple request two items.json",
+      "size_bytes": 9325,
+      "analyzed_at": "2025-07-22T10:59:11.010949",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\3a Prescription Request All Fields + Shadow Billing.json",
+      "size_bytes": 29386,
+      "analyzed_at": "2025-07-22T10:59:11.015067",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\3b Prescription Request All Fields + Shadow Billing.json",
+      "size_bytes": 16969,
+      "analyzed_at": "2025-07-22T10:59:11.016611",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\3b Response to Prescription Request All Fields + Shadow Billing.json",
+      "size_bytes": 16718,
+      "analyzed_at": "2025-07-22T10:59:11.018607",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\4a - Request prescritpion with appeal.json",
+      "size_bytes": 77216,
+      "analyzed_at": "2025-07-22T10:59:11.023822",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\4b - Response to prescritpion with appeal.JSON",
+      "size_bytes": 16705,
+      "analyzed_at": "2025-07-22T10:59:11.024819",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\AuthorizationRequest Pharmacy EBP (1).json",
+      "size_bytes": 13037,
+      "analyzed_at": "2025-07-22T10:59:11.027017",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\ClaimRequest Pharmacy EBP (1).json",
+      "size_bytes": 13786,
+      "analyzed_at": "2025-07-22T10:59:11.028015",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\Consequtive Periods.json",
+      "size_bytes": 15119,
+      "analyzed_at": "2025-07-22T10:59:11.029013",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\EBP Pharmacy Authorization Request.json",
+      "size_bytes": 10319,
+      "analyzed_at": "2025-07-22T10:59:11.031094",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\EBP Pharmacy Claim Reqest.json",
+      "size_bytes": 10460,
+      "analyzed_at": "2025-07-22T10:59:11.033064",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\Eligiblity Response incl. EBP TOB Pharmacy+Dental.JSON",
+      "size_bytes": 108584,
+      "analyzed_at": "2025-07-22T10:59:11.037313",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\EBP\\Prescritpion with Appeal.json",
+      "size_bytes": 12347,
+      "analyzed_at": "2025-07-22T10:59:11.040594",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\1 - Preauth Institutional Request.json",
+      "size_bytes": 15436,
+      "analyzed_at": "2025-07-22T10:59:11.041590",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\10 - Claim Professional Request.json",
+      "size_bytes": 11493,
+      "analyzed_at": "2025-07-22T10:59:11.042588",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\11 - Claim Vision Request.json",
+      "size_bytes": 12632,
+      "analyzed_at": "2025-07-22T10:59:11.044852",
+      "sender": "N-F-00005"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\12a - Poll Request.json",
+      "size_bytes": 3269,
+      "analyzed_at": "2025-07-22T10:59:11.046660",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\12b - Poll Response.json",
+      "size_bytes": 12391,
+      "analyzed_at": "2025-07-22T10:59:11.048096",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\13a - Payment Reconciliation.json",
+      "size_bytes": 5092,
+      "analyzed_at": "2025-07-22T10:59:11.050093",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\13b - Payment Notice.json",
+      "size_bytes": 5112,
+      "analyzed_at": "2025-07-22T10:59:11.052084",
+      "sender": "N-F-00003"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\14a - Eligibilty Request Ben-Val.json",
+      "size_bytes": 7928,
+      "analyzed_at": "2025-07-22T10:59:11.053081",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\14b - Eligibility Response Ben-Val.json",
+      "size_bytes": 9109,
+      "analyzed_at": "2025-07-22T10:59:11.057123",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\15a - Eligibilty Request Discovery.json",
+      "size_bytes": 6312,
+      "analyzed_at": "2025-07-22T10:59:11.057510",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\15b - Eligibility Response Discovery.json",
+      "size_bytes": 45103,
+      "analyzed_at": "2025-07-22T10:59:11.061805",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\16 - Eligibility Response NIF.json",
+      "size_bytes": 10436,
+      "analyzed_at": "2025-07-22T10:59:11.063311",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\17a - Cancel Request.json",
+      "size_bytes": 4273,
+      "analyzed_at": "2025-07-22T10:59:11.065598",
+      "sender": "N-F-00003"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\17b - Cancel Response (Do not process).json",
+      "size_bytes": 4110,
+      "analyzed_at": "2025-07-22T10:59:11.066601",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\18a - Communication Request.json",
+      "size_bytes": 5810,
+      "analyzed_at": "2025-07-22T10:59:11.068593",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\18b - Communication response - solicited.json",
+      "size_bytes": 27624,
+      "analyzed_at": "2025-07-22T10:59:11.069590",
+      "sender": "N-F-00002"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\18c - Communication response - unsolicited.json",
+      "size_bytes": 23670,
+      "analyzed_at": "2025-07-22T10:59:11.070588",
+      "sender": "N-F-00002"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\19 - Batch request.json",
+      "size_bytes": 31791,
+      "analyzed_at": "2025-07-22T10:59:11.071773",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\2a - First Preauth Dental Request with multiple items.json",
+      "size_bytes": 14801,
+      "analyzed_at": "2025-07-22T10:59:11.075597",
+      "sender": "N-F-00003"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\2b - First Response for first Preauth Dental Request.json",
+      "size_bytes": 18641,
+      "analyzed_at": "2025-07-22T10:59:11.077722",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\2c - Second Preauth Dental Request.json",
+      "size_bytes": 25266,
+      "analyzed_at": "2025-07-22T10:59:11.078720",
+      "sender": "N-F-00003"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\2d - First Response for second Preauth Dental Request.json",
+      "size_bytes": 18329,
+      "analyzed_at": "2025-07-22T10:59:11.081054",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\2e - Second Response for second Preauth Dental Request.json",
+      "size_bytes": 18351,
+      "analyzed_at": "2025-07-22T10:59:11.087598",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\4 - Preauth Pharmacy Request.json",
+      "size_bytes": 11485,
+      "analyzed_at": "2025-07-22T10:59:11.093027",
+      "sender": "N-F-00002"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\5a - Preauth Professional Request.json",
+      "size_bytes": 11030,
+      "analyzed_at": "2025-07-22T10:59:11.108516",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\5b - Preauth Professional Response.json",
+      "size_bytes": 9324,
+      "analyzed_at": "2025-07-22T10:59:11.110796",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\6 - Preauth Vision Prescription Request.json",
+      "size_bytes": 13411,
+      "analyzed_at": "2025-07-22T10:59:11.113616",
+      "sender": "N-F-00005"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\7a - Claim Dental Request.json",
+      "size_bytes": 13918,
+      "analyzed_at": "2025-07-22T10:59:11.115916",
+      "sender": "N-F-00003"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\7b - Claim Dental Response.json",
+      "size_bytes": 12385,
+      "analyzed_at": "2025-07-22T10:59:11.117913",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\8 - Claim Institutional Request.json",
+      "size_bytes": 14919,
+      "analyzed_at": "2025-07-22T10:59:11.118908",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\9 - Claim Pharmacy Request.json",
+      "size_bytes": 10517,
+      "analyzed_at": "2025-07-22T10:59:11.120108",
+      "sender": "N-F-00002"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\9b - StatusCheck - Request.json",
+      "size_bytes": 6144,
+      "analyzed_at": "2025-07-22T10:59:11.121104",
+      "sender": "N-F-00002"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\FHIR-EXAMPLES\\9c - StatusCheck - Response (Do not process).json",
+      "size_bytes": 4337,
+      "analyzed_at": "2025-07-22T10:59:11.122103",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\APA with chief complain reported as text.json",
+      "size_bytes": 35158,
+      "analyzed_at": "2025-07-22T10:59:11.123500",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\APA with chief complain while code reported as snomed code.json",
+      "size_bytes": 35478,
+      "analyzed_at": "2025-07-22T10:59:11.125702",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Authorization with chief complain reported as snomed code.json",
+      "size_bytes": 41697,
+      "analyzed_at": "2025-07-22T10:59:11.128006",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Authorization with chief complain reported as text.json",
+      "size_bytes": 41427,
+      "analyzed_at": "2025-07-22T10:59:11.130346",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Authorization with HBA1C lab test in supporting info.json",
+      "size_bytes": 42711,
+      "analyzed_at": "2025-07-22T10:59:11.132435",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Claim with chief complain reported as snomed code.json",
+      "size_bytes": 52103,
+      "analyzed_at": "2025-07-22T10:59:11.133725",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Claim with chief complain reported as text.json",
+      "size_bytes": 51804,
+      "analyzed_at": "2025-07-22T10:59:11.135720",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\institutional claim with HBA1C service in item detail with lab test code in supporting info.json",
+      "size_bytes": 58316,
+      "analyzed_at": "2025-07-22T10:59:11.137929",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\institutional claim with HBA1C service in item subdetail with lab test code in supporting info.json",
+      "size_bytes": 64162,
+      "analyzed_at": "2025-07-22T10:59:11.139912",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Pharmacy APA with HBA1C lab test in supporting info.json",
+      "size_bytes": 31617,
+      "analyzed_at": "2025-07-22T10:59:11.140910",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Predetermination with chief complain while code reported as snomed code.json",
+      "size_bytes": 22804,
+      "analyzed_at": "2025-07-22T10:59:11.142122",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Predetermination with chief complain while code reported as text.json",
+      "size_bytes": 22545,
+      "analyzed_at": "2025-07-22T10:59:11.143119",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Predetermination with HBA1C lab test in supporting info.json",
+      "size_bytes": 23105,
+      "analyzed_at": "2025-07-22T10:59:11.145173",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Professional APA with HBA1C lab test in supporting info.json",
+      "size_bytes": 28232,
+      "analyzed_at": "2025-07-22T10:59:11.146360",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\professional claim with 2 different HBA1C items, each linked to one lab test in supporting info.json",
+      "size_bytes": 57724,
+      "analyzed_at": "2025-07-22T10:59:11.149037",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Professional claim with HBA1C lab test.json",
+      "size_bytes": 55066,
+      "analyzed_at": "2025-07-22T10:59:11.152266",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Professional claim with HBA1C.json",
+      "size_bytes": 55009,
+      "analyzed_at": "2025-07-22T10:59:11.155519",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\Professional claim with item HBA1C and correct item quantity.json",
+      "size_bytes": 53603,
+      "analyzed_at": "2025-07-22T10:59:11.157514",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\professional claim with item HBA1C linked to only one lab test in supporting info.json",
+      "size_bytes": 54555,
+      "analyzed_at": "2025-07-22T10:59:11.158510",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\MDS 2 Samples\\professional emergency claim with correct unit for HBA1C lab test.json",
+      "size_bytes": 54984,
+      "analyzed_at": "2025-07-22T10:59:11.160699",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Non Medicatoin Samples\\Dental claim with herbal code.json",
+      "size_bytes": 33953,
+      "analyzed_at": "2025-07-22T10:59:11.161941",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Non Medicatoin Samples\\newborn institutional authorization with nutrition code.json",
+      "size_bytes": 45399,
+      "analyzed_at": "2025-07-22T10:59:11.165752",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Non Medicatoin Samples\\pharmacy APA with vitamin supplement and herbal drug.json",
+      "size_bytes": 36651,
+      "analyzed_at": "2025-07-22T10:59:11.167746",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Non Medicatoin Samples\\pharmacy authorization with herbal code.json",
+      "size_bytes": 22969,
+      "analyzed_at": "2025-07-22T10:59:11.168188",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Non Medicatoin Samples\\postman_collection.json",
+      "size_bytes": 231405,
+      "analyzed_at": "2025-07-22T10:59:11.194747"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Non Medicatoin Samples\\Predetermination with herbal code.json",
+      "size_bytes": 25013,
+      "analyzed_at": "2025-07-22T10:59:11.196742",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Non Medicatoin Samples\\professional claim with cosmetic code.json",
+      "size_bytes": 35469,
+      "analyzed_at": "2025-07-22T10:59:11.199269",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Nphies-Testing-Guid\\1. Connectathon.postman_collection2.json",
+      "size_bytes": 141889,
+      "analyzed_at": "2025-07-22T10:59:11.201264"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\OfflineRequest\\1-Pre auth request extending an offline request.json",
+      "size_bytes": 12181,
+      "analyzed_at": "2025-07-22T10:59:11.203520",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\OfflineRequest\\1-Pre auth response.json",
+      "size_bytes": 11758,
+      "analyzed_at": "2025-07-22T10:59:11.204517",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\OfflineRequest\\2-Claim request for the newly created online Pre auth.json",
+      "size_bytes": 12468,
+      "analyzed_at": "2025-07-22T10:59:11.205516",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\OfflineRequest\\3-Claim request quoting an Offline Pre auth.json",
+      "size_bytes": 11230,
+      "analyzed_at": "2025-07-22T10:59:11.212871",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Payment\\Advanced PaymentRecon.JSON",
+      "size_bytes": 4825,
+      "analyzed_at": "2025-07-22T10:59:11.218043",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Payment\\Payment ClaimRequest.JSON",
+      "size_bytes": 30603,
+      "analyzed_at": "2025-07-22T10:59:11.219041",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Payment\\Payment ClaimResponse.JSON",
+      "size_bytes": 26262,
+      "analyzed_at": "2025-07-22T10:59:11.220197",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Payment\\Regular PaymentRecon W EarlyFee.JSON",
+      "size_bytes": 8564,
+      "analyzed_at": "2025-07-22T10:59:11.222192",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Payment\\Regular PaymentRecon W nphies fee.JSON",
+      "size_bytes": 8943,
+      "analyzed_at": "2025-07-22T10:59:11.223188",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Payment\\Regular PaymentRecon WO nphies fee.JSON",
+      "size_bytes": 8562,
+      "analyzed_at": "2025-07-22T10:59:11.224467",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Refferal\\TR_1 - Standard priorauth request.json",
+      "size_bytes": 14763,
+      "analyzed_at": "2025-07-22T10:59:11.225465",
+      "sender": "N-F-00003"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Refferal\\TR_1a - Priorauth request without root canal.json",
+      "size_bytes": 13740,
+      "analyzed_at": "2025-07-22T10:59:11.226462",
+      "sender": "N-F-00003"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Refferal\\TR_2(a) - Transfer request for root canal.json",
+      "size_bytes": 12298,
+      "analyzed_at": "2025-07-22T10:59:11.227460",
+      "sender": "N-F-00003"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Refferal\\TR_2(b) - Payer response to transfer request Release V873.4.JSON",
+      "size_bytes": 12230,
+      "analyzed_at": "2025-07-22T10:59:11.228666",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Refferal\\TR_3 - Eligibility check for transferred patient.json",
+      "size_bytes": 15735,
+      "analyzed_at": "2025-07-22T10:59:11.229663",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Refferal\\TR_4 - Priorauth Request for updated auth for root canal.json",
+      "size_bytes": 12181,
+      "analyzed_at": "2025-07-22T10:59:11.232700",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Refferal\\TR_4a - Priorauth response for updated prior authorization root canal.json",
+      "size_bytes": 11758,
+      "analyzed_at": "2025-07-22T10:59:11.233697",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Refferal\\TR_5 - Claim request for root canal.json",
+      "size_bytes": 12468,
+      "analyzed_at": "2025-07-22T10:59:11.234695",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\Refferal\\TR_5B - Claim request for root canal - Offline.json",
+      "size_bytes": 11230,
+      "analyzed_at": "2025-07-22T10:59:11.237564",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC1\\Eligibility Response - SC1.json",
+      "size_bytes": 45211,
+      "analyzed_at": "2025-07-22T10:59:11.241957",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC1\\Eligibilty Request - SC1.json",
+      "size_bytes": 6312,
+      "analyzed_at": "2025-07-22T10:59:11.242955",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC1\\Preauth Inst Request - SC1.json",
+      "size_bytes": 13465,
+      "analyzed_at": "2025-07-22T10:59:11.243951",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC2\\Claim Pharmacy Req - SC2.json",
+      "size_bytes": 9540,
+      "analyzed_at": "2025-07-22T10:59:11.244949",
+      "sender": "N-F-00002"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC2\\Preauth Pharmacy Req - SC2.json",
+      "size_bytes": 11715,
+      "analyzed_at": "2025-07-22T10:59:11.246116",
+      "sender": "N-F-00002"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC3\\Claim Professional Req - SC3.json",
+      "size_bytes": 10172,
+      "analyzed_at": "2025-07-22T10:59:11.247771",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC3\\Eligibilty Request - SC3.json",
+      "size_bytes": 7897,
+      "analyzed_at": "2025-07-22T10:59:11.248990",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC3\\Preauth Professional Req - SC3.json",
+      "size_bytes": 10197,
+      "analyzed_at": "2025-07-22T10:59:11.249664",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC4\\Claim Dental Req - SC4.json",
+      "size_bytes": 11818,
+      "analyzed_at": "2025-07-22T10:59:11.250802",
+      "sender": "N-F-00003"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC4\\Claim Dental Resp - SC4.json",
+      "size_bytes": 11887,
+      "analyzed_at": "2025-07-22T10:59:11.251799",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC4\\Preauth Dental Req - SC4.json",
+      "size_bytes": 11841,
+      "analyzed_at": "2025-07-22T10:59:11.252797",
+      "sender": "N-F-00003"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC4\\Preauth Dental Resp - reissue - SC4.json",
+      "size_bytes": 12237,
+      "analyzed_at": "2025-07-22T10:59:11.253981",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC4\\Preauth Dental Resp - SC4.json",
+      "size_bytes": 11820,
+      "analyzed_at": "2025-07-22T10:59:11.256165",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC5\\Claim Vision Req - SC5.json",
+      "size_bytes": 11649,
+      "analyzed_at": "2025-07-22T10:59:11.257159",
+      "sender": "N-F-00005"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC5\\Claim Vision Req_VP - SC5.json",
+      "size_bytes": 13232,
+      "analyzed_at": "2025-07-22T10:59:11.258157",
+      "sender": "N-F-00005"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC5\\Preauth Vision Req - SC5.json",
+      "size_bytes": 11676,
+      "analyzed_at": "2025-07-22T10:59:11.259306",
+      "sender": "N-F-00005"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SC5\\Preauth Vision Req_VP - SC5.json",
+      "size_bytes": 13259,
+      "analyzed_at": "2025-07-22T10:59:11.260793",
+      "sender": "N-F-00005"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SiteEligibility\\SiteEligibility-Inactive.json",
+      "size_bytes": 8979,
+      "analyzed_at": "2025-07-22T10:59:11.261794",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SiteEligibility\\SiteEligiblity Active - Eligible.json",
+      "size_bytes": 11604,
+      "analyzed_at": "2025-07-22T10:59:11.262791",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SiteEligibility\\SiteEligiblity Active - Out of Network.json",
+      "size_bytes": 8986,
+      "analyzed_at": "2025-07-22T10:59:11.265057",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\SiteEligibility\\SiteEligiblity Multiple Active - Eligible.json",
+      "size_bytes": 16673,
+      "analyzed_at": "2025-07-22T10:59:11.266054",
+      "sender": "N-I-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\TMB\\Chief-complaint.json",
+      "size_bytes": 14420,
+      "analyzed_at": "2025-07-22T10:59:11.267051",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\TMB\\EligRequest for Extension_siteEligibility.json",
+      "size_bytes": 7930,
+      "analyzed_at": "2025-07-22T10:59:11.268213",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\TMB\\ERROR_Duplicate CodeSystems.json",
+      "size_bytes": 14612,
+      "analyzed_at": "2025-07-22T10:59:11.269209",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\TMB\\ERROR_Invalid element.json",
+      "size_bytes": 14659,
+      "analyzed_at": "2025-07-22T10:59:11.270206",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\TMB\\ERROR_Item outside activation period.json",
+      "size_bytes": 14427,
+      "analyzed_at": "2025-07-22T10:59:11.273343",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\TMB\\ERROR_Multiple CodeSystems from same ValueSet.json",
+      "size_bytes": 14604,
+      "analyzed_at": "2025-07-22T10:59:11.273343",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\TMB\\Extension_invoice-Claim Request.json",
+      "size_bytes": 14683,
+      "analyzed_at": "2025-07-22T10:59:11.277516",
+      "sender": "PR-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\TMB\\Extension_invoice-Claim Response.json",
+      "size_bytes": 12282,
+      "analyzed_at": "2025-07-22T10:59:11.278513",
+      "sender": "INS-FHIR"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\TMB\\Extension_newborn_EligRequest.json",
+      "size_bytes": 9494,
+      "analyzed_at": "2025-07-22T10:59:11.280691",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\TMB\\Extension_newborn_PreauthRequest.json",
+      "size_bytes": 12429,
+      "analyzed_at": "2025-07-22T10:59:11.282737",
+      "sender": "N-F-00001"
+    },
+    {
+      "path": "C:\\Users\\rcmrejection3\\HealthLinc\\JsonSampleCases\\TMB\\Extension_siteEligibility-EligResponse.json",
+      "size_bytes": 9460,
+      "analyzed_at": "2025-07-22T10:59:11.283733",
+      "sender": "N-I-00001"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "name": "brainsait-unified",
+  "version": "1.0.0",
+  "description": "BrainSAIT Unified Healthcare Platform",
+  "private": true,
+  "scripts": {
+    "dev": "cd frontend && npm run dev",
+    "dev:local": "./scripts/dev-local.sh",
+    "build": "npm run build:frontend && npm run build:worker",
+    "build:frontend": "cd frontend && npm run build",
+    "build:worker": "webpack --config webpack.worker.js",
+    "deploy": "npm run build && wrangler deploy",
+    "deploy:staging": "npm run build && wrangler deploy --env staging",
+    "deploy:production": "./scripts/deploy-production.sh",
+    "setup": "./scripts/setup-environment.sh",
+    "setup:production": "./scripts/setup-environment.sh production",
+    "setup:staging": "./scripts/setup-environment.sh staging",
+    "upload:assets": "./scripts/upload-assets.sh",
+    "dev:worker": "wrangler dev",
+    "tail": "wrangler tail",
+    "tail:production": "wrangler tail --env production",
+    "tail:staging": "wrangler tail --env staging",
+    "test": "cd frontend && npm test",
+    "test:api": "npm run build:worker && node test/api-test.js",
+    "lint": "cd frontend && npm run lint",
+    "lint:worker": "eslint src/**/*.ts",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist frontend/dist *.js *.js.map",
+    "install:all": "npm install && cd frontend && npm install",
+    "secrets:list": "wrangler secret list",
+    "kv:list": "wrangler kv namespace list",
+    "health": "curl -s $(wrangler dev --local=false | grep 'Ready on' | awk '{print $3}')/api/health"
+  },
+  "workspaces": [
+    "frontend"
+  ],
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20241106.0",
+    "@types/node": "^20.11.5",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "wrangler": "^4.18.0"
+  },
+  "dependencies": {
+    "hono": "^3.11.7"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

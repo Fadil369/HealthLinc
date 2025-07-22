@@ -1,0 +1,168 @@
+{
+	"resourceType": "Bundle",
+	"id": "3c2b676c-1c60-4f0b-b722-90cd61241928",
+	"meta": {
+		"profile": [
+			"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+		]
+	},
+	"type": "message",
+	"timestamp": "2021-12-02T12:22:38.260Z",
+	"entry": [
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/MessageHeader/af4bf225-05df-4435-a6ba-73008c0d1928",
+			"resource": {
+				"resourceType": "MessageHeader",
+				"id": "af4bf225-05df-4435-a6ba-73008c0d1928",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+					]
+				},
+				"eventCoding": {
+					"system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+					"code": "cancel-request"
+				},
+				"destination": [
+					{
+						"endpoint": "http://nphies.sa/license/payer-license/N-I-00001",
+						"receiver": {
+							"type": "Organization",
+							"identifier": {
+								"system": "http://nphies.sa/license/payer-license",
+								"value": "N-I-00001"
+							}
+						}
+					}
+				],
+				"sender": {
+					"type": "Organization",
+					"identifier": {
+						"system": "http://nphies.sa/license/provider-license",
+						"value": "N-F-00003"
+					}
+				},
+				"source": {
+					"endpoint": "http://nphies.sa/license/provider-license/N-F-00003"
+				},
+				"focus": [
+					{
+						"reference": "http://saudidentalclinic.com.sa/Task/391928"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Task/391928",
+			"resource": {
+				"resourceType": "Task",
+				"id": "391928",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/task|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://saudidentalclinic.com.sa/task",
+						"value": "Cancel_681928"
+					}
+				],
+				"status": "requested",
+				"intent": "order",
+				"priority": "routine",
+				"code": {
+					"coding": [
+						{
+							"system": "http://nphies.sa/terminology/CodeSystem/task-code",
+							"code": "cancel"
+						}
+					]
+				},
+				"focus": {
+					"type": "Claim",
+					"identifier":                     {
+						"system": "http://saudidentalclinic.com.sa/claim",
+						"value": "req_296211"
+                    }
+				},
+				"authoredOn": "2021-12-02",
+				"lastModified": "2021-12-02",
+				"requester": {
+					"reference": "http://saudidentalclinic.com.sa/Organization/b1b3432921324f97af3be9fd0b1a14ae"
+				},
+				"owner": {
+					"reference": "http://saudidentalclinic.com.sa/Organization/bff3aa1fbd3648619ac082357bf135db"
+				},
+				"reasonCode": {
+					"coding": [
+						{
+							"system": "http://nphies.sa/terminology/CodeSystem/task-reason-code",
+							"code": "WI"
+						}
+					]
+				}
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Organization/b1b3432921324f97af3be9fd0b1a14ae",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "b1b3432921324f97af3be9fd0b1a14ae",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://nphies.sa/license/provider-license",
+						"value": "N-F-00003"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "prov"
+							}
+						]
+					}
+				],
+				"name": "Saudi Dentist Clinic"
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Organization/bff3aa1fbd3648619ac082357bf135db",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "bff3aa1fbd3648619ac082357bf135db",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/insurer-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://nphies.sa/license/payer-license",
+						"value": "N-I-00001"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "ins"
+							}
+						]
+					}
+				],
+				"name": "Saudi National Insurance"
+			}
+		}
+	]
+}

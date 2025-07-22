@@ -1,0 +1,35 @@
+name = "nphieslinc"
+main = "worker.js"
+compatibility_date = "2025-05-12"
+node_compat = true
+
+[vars]
+ENVIRONMENT = "production"
+SERVICE_NAME = "nphieslinc"
+NPHIES_INTEGRATION_URL = "https://nphies.brainsait.io"
+
+# Agent endpoints for your domains
+AUTHLINC_URL = "https://authlinc.thefadil.site"
+CLAIMLINC_URL = "https://claimlinc.thefadil.site"
+MATCHLINC_URL = "https://matchlinc.brainsait.io"
+DOCULINC_URL = "https://doculinc.brainsait.io"
+NOTIFYLINC_URL = "https://notifylinc.thefadil.site"
+RECORDLINC_URL = "https://recordlinc.brainsait.io"
+
+[[routes]]
+pattern = "nphieslinc.thefadil.site/*"
+zone_name = "thefadil.site"
+
+[[routes]]
+pattern = "nphies.brainsait.io/*" 
+zone_name = "brainsait.io"
+
+[[routes]]
+pattern = "api.thefadil.site/agents/nphies/*"
+zone_name = "thefadil.site"
+
+# KV for NPHIES message tracking
+[[kv_namespaces]]
+binding = "NPHIES_MESSAGES"
+preview_id = "nphies-messages-preview"
+id = "nphies-messages-prod"

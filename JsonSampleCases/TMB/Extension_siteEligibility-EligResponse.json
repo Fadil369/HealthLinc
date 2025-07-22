@@ -1,0 +1,389 @@
+{
+	"resourceType": "Bundle",
+	"id": "c37fa5bf-8f6a-42c9-b3cc-0435b8cd9014",
+	"meta": {
+		"profile": [
+			"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+		]
+	},
+	"type": "message",
+	"timestamp": "2021-07-15T11:56:59.96+00:00",
+	"entry": [
+		{
+			"fullUrl": "urn:uuid:99c45781-3ff6-4997-adc9-a8e403b29014",
+			"resource": {
+				"resourceType": "MessageHeader",
+				"id": "99c45781-3ff6-4997-adc9-a8e403b29014",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+					]
+				},
+				"eventCoding": {
+					"system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+					"code": "eligibility-response"
+				},
+				"destination": [
+					{
+						"endpoint": "http://nphies.sa/license/payer-license/N-F-00001",
+						"receiver": {
+							"type": "Organization",
+							"identifier": {
+								"system": "http://nphies.sa/license/provider-license",
+								"value": "N-F-00001"
+							}
+						}
+					}
+				],
+				"sender": {
+					"type": "Organization",
+					"identifier": {
+						"system": "http://nphies.sa/license/payer-license",
+						"value": "N-I-00001"
+					}
+				},
+				"source": {
+					"endpoint": "http://nphies.sa/license/payer-license/N-I-00001"
+				},
+				"response": {
+					"identifier": "c19c71dc-cfad-4401-b5b0-c0f20e8f9014",
+					"code": "ok"
+				},
+				"focus": [
+					{
+						"reference": "http://sni.com.sa/fhir/CoverageEligibilityResponse/69014"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://sni.com.sa/fhir/CoverageEligibilityResponse/69014",
+			"resource": {
+				"resourceType": "CoverageEligibilityResponse",
+				"id": "69014",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/eligibility-response|1.0.0"
+					]
+				},
+				"extension": [
+					{
+						"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-siteEligibility",
+						"valueCodeableConcept": {
+							"coding": [
+									{
+										"system": "http://nphies.sa/terminology/CodeSystem/site-eligibility",
+										"code": "eligible"
+									}
+								]
+						}
+					}
+				],
+				"identifier": [
+					{
+						"system": "http://sni.com.sa/fhir/coverageeligibilityresponse",
+						"value": "resp_169014"
+					}
+				],
+				"status": "active",
+				"purpose": [
+					"benefits",
+					"validation"
+				],
+				"patient": {
+					"reference": "http://sgh.com.sa/Patient/123454186"
+				},
+				"servicedPeriod": {
+					"start": "2021-07-15",
+					"end": "2021-07-16"
+				},
+				"created": "2021-07-15T11:56:59.976+00:00",
+				"request": {
+					"identifier": {
+						"system": "http://sgh.com.sa/identifier/coverageeligibilityrequest",
+						"value": "req_169014"
+					}
+				},
+				"outcome": "complete",
+				"disposition": "Patient’s coverage is subject to the contracted terms and condition",
+				"insurer": {
+					"reference": "http://sni.com.sa/fhir/Organization/bff3aa1fbd3648619ac082357bf135db"
+				},
+				"insurance": [
+					{
+						"coverage": {
+							"reference": "http://sni.com.sa/fhir/Coverage/1333"
+						},
+						"inforce": true,
+						"item": [
+							{
+								"category": {
+									"coding": [
+										{
+											"system": "http://nphies.sa/terminology/CodeSystem/benefit-category",
+											"code": "1"
+										}
+									]
+								},
+								"excluded": false,
+								"name": "Medical Care",
+								"description": "Medical Care.",
+								"network": {
+									"coding": [
+										{
+											"system": "http://terminology.hl7.org/CodeSystem/benefit-network",
+											"code": "in"
+										}
+									]
+								},
+								"unit": {
+									"coding": [
+										{
+											"system": "http://terminology.hl7.org/CodeSystem/benefit-unit",
+											"code": "individual"
+										}
+									]
+								},
+								"term": {
+									"coding": [
+										{
+											"system": "http://terminology.hl7.org/CodeSystem/benefit-term",
+											"code": "annual"
+										}
+									]
+								},
+								"benefit": [
+									{
+										"type": {
+											"coding": [
+												{
+													"system": "http://nphies.sa/terminology/CodeSystem/benefit-type",
+													"code": "benefit"
+												}
+											]
+										},
+										"allowedMoney": {
+											"value": 1000,
+											"currency": "SAR"
+										}
+									}
+								]
+							},
+							{
+								"category": {
+									"coding": [
+										{
+											"system": "http://nphies.sa/terminology/CodeSystem/benefit-category",
+											"code": "2"
+										}
+									]
+								},
+								"excluded": false,
+								"name": "Surgical",
+								"description": "Surgical.",
+								"network": {
+									"coding": [
+										{
+											"system": "http://terminology.hl7.org/CodeSystem/benefit-network",
+											"code": "in"
+										}
+									]
+								},
+								"unit": {
+									"coding": [
+										{
+											"system": "http://terminology.hl7.org/CodeSystem/benefit-unit",
+											"code": "individual"
+										}
+									]
+								},
+								"term": {
+									"coding": [
+										{
+											"system": "http://terminology.hl7.org/CodeSystem/benefit-term",
+											"code": "annual"
+										}
+									]
+								},
+								"benefit": [
+									{
+										"type": {
+											"coding": [
+												{
+													"system": "http://nphies.sa/terminology/CodeSystem/benefit-type",
+													"code": "benefit"
+												}
+											]
+										},
+										"allowedMoney": {
+											"value": 1050,
+											"currency": "SAR"
+										}
+									}
+								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://sgh.com.sa/Patient/123454186",
+			"resource": {
+				"resourceType": "Patient",
+				"id": "123454186",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/patient|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"code": "PRC",
+									"display": "iqama"
+								}
+							]
+						},
+						"system": "http://nphies.sa/identifier/iqama",
+						"value": "0000000001"
+					}
+				],
+				"active": true,
+				"name": [
+					{
+						"use": "official",
+						"text": "Ahmad Khaled Abbas",
+						"family": "Ahmad",
+						"given": [
+							"Khaled",
+							"Abbas"
+						]
+					}
+				],
+				"telecom": [
+					{
+						"system": "phone",
+						"value": "+966512345691"
+					}
+				],
+				"gender": "male",
+				"_gender": {
+					"extension": [
+						{
+							"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-ksa-administrative-gender",
+							"valueCodeableConcept": {
+								"coding": [
+									{
+										"system": "http://nphies.sa/terminology/CodeSystem/ksa-administrative-gender",
+										"code": "male",
+										"display": "Male"
+									}
+								]
+							}
+						}
+					]
+				},
+				"birthDate": "1984-01-03"
+			}
+		},
+		{
+			"fullUrl": "http://sni.com.sa/fhir/Organization/bff3aa1fbd3648619ac082357bf135db",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "bff3aa1fbd3648619ac082357bf135db",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/insurer-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"use": "official",
+						"system": "http://nphies.sa/license/payer-license",
+						"value": "N-I-00001"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "ins"
+							}
+						]
+					}
+				],
+				"name": "Saudi National Insurance"
+			}
+		},
+		{
+			"fullUrl": "http://sni.com.sa/fhir/Coverage/1333",
+			"resource": {
+				"resourceType": "Coverage",
+				"id": "1333",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/coverage|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://sni.com.sa/fhir/memberid",
+						"value": "10000001"
+					}
+				],
+				"status": "active",
+				"type": {
+					"coding": [
+						{
+							"system": "http://nphies.sa/terminology/CodeSystem/coverage-type",
+							"code": "EHCPOL",
+							"display": "extended healthcare"
+						}
+					]
+				},
+				"subscriber": {
+					"reference": "http://sgh.com.sa/Patient/123454186"
+				},
+				"subscriberId": "10000001",
+				"beneficiary": {
+					"reference": "http://sgh.com.sa/Patient/123454186"
+				},
+				"relationship": {
+					"coding": [
+						{
+							"system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+							"code": "self",
+							"display": "Self"
+						}
+					]
+				},
+				"payor": [
+					{
+						"reference": "http://sni.com.sa/fhir/Organization/bff3aa1fbd3648619ac082357bf135db"
+					}
+				],
+				"class": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+									"code": "group"
+								}
+							]
+						},
+						"value": "CB135",
+						"name": "Insurance Group A"
+					}
+				],
+				"network": "Golden C"
+			}
+		}
+	]
+}

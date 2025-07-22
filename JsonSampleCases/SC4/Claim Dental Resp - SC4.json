@@ -1,0 +1,512 @@
+{
+	"resourceType": "Bundle",
+	"id": "f6b47f33-7bb4-477c-8f6a-919481f88463",
+	"meta": {
+		"profile": [
+			"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/bundle|1.0.0"
+		]
+	},
+	"type": "message",
+	"timestamp": "2021-10-10T14:13:22.98+03:00",
+	"entry": [
+		{
+			"fullUrl": "urn:uuid:ad9317fe-a883-4f43-bcc8-b5a242fd8463",
+			"resource": {
+				"resourceType": "MessageHeader",
+				"id": "ad9317fe-a883-4f43-bcc8-b5a242fd8463",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/message-header|1.0.0"
+					]
+				},
+				"eventCoding": {
+					"system": "http://nphies.sa/terminology/CodeSystem/ksa-message-events",
+					"code": "claim-response"
+				},
+				"destination": [
+					{
+						"endpoint": "http://saudidentalclinic.com.sa/N-F-00003",
+						"receiver": {
+							"type": "Organization",
+							"identifier": {
+								"system": "http://nphies.sa/license/provider-license",
+								"value": "N-F-00003"
+							}
+						}
+					}
+				],
+				"sender": {
+					"type": "Organization",
+					"identifier": {
+						"system": "http://nphies.sa/license/payer-license",
+						"value": "N-I-00001"
+					}
+				},
+				"source": {
+					"endpoint": "http://nphies.sa/license/payer-license/N-I-00001"
+				},
+				"response": {
+					"identifier": "e457f6d7-bdca-4009-b8c5-5ffcbe928463",
+					"code": "ok"
+				},
+				"focus": [
+					{
+						"reference": "http://sni.com.sa/Claimresponse/618463"
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://sni.com.sa/Claimresponse/618463",
+			"resource": {
+				"resourceType": "ClaimResponse",
+				"id": "618463",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/claim-response|1.0.0"
+					]
+				},
+				"extension": [
+					{
+						"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-adjudication-outcome",
+						"valueCodeableConcept": {
+							"coding": [
+								{
+									"system": "http://nphies.sa/terminology/CodeSystem/adjudication-outcome",
+									"code": "partial"
+								}
+							]
+						}
+					}
+				],
+				"identifier": [
+					{
+						"system": "http://sni.com.sa/claimresponse",
+						"value": "resp_618463"
+					}
+				],
+				"status": "active",
+				"type": {
+					"coding": [
+						{
+							"system": "http://terminology.hl7.org/CodeSystem/claim-type",
+							"code": "oral"
+						}
+					]
+				},
+				"use": "claim",
+				"patient": {
+					"reference": "http://saudidentalclinic.com.sa/Patient/3"
+				},
+				"created": "2021-10-10",
+				"insurer": {
+					"reference": "http://sni.com.sa/Organization/bff3aa1fbd3648619ac082357bf135db"
+				},
+				"requestor": {
+					"reference": "http://saudidentalclinic.com.sa/Organization/b1b3432921324f97af3be9fd0b1a14ae"
+				},
+				"request": {
+					"identifier": {
+						"system": "http://saudidentalclinic.com.sa/claim",
+						"value": "req_298463"
+					}
+				},
+				"outcome": "complete",
+				"payeeType": {
+					"coding": [
+						{
+							"system": "http://terminology.hl7.org/CodeSystem/payeetype",
+							"code": "provider"
+						}
+					]
+				},
+				"item": [
+					{
+						"extension": [
+							{
+								"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-adjudication-outcome",
+								"valueCodeableConcept": {
+									"coding": [
+										{
+											"system": "http://nphies.sa/terminology/CodeSystem/adjudication-outcome",
+											"code": "partial"
+										}
+									]
+								}
+							}
+						],
+						"itemSequence": 1,
+						"adjudication": [
+							{
+								"category": {
+									"coding": [
+										{
+											"system": "http://terminology.hl7.org/CodeSystem/adjudication",
+											"code": "benefit"
+										}
+									]
+								},
+								"reason": {
+									"coding": [
+										{
+											"system": "http://nphies.sa/terminology/CodeSystem/adjudication-reason",
+											"code": "N-DC-017"
+										}
+									]
+								},
+								"amount": {
+									"currency": "SAR",
+									"value": 1380
+								}
+							},
+							{
+								"category": {
+									"coding": [
+										{
+											"system": "http://terminology.hl7.org/CodeSystem/adjudication",
+											"code": "eligible"
+										}
+									]
+								},
+								"amount": {
+									"currency": "SAR",
+									"value": 1200
+								}
+							},
+							{
+								"category": {
+									"coding": [
+										{
+											"system": "http://terminology.hl7.org/CodeSystem/adjudication",
+											"code": "tax"
+										}
+									]
+								},
+								"amount": {
+									"currency": "SAR",
+									"value": 180
+								}
+							},
+							{
+								"category": {
+									"coding": [
+										{
+											"system": "http://nphies.sa/terminology/CodeSystem/ksa-adjudication",
+											"code": "approved-quantity"
+										}
+									]
+								},
+								"value": 1
+							}
+						]
+					}
+				],
+				"total": [
+					{
+						"category": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/adjudication",
+									"code": "benefit"
+								}
+							]
+						},
+						"amount": {
+							"currency": "SAR",
+							"value": 1380
+						}
+					},
+					{
+						"category": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/adjudication",
+									"code": "eligible"
+								}
+							]
+						},
+						"amount": {
+							"currency": "SAR",
+							"value": 1200
+						}
+					}
+				],
+				"processNote": [
+					{
+						"number": 101,
+						"type": "print",
+						"text": "The dental benefits under this policy have all been consumed.",
+						"language": {
+							"coding": [
+								{
+									"system": "urn:ietf:bcp:47",
+									"code": "en-CA"
+								}
+							]
+						}
+					}
+				],
+				"insurance": [
+					{
+						"sequence": 1,
+						"focal": true,
+						"coverage": {
+							"reference": "http://sni.com.sa/Coverage/3"
+						}
+					}
+				]
+			}
+		},
+		{
+			"fullUrl": "http://sni.com.sa/Coverage/3",
+			"resource": {
+				"resourceType": "Coverage",
+				"id": "3",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/coverage|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://sni.com.sa/memberid",
+						"value": "0000000003"
+					}
+				],
+				"status": "active",
+				"type": {
+					"coding": [
+						{
+							"system": "http://nphies.sa/terminology/CodeSystem/coverage-type",
+							"code": "EHCPOL",
+							"display": "extended healthcare"
+						}
+					]
+				},
+				"subscriber": {
+					"reference": "http://saudidentalclinic.com.sa/Patient/123454186"
+				},
+				"beneficiary": {
+					"reference": "http://saudidentalclinic.com.sa/Patient/3"
+				},
+				"relationship": {
+					"coding": [
+						{
+							"system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+							"code": "spouse",
+							"display": "Spouse"
+						}
+					]
+				},
+				"payor": [
+					{
+						"reference": "http://sni.com.sa/organization/bff3aa1fbd3648619ac082357bf135db"
+					}
+				],
+				"class": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+									"code": "group"
+								}
+							]
+						},
+						"value": "CB135",
+						"name": "Insurance Group A"
+					},
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+									"code": "plan"
+								}
+							]
+						},
+						"value": "ABC123",
+						"name": "Insurance Group A"
+					}
+				],
+				"network": "Golden C"
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Patient/3",
+			"resource": {
+				"resourceType": "Patient",
+				"id": "3",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/patient|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"code": "PRC"
+								}
+							]
+						},
+						"system": "http://nphies.sa/identifier/iqama",
+						"value": "0000000003"
+					}
+				],
+				"active": true,
+				"name": [
+					{
+						"text": "Sara Khan",
+						"family": "Khan",
+						"given": [
+							"Sara"
+						]
+					}
+				],
+				"gender": "female",
+				"_gender": {
+					"extension": [
+						{
+							"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-ksa-administrative-gender",
+							"valueCodeableConcept": {
+								"coding": [
+									{
+										"system": "http://nphies.sa/terminology/CodeSystem/ksa-administrative-gender",
+										"code": "male"
+									}
+								]
+							}
+						}
+					]
+				},
+				"birthDate": "1974-03-13"
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Patient/123454186",
+			"resource": {
+				"resourceType": "Patient",
+				"id": "123454186",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/patient|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"type": {
+							"coding": [
+								{
+									"system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+									"code": "PRC",
+									"display": "iqama"
+								}
+							]
+						},
+						"system": "http://nphies.sa/identifier/iqama",
+						"value": "0000000001"
+					}
+				],
+				"active": true,
+				"name": [
+					{
+						"use": "official",
+						"text": "Ahmad Khaled Abbas",
+						"family": "Ahmad",
+						"given": [
+							"Khaled",
+							"Abbas"
+						]
+					}
+				],
+				"telecom": [
+					{
+						"system": "phone",
+						"value": "+966512345691"
+					}
+				],
+				"gender": "male",
+				"_gender": {
+					"extension": [
+						{
+							"url": "http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/extension-ksa-administrative-gender",
+							"valueCodeableConcept": {
+								"coding": [
+									{
+										"system": "http://nphies.sa/terminology/CodeSystem/ksa-administrative-gender",
+										"code": "male",
+										"display": "Male"
+									}
+								]
+							}
+						}
+					]
+				},
+				"birthDate": "1984-12-25"
+			}
+		},
+		{
+			"fullUrl": "http://saudidentalclinic.com.sa/Organization/b1b3432921324f97af3be9fd0b1a14ae",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "b1b3432921324f97af3be9fd0b1a14ae",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/provider-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://nphies.sa/license/provider-license",
+						"value": "N-F-00003"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "prov"
+							}
+						]
+					}
+				],
+				"name": "Saudi Dentist Clinic"
+			}
+		},
+		{
+			"fullUrl": "http://sni.com.sa/Organization/bff3aa1fbd3648619ac082357bf135db",
+			"resource": {
+				"resourceType": "Organization",
+				"id": "bff3aa1fbd3648619ac082357bf135db",
+				"meta": {
+					"profile": [
+						"http://nphies.sa/fhir/ksa/nphies-fs/StructureDefinition/insurer-organization|1.0.0"
+					]
+				},
+				"identifier": [
+					{
+						"system": "http://nphies.sa/license/payer-license",
+						"value": "N-I-00001"
+					}
+				],
+				"active": true,
+				"type": [
+					{
+						"coding": [
+							{
+								"system": "http://nphies.sa/terminology/CodeSystem/organization-type",
+								"code": "ins"
+							}
+						]
+					}
+				],
+				"name": "Saudi National Insurance"
+			}
+		}
+	]
+}
