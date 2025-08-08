@@ -1,9 +1,18 @@
 const path = require('path');
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = {
   entry: './src/worker-optimized.ts',
-  mode: 'production',
+  mode: isProduction ? 'production' : 'development',
   target: 'webworker',
+  devtool: isProduction ? false : 'eval-source-map',
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      config: [__filename],
+    },
+  },
   module: {
     rules: [
       {
@@ -12,7 +21,8 @@ module.exports = {
           loader: 'ts-loader',
           options: {
             configFile: 'tsconfig.worker.json',
-            transpileOnly: true
+            transpileOnly: true,
+            experimentalWatchApi: true,
           }
         },
         exclude: /node_modules/,
@@ -32,11 +42,22 @@ module.exports = {
     library: {
       type: 'module',
     },
+    clean: true,
   },
   experiments: {
     outputModule: true,
   },
   optimization: {
-    minimize: true,
+    minimize: isProduction,
+    usedExports: true,
+    sideEffects: false,
+  },
+  stats: {
+    preset: 'minimal',
+    colors: true,
+    timings: true,
+  },
+  performance: {
+    hints: false,
   },
 };

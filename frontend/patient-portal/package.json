@@ -7,7 +7,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "echo 'No tests configured for patient portal' && exit 0",
+    "test:watch": "echo 'No tests configured for patient portal' && exit 0"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",

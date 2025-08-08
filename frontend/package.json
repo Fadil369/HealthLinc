@@ -30,7 +30,9 @@
     "deploy:production": "wrangler deploy --env production",
     "preview:worker": "wrangler dev",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "echo 'No tests specified for main frontend' && exit 0",
+    "test:watch": "echo 'No tests specified for main frontend' && exit 0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250529.0",

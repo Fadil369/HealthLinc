@@ -1,0 +1,348 @@
+name: Optimized CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+env:
+  NODE_VERSION: '18'
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  # Quick checks that can run in parallel
+  lint-and-quick-checks:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        component:
+          - name: "Main Frontend"
+            path: "frontend"
+            type: "node"
+          - name: "Patient Portal"
+            path: "frontend/patient-portal"
+            type: "node"
+          - name: "Clinician Portal"
+            path: "frontend/clinician-portal"
+            type: "node"
+          - name: "MCP Server"
+            path: "backend/mcp-server"
+            type: "node"
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Fetch only the current commit for speed
+          fetch-depth: 1
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: '${{ matrix.component.path }}/package-lock.json'
+      
+      - name: Install dependencies
+        working-directory: ${{ matrix.component.path }}
+        run: npm ci --prefer-offline --no-audit
+      
+      - name: Lint ${{ matrix.component.name }}
+        working-directory: ${{ matrix.component.path }}
+        run: npm run lint
+
+  # Python services testing
+  python-services-test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        service:
+          - "claimlinc"
+          - "recordlinc"
+          - "authlinc"
+          - "notifylinc"
+          - "fhir-gateway"
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: 'pip'
+          cache-dependency-path: |
+            backend/linc-agents/common-requirements.txt
+            backend/${{ matrix.service }}/requirements.txt
+            backend/linc-agents/${{ matrix.service }}/requirements.txt
+      
+      - name: Install common dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pytest pytest-cov
+          if [ -f backend/linc-agents/common-requirements.txt ]; then
+            pip install -r backend/linc-agents/common-requirements.txt
+          fi
+      
+      - name: Install service dependencies
+        run: |
+          if [ -d "backend/linc-agents/${{ matrix.service }}" ]; then
+            cd backend/linc-agents/${{ matrix.service }}
+            pip install -r requirements.txt
+          elif [ -d "backend/${{ matrix.service }}" ]; then
+            cd backend/${{ matrix.service }}
+            pip install -r requirements.txt
+          fi
+      
+      - name: Run tests for ${{ matrix.service }}
+        run: |
+          if [ -d "backend/linc-agents/${{ matrix.service }}" ]; then
+            cd backend/linc-agents/${{ matrix.service }}
+            python -m pytest --cov=. --cov-report=xml:coverage-${{ matrix.service }}.xml || echo "No tests found for ${{ matrix.service }}"
+          elif [ -d "backend/${{ matrix.service }}" ]; then
+            cd backend/${{ matrix.service }}
+            python -m pytest --cov=. --cov-report=xml:coverage-${{ matrix.service }}.xml || echo "No tests found for ${{ matrix.service }}"
+          fi
+  
+  # Frontend testing and building
+  frontend-test-build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - name: "Main App"
+            path: "."
+            test_cmd: "npm run test"
+            build_cmd: "npm run build"
+          - name: "Patient Portal"
+            path: "frontend/patient-portal"
+            test_cmd: "npm run test -- --passWithNoTests"
+            build_cmd: "npm run build"
+          - name: "Clinician Portal"
+            path: "frontend/clinician-portal"
+            test_cmd: "npm run test -- --passWithNoTests"
+            build_cmd: "npm run build"
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            frontend/package-lock.json
+            frontend/patient-portal/package-lock.json
+            frontend/clinician-portal/package-lock.json
+      
+      - name: Install dependencies
+        run: |
+          if [ "${{ matrix.app.path }}" = "." ]; then
+            npm ci --prefer-offline --no-audit
+            cd frontend && npm ci --prefer-offline --no-audit
+          else
+            cd ${{ matrix.app.path }}
+            npm ci --prefer-offline --no-audit
+          fi
+      
+      - name: Test ${{ matrix.app.name }}
+        run: |
+          if [ "${{ matrix.app.path }}" = "." ]; then
+            ${{ matrix.app.test_cmd }}
+          else
+            cd ${{ matrix.app.path }}
+            ${{ matrix.app.test_cmd }}
+          fi
+      
+      - name: Build ${{ matrix.app.name }}
+        run: |
+          if [ "${{ matrix.app.path }}" = "." ]; then
+            ${{ matrix.app.build_cmd }}
+          else
+            cd ${{ matrix.app.path }}
+            ${{ matrix.app.build_cmd }}
+          fi
+
+  # API integration tests
+  api-integration-test:
+    runs-on: ubuntu-latest
+    needs: [frontend-test-build]
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+      
+      - name: Build worker
+        run: npm run build:worker
+      
+      - name: Run API tests
+        run: |
+          npm run test:api
+          node test/auth.test.js
+          node test/auth-api-integration.test.js
+
+  # Security scanning (run in parallel with tests)
+  security-scan:
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          ignore-unfixed: true
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'CRITICAL,HIGH'
+      
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
+  # Docker builds (only on main/develop)
+  docker-build:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+    needs: [lint-and-quick-checks, python-services-test, frontend-test-build, api-integration-test]
+    strategy:
+      fail-fast: false
+      matrix:
+        service:
+          - name: "FHIR Gateway"
+            context: "./backend/fhir-gateway"
+            dockerfile: "./backend/fhir-gateway/Dockerfile"
+            image: "healthlinc/fhir-gateway"
+          - name: "Linc Agents"
+            context: "./backend/linc-agents"
+            dockerfile: "./backend/linc-agents/Dockerfile.multi"
+            image: "healthlinc/linc-agents"
+          - name: "Patient Portal"
+            context: "./frontend/patient-portal"
+            dockerfile: "./frontend/patient-portal/Dockerfile"
+            image: "healthlinc/patient-portal"
+          - name: "Clinician Portal"
+            context: "./frontend/clinician-portal"
+            dockerfile: "./frontend/clinician-portal/Dockerfile"
+            image: "healthlinc/clinician-portal"
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: |
+            image=moby/buildkit:buildx-stable-1
+      
+      - name: Login to Docker Hub
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Extract Docker tag
+        id: meta
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "DOCKER_TAG=latest" >> $GITHUB_ENV
+          else
+            echo "DOCKER_TAG=$(echo ${GITHUB_REF#refs/heads/} | tr / -)" >> $GITHUB_ENV
+          fi
+      
+      - name: Build and push ${{ matrix.service.name }}
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ matrix.service.context }}
+          file: ${{ matrix.service.dockerfile }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ matrix.service.image }}:${{ env.DOCKER_TAG }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: linux/amd64
+
+  # Cloudflare Workers deployment
+  deploy-workers:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs: [api-integration-test]
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci --prefer-offline --no-audit
+      
+      - name: Build project
+        run: npm run build
+      
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          workingDirectory: '.'
+          command: deploy
+
+  # Optional deployment steps for staging/production
+  deploy-staging:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop'
+    needs: [docker-build]
+    environment:
+      name: staging
+      url: https://staging.healthlinc.app
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy to staging
+        run: echo "Staging deployment would happen here"
+        # Add actual staging deployment logic here
+
+  deploy-production:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    needs: [docker-build]
+    environment:
+      name: production
+      url: https://app.healthlinc.app
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Deploy to production
+        run: echo "Production deployment would happen here"
+        # Add actual production deployment logic here

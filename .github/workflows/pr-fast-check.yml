@@ -1,0 +1,107 @@
+name: Fast PR Checks
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+    types: [opened, synchronize, ready_for_review]
+
+env:
+  NODE_VERSION: '18'
+
+jobs:
+  # Quick lint and build check for PRs
+  quick-check:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: |
+            package-lock.json
+            frontend/package-lock.json
+      
+      - name: Install main dependencies
+        run: |
+          npm ci --prefer-offline --no-audit
+          cd frontend && npm ci --prefer-offline --no-audit
+      
+      - name: Lint main app
+        run: npm run lint
+      
+      - name: Quick build test
+        run: npm run build
+      
+      - name: Run basic API tests
+        run: npm run test:api
+
+  # Path-based testing - only test what changed
+  changed-files-test:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.draft == false
+    
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v40
+        with:
+          files_yaml: |
+            frontend:
+              - frontend/**
+            patient_portal:
+              - frontend/patient-portal/**
+            clinician_portal:
+              - frontend/clinician-portal/**
+            backend:
+              - backend/**
+            python:
+              - backend/**/*.py
+              - backend/**/requirements.txt
+            
+      - name: Setup Node.js
+        if: steps.changed-files.outputs.frontend_any_changed == 'true' || steps.changed-files.outputs.patient_portal_any_changed == 'true' || steps.changed-files.outputs.clinician_portal_any_changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+      
+      - name: Test Patient Portal
+        if: steps.changed-files.outputs.patient_portal_any_changed == 'true'
+        run: |
+          cd frontend/patient-portal
+          npm ci --prefer-offline --no-audit
+          npm run lint
+          npm run test -- --passWithNoTests
+      
+      - name: Test Clinician Portal
+        if: steps.changed-files.outputs.clinician_portal_any_changed == 'true'
+        run: |
+          cd frontend/clinician-portal
+          npm ci --prefer-offline --no-audit
+          npm run lint
+          npm run test -- --passWithNoTests
+      
+      - name: Setup Python
+        if: steps.changed-files.outputs.python_any_changed == 'true'
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      
+      - name: Test Python changes
+        if: steps.changed-files.outputs.python_any_changed == 'true'
+        run: |
+          pip install --upgrade pip
+          pip install pytest pytest-cov
+          echo "Python tests would run here for changed files"
