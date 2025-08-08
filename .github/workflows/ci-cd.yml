@@ -1,13 +1,17 @@
-name: HealthLinc CI/CD Pipeline
+name: Legacy CI/CD Pipeline (DEPRECATED)
+
+# This workflow is deprecated in favor of ci-optimized.yml
+# Keeping for reference until migration is complete
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ none ]  # Disabled
   pull_request:
-    branches: [ main, develop ]
+    branches: [ none ]  # Disabled
   workflow_dispatch:
-  schedule:
-    - cron: '0 0 * * 0'  # Weekly security scan on Sunday at midnight
+
+# Legacy workflow content preserved for reference
+# See ci-optimized.yml for the new optimized pipeline
 
 jobs:
   lint-and-test:

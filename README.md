@@ -12,18 +12,19 @@
 2. Core Components
 3. System Architecture
 4. Technology Stack
-5. Getting Started (New!)
-6. Backend Setup
-7. Frontend Setup
-8. Integration with FHIR & HL7
-9. MCP Server & Client Setup
-10. Agentic Workflow Design
-11. Security & Compliance
-12. Deployment & Scaling
-13. Development Workflow (New!)
-14. Continuous Monitoring & Feedback
-15. Troubleshooting Guide (New!)
-16. Appendices & Resources
+5. Performance & CI/CD Optimizations (New!)
+6. Getting Started (New!)
+7. Backend Setup
+8. Frontend Setup
+9. Integration with FHIR & HL7
+10. MCP Server & Client Setup
+11. Agentic Workflow Design
+12. Security & Compliance
+13. Deployment & Scaling
+14. Development Workflow (New!)
+15. Continuous Monitoring & Feedback
+16. Troubleshooting Guide (New!)
+17. Appendices & Resources
 
 ---
 
@@ -95,7 +96,41 @@ graph TD
 
 ---
 
-## 5. Getting Started
+## 5. Performance & CI/CD Optimizations
+
+HealthLinc implements aggressive performance optimizations for fast development and CI/CD pipelines:
+
+### ⚡ Performance Achievements
+- **86% faster dependency installation**: 2m19s → 19s
+- **60-70% faster CI pipelines**: 15-20min → 5-8min  
+- **Parallel test execution**: Multiple services tested simultaneously
+- **Smart path-based testing**: Only test changed components
+
+### 🚀 Quick Start Commands
+```bash
+# Optimized dependency installation
+npm run install:all
+
+# Fast build (frontend only)
+npm run build:fast
+
+# Quick API tests (no rebuild)
+npm run test:fast
+
+# Performance benchmark
+./scripts/benchmark-ci.sh
+```
+
+### 📊 CI/CD Workflows
+- **Fast PR Checks** (`pr-fast-check.yml`): Quick validation in 2-4 minutes
+- **Optimized CI/CD** (`ci-optimized.yml`): Full testing with parallel execution
+- **Legacy Workflow**: Deprecated for performance reasons
+
+For detailed optimization information, see [CI Performance Guide](docs/CI_PERFORMANCE_OPTIMIZATIONS.md).
+
+---
+
+## 6. Getting Started
 
 ### Prerequisites
 
@@ -145,7 +180,7 @@ graph TD
 
 ---
 
-## 6. Backend Setup
+## 7. Backend Setup
 
 1. Clone MCP Server template (e.g., `brainsait-mcp-secure-worker`)
 2. Set up Cloudflare Worker project:

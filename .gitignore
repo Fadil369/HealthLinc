@@ -97,3 +97,24 @@ coverage/
 *~
 *.bak
 *.tmp
+
+# Additional optimizations for faster CI
+# Build artifacts to exclude from commits
+frontend/dist/
+backend/*/dist/
+*.js.map
+worker.js
+.wrangler/
+
+# Test artifacts
+test-results/
+playwright-report/
+test-artifacts/
+coverage*/
+
+# IDE and OS files
+.idea/
+Thumbs.db
+ehthumbs.db
+.Spotlight-V100
+.Trashes
