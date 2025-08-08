@@ -1,0 +1,129 @@
+version: '3.8'
+
+# Optimized Docker Compose for HealthLinc testing
+# Lightweight services with fast startup and teardown
+
+services:
+  # Redis for test caching and session storage
+  redis-test:
+    image: redis:7-alpine
+    ports:
+      - "6380:6379"  # Different port to avoid conflicts
+    command: redis-server --save "" --appendonly no --maxmemory 128mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+    networks:
+      - test-network
+
+  # PostgreSQL for test database
+  postgres-test:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: healthlinc_test
+      POSTGRES_USER: test_user
+      POSTGRES_PASSWORD: test_pass
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=C"
+    ports:
+      - "5433:5432"  # Different port to avoid conflicts
+    volumes:
+      - postgres_test_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test_user -d healthlinc_test"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    networks:
+      - test-network
+
+  # Lightweight FHIR server for testing
+  fhir-test:
+    image: hapiproject/hapi:latest
+    environment:
+      - HAPI_FHIR_VERSION=R4
+      - HAPI_FHIR_VALIDATION_REQUESTS_ENABLED=false
+      - HAPI_FHIR_SUBSCRIPTION_ENABLED=false
+      - HAPI_FHIR_CORS_ENABLED=true
+      - HAPI_FHIR_ENFORCE_REFERENTIAL_INTEGRITY_ON_WRITE=false
+      - HAPI_FHIR_ENFORCE_REFERENTIAL_INTEGRITY_ON_DELETE=false
+    ports:
+      - "8081:8080"
+    volumes:
+      - fhir_test_data:/data/hapi
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/fhir/metadata"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    networks:
+      - test-network
+
+  # Test database seeder service
+  test-seeder:
+    build:
+      context: .
+      dockerfile: Dockerfile.test-seeder
+    environment:
+      - DATABASE_URL=postgresql://test_user:test_pass@postgres-test:5432/healthlinc_test
+      - REDIS_URL=redis://redis-test:6379/0
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      redis-test:
+        condition: service_healthy
+    volumes:
+      - ./scripts:/scripts
+      - test_data:/data
+    command: python /scripts/seed-test-database.py --patients 1000 --claims-per-patient 3
+    networks:
+      - test-network
+
+  # Test runner service for parallel execution
+  test-runner:
+    build:
+      context: .
+      dockerfile: Dockerfile.test-runner
+    environment:
+      - DATABASE_URL=postgresql://test_user:test_pass@postgres-test:5432/healthlinc_test
+      - REDIS_URL=redis://redis-test:6379/0
+      - FHIR_SERVER_URL=http://fhir-test:8080/fhir
+      - ENVIRONMENT=test
+      - PYTHONPATH=/app
+    depends_on:
+      postgres-test:
+        condition: service_healthy
+      redis-test:
+        condition: service_healthy
+      fhir-test:
+        condition: service_healthy
+      test-seeder:
+        condition: service_completed_successfully
+    volumes:
+      - .:/app
+      - test_results:/test-results
+      - test_cache:/app/.test-cache
+    working_dir: /app
+    command: ./scripts/run-tests-selective.sh
+    networks:
+      - test-network
+
+volumes:
+  postgres_test_data:
+    driver: local
+  fhir_test_data:
+    driver: local
+  test_data:
+    driver: local
+  test_results:
+    driver: local
+  test_cache:
+    driver: local
+
+networks:
+  test-network:
+    driver: bridge

@@ -1,0 +1,39 @@
+# Common requirements for all LINC agents and backend services
+# Testing and Development
+pytest>=7.4.0
+pytest-xdist>=3.3.1  # Parallel test execution
+pytest-cov>=4.1.0   # Test coverage
+pytest-mock>=3.11.1 # Mocking utilities
+pytest-asyncio>=0.21.1 # Async test support
+pytest-timeout>=2.1.0 # Test timeout handling
+pytest-benchmark>=4.0.0 # Performance benchmarking
+pytest-html>=3.2.0 # HTML test reports
+pytest-json-report>=1.5.0 # JSON test reports
+
+# Healthcare Testing Utilities
+faker>=19.3.0       # Generate test data
+factory-boy>=3.3.0  # Test data factories
+freezegun>=1.2.2    # Time mocking for compliance tests
+responses>=0.23.3   # HTTP request mocking
+httpx>=0.24.1       # Async HTTP client for testing
+
+# Performance and Monitoring
+memory-profiler>=0.61.0 # Memory usage profiling
+psutil>=5.9.5       # System resource monitoring
+
+# Database Testing
+pytest-postgresql>=5.0.0 # PostgreSQL test fixtures
+pytest-redis>=3.0.2      # Redis test fixtures
+sqlalchemy-utils>=0.41.1 # Database utilities
+
+# Code Quality
+black>=23.7.0       # Code formatting
+isort>=5.12.0       # Import sorting
+flake8>=6.0.0       # Linting
+mypy>=1.5.1         # Type checking
+bandit>=1.7.5       # Security linting
+
+# Healthcare-Specific Testing
+pydantic>=2.0.0     # Data validation for FHIR/NPHIES
+requests>=2.31.0    # HTTP requests for API testing
+python-dateutil>=2.8.2 # Date handling for healthcare data
