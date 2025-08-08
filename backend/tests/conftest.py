@@ -8,9 +8,10 @@ import asyncio
 from typing import Dict, Any, List
 from datetime import datetime, timedelta
 from faker import Faker
+import random
 from dataclasses import dataclass
 
-fake = Faker(['en_US', 'ar_SA'])  # US English and Arabic for Saudi Arabia
+fake = Faker('en_US')  # Use single locale to avoid proxy issues
 
 @dataclass
 class PerformanceBenchmark:
@@ -61,7 +62,7 @@ class HealthcareTestFixtures:
             "patient_id": f"PAT-{fake.random_int(1000, 9999)}",
             "provider_id": f"PRV-{fake.random_int(100, 999)}",
             "claim_date": fake.date_time_between(start_date='-30d', end_date='now').isoformat(),
-            "total_amount": round(fake.random.uniform(100, 5000), 2),
+            "total_amount": round(random.uniform(100, 5000), 2),
             "currency": "SAR",
             "status": fake.random_element(elements=('submitted', 'processing', 'approved', 'rejected')),
             "services": [
@@ -69,7 +70,7 @@ class HealthcareTestFixtures:
                     "code": fake.random_element(elements=('99213', '85025', '80053', '36415')),
                     "description": fake.sentence(nb_words=4),
                     "quantity": fake.random_int(1, 5),
-                    "unit_price": round(fake.random.uniform(50, 500), 2),
+                    "unit_price": round(random.uniform(50, 500), 2),
                     "total_price": 0  # Will be calculated
                 }
             ],
