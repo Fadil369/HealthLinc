@@ -3,6 +3,7 @@ import { authRoutes } from './auth';
 import { agentsRoutes } from './agents';
 import { claimlincRoutes } from './claimlinc';
 import { paymentsRoutes } from './payments';
+import healthflicksRoutes from './healthflicks';
 import { Env } from '../worker';
 import { createLogger } from '../utils/logger';
 
@@ -14,6 +15,7 @@ export function createAPIRoutes() {
   api.route('/agents', agentsRoutes);
   api.route('/claimlinc', claimlincRoutes);
   api.route('/payments', paymentsRoutes);
+  api.route('/healthflicks', healthflicksRoutes);
 
   // Health check for API
   api.get('/health', (c) => {
@@ -24,7 +26,8 @@ export function createAPIRoutes() {
         auth: 'up',
         agents: 'up',
         claimlinc: 'up',
-        payments: 'up'
+        payments: 'up',
+        healthflicks: 'up'
       }
     });
   });
@@ -39,7 +42,8 @@ export function createAPIRoutes() {
         '/api/auth': 'Authentication and user management',
         '/api/agents': 'AI agent services (DocuLinc, ClaimLinc, etc.)',
         '/api/claimlinc': 'NPHIES insurance claims integration',
-        '/api/payments': 'Payment processing and billing'
+        '/api/payments': 'Payment processing and billing',
+        '/api/healthflicks': 'TikTok-style health education videos'
       }
     });
   });
