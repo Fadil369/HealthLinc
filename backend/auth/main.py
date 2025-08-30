@@ -13,6 +13,8 @@ import secrets
 import time
 from datetime import datetime, timedelta
 from typing import Dict, Any, Optional, List, Union
+
+import requests
 from pydantic import BaseModel, EmailStr, validator, Field
 from passlib.context import CryptContext
 from fastapi import FastAPI, HTTPException, Depends, Header, Request, status, Response
@@ -69,6 +71,11 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 # Stripe setup
 stripe.api_key = os.environ.get("STRIPE_API_KEY", "sk_test_example")
+
+# Email verification configuration
+FRONTEND_URL = os.environ.get("FRONTEND_URL", "http://localhost:3000")
+NOTIFYLINC_URL = os.environ.get("NOTIFYLINC_URL", "http://localhost:8003/agents/notify")
+EMAIL_VERIFICATION_EXPIRY_HOURS = int(os.environ.get("EMAIL_VERIFICATION_EXPIRY_HOURS", "24"))
 
 # OAuth2 password bearer
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -198,6 +205,18 @@ class UsageLog(Base):
     
     # Relationships
     user = relationship("User", back_populates="usage_logs")
+
+class EmailVerification(Base):
+    """Email verification tokens"""
+    __tablename__ = "email_verifications"
+
+    id = Column(String, primary_key=True, index=True)
+    user_id = Column(String, ForeignKey("users.id"), nullable=False)
+    token = Column(String, unique=True, index=True, nullable=False)
+    expires_at = Column(DateTime, nullable=False)
+    created_at = Column(DateTime, default=func.now())
+
+    user = relationship("User")
 
 # Create all tables
 Base.metadata.create_all(bind=engine)
@@ -347,6 +366,22 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
+def send_verification_email(to_email: str, token: str) -> None:
+    """Send email verification link via NotifyLinc"""
+    verify_link = f"{FRONTEND_URL}/verify-email?token={token}"
+    payload = {
+        "to": to_email,
+        "subject": "Verify your email address",
+        "body_text": f"Please verify your email by visiting {verify_link}",
+        "body_html": f"<p>Please verify your email by visiting <a href='{verify_link}'>this link</a>.</p>"
+    }
+    headers = {"X-MCP-Task": "email"}
+    try:
+        response = requests.post(NOTIFYLINC_URL, json=payload, headers=headers, timeout=5)
+        response.raise_for_status()
+    except Exception as e:
+        logger.error(f"Error sending verification email: {e}")
+
 async def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> User:
     """Get the current authenticated user from the JWT token"""
     credentials_exception = HTTPException(
@@ -420,10 +455,38 @@ async def register_user(user: UserCreate, db: Session = Depends(get_db)):
     db.add(db_user)
     db.commit()
     db.refresh(db_user)
-    
-    # TODO: Send verification email
-    
+
+    # Create email verification token
+    verification_token = secrets.token_urlsafe(32)
+    verification_record = EmailVerification(
+        id=str(uuid.uuid4()),
+        user_id=user_id,
+        token=verification_token,
+        expires_at=datetime.utcnow() + timedelta(hours=EMAIL_VERIFICATION_EXPIRY_HOURS)
+    )
+    db.add(verification_record)
+    db.commit()
+
+    # Send verification email
+    send_verification_email(user.email, verification_token)
+
     return db_user
+
+@app.get("/verify-email")
+async def verify_email(token: str, db: Session = Depends(get_db)):
+    """Verify a user's email address"""
+    record = db.query(EmailVerification).filter(EmailVerification.token == token).first()
+    if not record or record.expires_at < datetime.utcnow():
+        raise HTTPException(status_code=400, detail="Invalid or expired token")
+
+    user = db.query(User).filter(User.id == record.user_id).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    user.is_verified = True
+    db.delete(record)
+    db.commit()
+    return {"message": "Email verified successfully"}
 
 @app.post("/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
