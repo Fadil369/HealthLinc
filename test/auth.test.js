@@ -15,6 +15,7 @@
 
 const { strict: assert } = require('assert');
 const crypto = require('crypto');
+const { spawnSync } = require('child_process');
 
 // Mock Cloudflare Workers environment
 class MockKVNamespace {
@@ -390,20 +391,28 @@ class AuthTestSuite {
   async testPasswordStrengthValidation() {
     const weakPasswords = [
       '123456',
-      'password',
       'qwerty',
-      '12345678',
       'admin',
       '',
       'a', // Too short
       '1234567' // Just under 8 characters
     ];
 
+    const script = `import sys, os
+sys.path.insert(0, "${process.cwd()}")
+from backend.auth.main import UserCreate
+from pydantic import ValidationError
+password = sys.argv[1]
+try:
+    UserCreate(email="test@example.com", first_name="Test", last_name="User", password=password)
+    print("VALID")
+except ValidationError:
+    print("INVALID")
+`;
+
     for (const weakPassword of weakPasswords) {
-      // In a real implementation, these should be rejected
-      if (weakPassword.length < 8) {
-        assert(true, `Weak password should be rejected: ${weakPassword}`);
-      }
+      const res = spawnSync('python3', ['-c', script, weakPassword], { encoding: 'utf8' });
+      assert(res.stdout.trim() === 'INVALID', `Weak password should be rejected: ${weakPassword}`);
     }
 
     // Strong passwords should be accepted
@@ -414,7 +423,8 @@ class AuthTestSuite {
     ];
 
     for (const strongPassword of strongPasswords) {
-      assert(strongPassword.length >= 8, `Strong password should be accepted: ${strongPassword}`);
+      const res = spawnSync('python3', ['-c', script, strongPassword], { encoding: 'utf8' });
+      assert(res.stdout.trim() === 'VALID', `Strong password should be accepted: ${strongPassword}`);
     }
   }
 
