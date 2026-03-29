@@ -53,10 +53,10 @@
     "ts-loader": "^9.5.2",
     "typescript": "^5.2.2",
     "typescript-eslint": "^7.0.2",
-    "vite": "^5.1.4",
+    "vite": "^7.0.5",
     "webpack": "^5.99.9",
     "webpack-cli": "^6.0.1",
-    "wrangler": "^4.17.0"
+    "wrangler": "^4.25.0"
   },
   "browserslist": {
     "production": [
