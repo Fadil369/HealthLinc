@@ -1,9 +1,9 @@
 fastapi==0.110.0
 uvicorn==0.28.0
-pydantic==2.6.3
+pydantic==2.11.7
 python-dotenv==1.0.1
 httpx==0.27.0
-python-multipart==0.0.7
+python-multipart==0.0.18
 fhir.resources==7.0.2
 # Add any OpenAI/Claude SDK based on your agent implementation
 # openai==1.25.0
