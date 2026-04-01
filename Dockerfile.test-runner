@@ -1,0 +1,62 @@
+# Dockerfile for test runner with parallel execution capabilities
+FROM node:18-slim as frontend-deps
+
+WORKDIR /app/frontend
+
+# Install frontend dependencies
+COPY frontend/package*.json ./
+RUN npm ci --only=production && npm cache clean --force
+
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system dependencies for testing
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    gcc \
+    nodejs \
+    npm \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python test dependencies
+COPY backend/test-requirements.txt /app/backend/
+RUN pip install --no-cache-dir -r backend/test-requirements.txt
+
+# Install additional test utilities
+RUN pip install --no-cache-dir \
+    psycopg2-binary \
+    redis \
+    faker \
+    httpx \
+    asyncpg
+
+# Copy frontend dependencies from previous stage
+COPY --from=frontend-deps /app/frontend/node_modules /app/frontend/node_modules
+
+# Copy application code
+COPY . /app/
+
+# Install frontend testing dependencies
+WORKDIR /app/frontend
+RUN npm install --save-dev \
+    @testing-library/jest-dom \
+    @testing-library/react \
+    @testing-library/user-event \
+    @vitest/coverage-v8 \
+    @vitest/ui \
+    jsdom \
+    vitest
+
+WORKDIR /app
+
+# Make scripts executable
+RUN chmod +x scripts/*.sh scripts/*.py
+
+# Set environment for testing
+ENV NODE_ENV=test
+ENV PYTHONPATH=/app
+ENV CI=true
+
+ENTRYPOINT ["bash"]
